@@ -52,11 +52,6 @@ public class Fitbit
 		{
 			//file with service credentials
 			FileReader fileReader = new FileReader("src/main/resources/Team10Credentials.txt");
-			//FileReader fileReader = new FileReader("%appdata%/.fitbitapp/")
-
-			//Configure a way for UNIX and WINDOWS to create tokens and credentials files in appdata for windows and ~/.fitbitapp for unix
-
-
 			bufferedReader = new BufferedReader(fileReader);
 			clientID = bufferedReader.readLine();
 			apiKey = bufferedReader.readLine();
