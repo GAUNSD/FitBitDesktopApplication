@@ -17,6 +17,7 @@ import com.github.scribejava.core.model.*; //Request Verb
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import java.awt.Desktop;
+
 import java.net.URI;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -50,14 +51,19 @@ public class Fitbit
 		try
 		{
 			//file with service credentials
-			FileReader fileReader = new FileReader("/Users/pears/Documents/University/Year 2/Semester 2/CS2212/team10/FitBitApp/src/main/resources/Team10Credentials.txt");
+			FileReader fileReader = new FileReader("src/main/resources/Team10Credentials.txt");
+			//FileReader fileReader = new FileReader("%appdata%/.fitbitapp/")
+
+			//Configure a way for UNIX and WINDOWS to create tokens and credentials files in appdata for windows and ~/.fitbitapp for unix
+
+
 			bufferedReader = new BufferedReader(fileReader);
 			clientID = bufferedReader.readLine();
 			apiKey = bufferedReader.readLine();
 			apiSecret = bufferedReader.readLine();
 			bufferedReader.close();
 
-			fileReader = new FileReader("/Users/pears/Documents/University/Year 2/Semester 2/CS2212/team10/FitBitApp/src/main/resources/Team10Tokens.txt");
+			fileReader = new FileReader("src/main/resources/Team10Tokens.txt");
 			bufferedReader = new BufferedReader(fileReader);
 			accessTokenItself = bufferedReader.readLine();
 			tokenType = bufferedReader.readLine();
@@ -111,7 +117,7 @@ public class Fitbit
 		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
 		String requestUrl;
 		//The URL from this point is how you ask for different information
-		requestUrl = requestUrlPrefix + "activities/floors/date/2016-01-07/1d/1min/time/19:15/19:30.json";
+		requestUrl = requestUrlPrefix + "activities/tracker/calories/date/2016-01-08/1d.json";//"activities/floors/date/2016-01-07/1d/1min/time/19:15/19:30.json";
 		//This generates an HTTP request from the URL
 		OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
 
@@ -176,7 +182,7 @@ public class Fitbit
 		try
 		{
 			FileWriter fileWriter;
-			fileWriter = new FileWriter("/Users/pears/Documents/University/Year 2/Semester 2/CS2212/team10/FitBitApp/src/main/resources/Team10Tokens.txt");
+			fileWriter = new FileWriter("src/main/resources/Team10Tokens.txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			bufferedWriter.write(accessToken.getToken());
 			bufferedWriter.newLine();
