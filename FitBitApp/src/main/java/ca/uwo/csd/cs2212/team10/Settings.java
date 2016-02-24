@@ -84,7 +84,7 @@ public class Settings extends JFrame {
 		
 
 		lblNewLabel = new JLabel("New label");
-		ImageIcon img0=new ImageIcon("fitbitlogo.png");
+		ImageIcon img0=new ImageIcon("src/main/resources/fitbitlogo.png");
 		lblNewLabel.setIcon(img0);
 		lblNewLabel.setBounds(460, 6, 177, 38);
 		contentPane.add(lblNewLabel);
@@ -99,27 +99,27 @@ public class Settings extends JFrame {
 
 		//The home button (I still need an image for that) 
 		btnHome = new JButton("");
-		ImageIcon img=new ImageIcon("home_icon.jpg");
+		ImageIcon img=new ImageIcon("src/main/resources/home_icon.jpg");
 		btnHome.setIcon(img);
 		btnHome.setBounds(6, 83, 41, 41);
 		contentPane.add(btnHome);
 		
 		//The options button (I still need an image for that) 
 		btnOptions = new JButton("");
-		ImageIcon img1=new ImageIcon("options_icon.jpg");
+		ImageIcon img1=new ImageIcon("src/main/resources/options_icon.jpg");
 		btnOptions.setIcon(img1);	
 		btnOptions.setBounds(6, 130, 41, 41);
 		contentPane.add(btnOptions);
 		
 		//The stats button (I still need an image for that) 
 		btnStats = new JButton("");
-		ImageIcon img2=new ImageIcon("stats_icon.jpg");
+		ImageIcon img2=new ImageIcon("src/main/resources/stats_icon.jpg");
 		btnStats.setIcon(img2);
 		btnStats.setBounds(6, 180, 41, 41);
 		contentPane.add(btnStats);
 		
 		button = new JButton("");
-		ImageIcon img3=new ImageIcon("settings_icon.png");
+		ImageIcon img3=new ImageIcon("src/main/resrouces/settings_icon.png");
 		button.setIcon(img3);
 		button.setBackground(new Color(71, 71, 71));
 		button.setBorderPainted(false);
