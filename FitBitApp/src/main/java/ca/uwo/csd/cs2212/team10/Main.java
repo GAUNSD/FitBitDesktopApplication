@@ -12,6 +12,15 @@ public class Main
         logger.trace("Entering main");
         logger.warn("Hello Maven/log4j World!");
         logger.info("Our team name is team10");
+
+        // Test: Open Dashboard window from main
+        DashboardMenu frame = new DashboardMenu(); 
+        frame.setVisible(true);
+        
+        // Test: call main from Fitbit class
+        Fitbit.main(null);
+        
+
         logger.trace("Exiting main");
     }
 }
