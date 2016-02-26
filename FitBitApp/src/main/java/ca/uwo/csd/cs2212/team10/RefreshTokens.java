@@ -25,7 +25,7 @@ import org.json.JSONArray;
 /**
  * 
  * @author Pearson & Patrick
- *
+ * This class will be used to refresh tokens, handle calls to Fitbit and make sure tokens are good
  */
 public class RefreshTokens
 {
