@@ -9,7 +9,7 @@ import org.json.JSONException;
  * @author Pearson and Patrick
  * This class will be used to get information from Fitbit services
  * as well as calling for new tokens and saving data
- * Consists of: Heart Statistics, Best and Lifetime Statistics 
+ * Consists of: Heart Statistics, Best and Lifetime Statistics, 
  */
 public class Fitbit
 {	
@@ -20,9 +20,8 @@ public class Fitbit
 	 */
 	public static void main (String [] args) throws JSONException, TokensException
 	{
-		getHeartActivity();
-		getBestLifeActivity();
-	
+		//getHeartActivity("2016", "01", "29");
+		//getBestLifeActivity();
 	}
 	
 	/**
@@ -74,34 +73,31 @@ public class Fitbit
 	 * @throws TokensException
 	 * Gathers information for Heart Statistics
 	 */
-	public static HeartStats getHeartActivity() throws JSONException, TokensException
+	public static HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
 	{
-		
-		///////////NEED TO ADD IN DATE TO DATE FOR URL////////////////////
-		
-		//API Request
-		String requestUrl = "https://api.fitbit.com/1/user/3WGW2P/activities/heart/date/today/1d.json";
+		//API Request	
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/heart/date/";
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
 		String jsonResult = RefreshTokens.getTokens(requestUrl);
 		
-		//get information via JSON 
+		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
 		JSONArray activitiesHeart = object.getJSONArray("activities-heart");
 		JSONObject heartZones = activitiesHeart.getJSONObject(0);
 		JSONObject value = heartZones.getJSONObject("value");
 		JSONArray heartRateZones = value.getJSONArray("heartRateZones");
 		
-		//assign the values
+		//assign the values for zones
 		int outOfRange = heartRateZones.getJSONObject(0).getInt("minutes");
 		int fatBurn = heartRateZones.getJSONObject(1).getInt("minutes");
 		int cardio = heartRateZones.getJSONObject(2).getInt("minutes");
 		int peak = heartRateZones.getJSONObject(3).getInt("minutes");
 		
-		//int restHeartRate = value.getInt("restingHeartRate");
-		int restHeartRate = 70;
+		//get the resting heart rate value
+		int restHeartRate = value.getInt("restingHeartRate");
 		
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
 	}
-	
 		
 	public static String parseDaily (String responseBody, String activity) throws JSONException{
 		
