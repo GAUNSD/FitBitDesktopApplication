@@ -36,8 +36,9 @@ public class RefreshTokens
 	 * 
 	 * @param requestUrl
 	 * @return
+	 * @throws TokensException 
 	 */
-	public static String getTokens(String requestUrl)
+	public static String getTokens(String requestUrl) throws TokensException
 	{
 		//read credentials from a file
 		BufferedReader bufferedReader = null;
@@ -115,8 +116,8 @@ public class RefreshTokens
 		//See: https://dev.fitbit.com/docs/oauth2/#refreshing-tokens
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(accessTokenItself, tokenType, refreshToken, expiresIn, rawResponse);
 
-		System.out.println("Now we're going to access a protected resource...");
-		System.out.println();
+		//System.out.println("Now we're going to access a protected resource...");
+		//System.out.println();
 		
 		OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
 
@@ -125,25 +126,24 @@ public class RefreshTokens
 		//See: https://dev.fitbit.com/docs/oauth2/#making-requests
 		service.signRequest(accessToken, request);
 		//If you are curious, since it has a header, body...
-		System.out.println(request.toString());
-		System.out.println(request.getHeaders());
-		System.out.println(request.getBodyContents());
+		//System.out.println(request.toString());
+		//System.out.println(request.getHeaders());
+		//System.out.println(request.getBodyContents());
 		//To send the requestURL
 		Response response = request.send();
 
 		//The HTTP response from gitbit will be in HTTP format. meaning that is has a numeric code indicating
 		//whether it was successfull (200) or not (400's or 500's)
-		System.out.println("\n HTTP response code: " + response.getCode());
+		System.out.println("\nHTTP response code: " + response.getCode());
 		int statusCode = response.getCode();
 
 		switch(statusCode)
 		{
 			case 200:
-				System.out.println("Success!\n HTTP response body:\n" + response.getBody());
+				System.out.println("HTTP response body:\n" + response.getBody());
 				break;
 			case 400:
-				System.out.println("Bad Request\n HTTP resonse body:\n" + response.getBody());
-				break;
+				throw new TokensException("Bad Request\n HTTP resonse body:\n" + response.getBody());
 			case 401:
 				System.out.println("Likely Expired Token\n HTTP resonse body:\n" + response.getBody());
 				System.out.println("Try to refresh");
@@ -166,8 +166,7 @@ public class RefreshTokens
 				System.out.println("HTTP response body: " + response.getBody());
 				break;
 			case 429:
-				System.out.println("Rate Limit Exceeded\n HTTP response body\n" + response.getBody());
-				break;
+				throw new TokensException("Rate Limit Exceeded\n HTTP response body\n" + response.getBody());
 			default:
 				System.out.println("HTTP response code: " + response.getCode());
 				System.out.println("HTTP response body: " + response.getBody());
@@ -215,6 +214,11 @@ public class RefreshTokens
 				System.out.println("Error closing file\n" + e.getMessage());
 			}
 		}
-		return response.getBody();
+		if (response.getCode() != 200)
+		{
+			throw new TokensException("Tokens refresh failed");
+		}
+		else
+			return response.getBody();
 	}
 }
