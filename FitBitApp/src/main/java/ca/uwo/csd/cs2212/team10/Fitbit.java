@@ -1,3 +1,4 @@
+
 package ca.uwo.csd.cs2212.team10;
 
 import java.io.BufferedReader;
@@ -17,7 +18,6 @@ import com.github.scribejava.core.model.*; //Request Verb
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import java.awt.Desktop;
-
 import java.net.URI;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -26,9 +26,120 @@ public class Fitbit
 {
 	private static String CALL_BACK_URI = "http://localhost:8080";
 	private static int CALL_BACK_PORT = 8080;
+	
+	/**
+	 * THIS MAIN CAN BE MOVED ELSEWHERE, JUST HERE FOR TESTING
+	 */
+	public static void main (String [] args){
+		getDailySteps ("2016","01", "08");
+	}
+	
+	
+	public static void getDailyFloors (String year, String month, String day) {
+		
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/floors/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+		
+		getAPI (requestUrl);
+	}
 
-	public static void main (String [] args)
-	{
+
+	public static void getDailySteps (String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/steps/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	
+	}
+
+	public static void getDailyCalories (String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/calories/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	}
+
+	public static void getDailyDistance (String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/distance/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	}
+
+
+	public static void getDailySedentaryMins (String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/minutesSedentary/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	}
+
+		/**
+		 * WE WILL NEED TO ADD ALL THREE ACTVITY LEVELS TO GET TOTAL ACTIVITY PER DAY!!
+		 */
+	public static void getDailyLightActivity(String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/minutesLightlyActive/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	}
+
+
+	public static void getDailyFairlyActivity(String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/minutesFairlyActive/date/";
+	
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	}	
+
+	public static void getDailyVigorousActivity(String year, String month, String day) {
+
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/tracker/minutesVeryActive/date/";
+		
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+	
+		getAPI (requestUrl);
+	}
+	
+	/** THIS API CALL GETS THE BEST DAYS AND LIFETIME STATS..NEED TO PARSE THROUGH TO GET DISTANCE,FLOORS, STEPS ETC. **/
+	
+	public static void getBestAndLifetime () {
+		
+		String requestUrl = "https://api.fitbit.com/1/user/-/activities.json";
+	
+		getAPI (requestUrl);
+		
+	}
+
+/**
+
+public static void parseDailySteps(result) {
+
+for (var i = 0; i < result.length; i++) { 
+	 alert(result.activities-tracker-steps[0].value);
+}
+**/
+	
+	
+	/**
+	 * CALL ONE OF THE GETTER FROM "EXAMPLEMTHOD" CLASS AND USE THE URL YOU GET AND PASS
+	 * IT INTO "GETAPI"...
+	 */
+	public static void getAPI (String requestUrl){
+		
 		//read credentials from a file
 		BufferedReader bufferedReader = null;
 		//to reference a line
@@ -108,11 +219,8 @@ public class Fitbit
 		System.out.println("Now we're going to access a protected resource...");
 		System.out.println();
 
-		//Example request:
-		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-		String requestUrl;
-		//The URL from this point is how you ask for different information
-		requestUrl = requestUrlPrefix + "activities/tracker/calories/date/2016-01-08/1d.json";//"activities/floors/date/2016-01-07/1d/1min/time/19:15/19:30.json";
+		//String requestUrl = exampleMethod.getDailyDistance("2016","01","08");
+		
 		//This generates an HTTP request from the URL
 		OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
 
@@ -124,6 +232,8 @@ public class Fitbit
 		System.out.println(request.toString());
 		System.out.println(request.getHeaders());
 		System.out.println(request.getBodyContents());
+		
+		
 		//To send the requestURL
 		Response response = request.send();
 
