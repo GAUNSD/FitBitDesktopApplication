@@ -9,7 +9,7 @@ import org.json.JSONException;
  * @author Pearson and Patrick
  * This class will be used to get information from Fitbit services
  * as well as calling for new tokens and saving data
- * Consists of: Heart Statistics, Best and Lifetime Statistics, 
+ * Consists of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
  */
 public class Fitbit
 {	
@@ -22,7 +22,7 @@ public class Fitbit
 	{
 		//getHeartActivity("2016", "01", "29");
 		//getBestLifeActivity();
-			getDailyActivity ("2016", "01", "08");
+		getDailyActivity("2016", "01", "08");
 	}
 	
 	/**
@@ -100,9 +100,16 @@ public class Fitbit
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
 	}
 		
-	
-	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, 
-																							TokensException
+	/**
+	 * Daily Statistics Call
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return
+	 * @throws JSONException
+	 * @throws TokensException
+	 */
+	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
 	{
 		//API Request	
 		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/date/";
@@ -114,7 +121,6 @@ public class Fitbit
 		JSONArray distances = summary.getJSONArray("distances");
 		
 		//Get the Daily Values of the 8 daily activities
-
 		double distance = distances.getJSONObject(1).getDouble("distance");
 		int calories = summary.getInt("caloriesOut");
 		int floors = summary.getInt("floors");
@@ -124,11 +130,19 @@ public class Fitbit
 		int sedentaryMins = summary.getInt ("sedentaryMinutes");
 		int veryActiveMins = summary.getInt ("veryActiveMinutes");
 		
-				
-		return new DailyStats (floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins, veryActiveMins);
-				
+		//get the Daily Goal Values
+		JSONObject goals = object.getJSONObject("goals");
+		int activeMinGoals = goals.getInt("activeMinutes"); 
+		int caloriesOutGoals = goals.getInt("caloriesOut");
+		double distanceGoals = goals.getDouble("distance");
+		int floorGoals = goals.getInt("floors");
+		int stepGoals = goals.getInt("steps");
 		
+		
+		return new DailyStats (floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins, veryActiveMins, 
+				activeMinGoals, caloriesOutGoals, distanceGoals, floorGoals, stepGoals);
 	}
+	
 	public static String parseDaily (String responseBody, String activity) throws JSONException{
 		
 		JSONObject obj= new JSONObject(responseBody);

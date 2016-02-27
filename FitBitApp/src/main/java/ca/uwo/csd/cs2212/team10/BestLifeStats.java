@@ -2,7 +2,7 @@ package ca.uwo.csd.cs2212.team10;
 
 /**
  * 
- * @author Pearson
+ * @author Pearson and Patrick
  * This class will be used to modify and store best statistics 
  */
 
@@ -47,15 +47,16 @@ public class BestLifeStats
 		this.lifeDistance = lifeDistance;
 		this.lifeFloors = lifeFloors;
 		this.lifeSteps = lifeSteps;
+		
 		System.out.println(toString());
 	}
 	
 	@Override
 	public String toString() 
 	{
-		return "BestLifeStats [bestDistance = " + bestDistance + ", bestDistanceDate = " + bestDistanceDate + ", bestFloor = "
+		return "BestStats [bestDistance = " + bestDistance + ", bestDistanceDate = " + bestDistanceDate + ", bestFloor = "
 				+ bestFloor + ", bestFloorDate = " + bestFloorDate + ", bestStep = " + bestStep + ", bestStepDate = "
-				+ bestStepDate + ", lifeDistance = " + lifeDistance + ", lifeFloors = " + lifeFloors + ", lifeSteps = "
+				+ bestStepDate + "]" + "\nLifeStats" + ", lifeDistance = " + lifeDistance + ", lifeFloors = " + lifeFloors + ", lifeSteps = "
 				+ lifeSteps + "]";
 	}
 
@@ -79,7 +80,7 @@ public class BestLifeStats
 		return bestStepDate;
 	}
 	
-	//Lifetime Statistis Getters
+	//Lifetime Statistics Getters
 	public double getLifeDistance() {
 		return lifeDistance;
 	}

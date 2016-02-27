@@ -2,7 +2,7 @@ package ca.uwo.csd.cs2212.team10;
 
 /**
  * 
- * @author Pearson
+ * @author Pearson and Patrick
  * This class will be used to modify and store heart rate statistics
  */
 public class HeartStats 
@@ -29,6 +29,7 @@ public class HeartStats
 		this.cardio = cardio;
 		this.peak = peak;
 		this.restHeartRate = restHeartRate;
+		
 		System.out.println(toString());
 	}
 
