@@ -22,6 +22,7 @@ public class Fitbit
 	{
 		//getHeartActivity("2016", "01", "29");
 		//getBestLifeActivity();
+			getDailyActivity ("2016", "01", "08");
 	}
 	
 	/**
@@ -99,6 +100,35 @@ public class Fitbit
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
 	}
 		
+	
+	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, 
+																							TokensException
+	{
+		//API Request	
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/date/";
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day + ".json";
+		String jsonResult = RefreshTokens.getTokens(requestUrl);
+		
+		JSONObject object = new JSONObject(jsonResult);
+		JSONObject summary = object.getJSONObject("summary"); 
+		JSONArray distances = summary.getJSONArray("distances");
+		
+		//Get the Daily Values of the 8 daily activities
+
+		double distance = distances.getJSONObject(1).getDouble("distance");
+		int calories = summary.getInt("caloriesOut");
+		int floors = summary.getInt("floors");
+		int steps = summary.getInt ("steps");
+		int lightActiveMins = summary.getInt ("lightlyActiveMinutes");
+		int fairlyActiveMins = summary.getInt ("fairlyActiveMinutes");
+		int sedentaryMins = summary.getInt ("sedentaryMinutes");
+		int veryActiveMins = summary.getInt ("veryActiveMinutes");
+		
+				
+		return new DailyStats (floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins, veryActiveMins);
+				
+		
+	}
 	public static String parseDaily (String responseBody, String activity) throws JSONException{
 		
 		JSONObject obj= new JSONObject(responseBody);
