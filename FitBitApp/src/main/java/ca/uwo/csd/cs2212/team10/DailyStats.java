@@ -62,11 +62,11 @@ public class DailyStats
 		
 		@Override
 		public String toString() {
-			return "DailyStats [floors=" + floors + ", steps=" + steps + ", distance=" + distance + ", calories=" + calories
-					+ ", sedentaryMins=" + sedentaryMins + ", lightActiveMins="	+ lightActiveMins + ", fairlyActiveMins="
-					+ fairlyActiveMins + ", veryActiveMins=" + veryActiveMins + "]" + "\nGoalStats [activeMinGoals=" + activeMinGoals
-					+ ", caloriesOutGoals=" + caloriesOutGoals + ", distanceGoals=" + distanceGoals + ", floorGoals="
-					+ floorGoals + ", stepGoals=" + stepGoals + "]";
+			return "DailyStats [floors = " + floors + ", steps = " + steps + ", distance = " + distance + ", calories = " + calories
+					+ ", sedentaryMins = " + sedentaryMins + ", lightActiveMins = "	+ lightActiveMins + ", fairlyActiveMins = "
+					+ fairlyActiveMins + ", veryActiveMins = " + veryActiveMins + "]" + "\nGoalStats [activeMinGoals = " + activeMinGoals
+					+ ", caloriesOutGoals = " + caloriesOutGoals + ", distanceGoals = " + distanceGoals + ", floorGoals = "
+					+ floorGoals + ", stepGoals = " + stepGoals + "]";
 		}
 
 		//Daily Statistics Getters
