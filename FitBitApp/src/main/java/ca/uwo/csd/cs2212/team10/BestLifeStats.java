@@ -5,6 +5,8 @@ package ca.uwo.csd.cs2212.team10;
  * @author Pearson
  * This class will be used to modify and store best statistics 
  */
+
+//RANDOM COMMENT
 public class BestLifeStats 
 {
 	//Best Statistics Variables
