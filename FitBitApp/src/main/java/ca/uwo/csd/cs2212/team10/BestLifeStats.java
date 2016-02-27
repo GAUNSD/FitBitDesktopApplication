@@ -56,7 +56,7 @@ public class BestLifeStats
 	{
 		return "BestStats [bestDistance = " + bestDistance + ", bestDistanceDate = " + bestDistanceDate + ", bestFloor = "
 				+ bestFloor + ", bestFloorDate = " + bestFloorDate + ", bestStep = " + bestStep + ", bestStepDate = "
-				+ bestStepDate + "]" + "\nLifeStats" + ", lifeDistance = " + lifeDistance + ", lifeFloors = " + lifeFloors + ", lifeSteps = "
+				+ bestStepDate + "]" + "\nLifeStats [lifeDistance = " + lifeDistance + ", lifeFloors = " + lifeFloors + ", lifeSteps = "
 				+ lifeSteps + "]";
 	}
 
