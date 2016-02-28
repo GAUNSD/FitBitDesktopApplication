@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 /**
- * 
  * @author Pearson & Patrick
  * This class will be used to refresh tokens, handle calls to Fitbit and make sure tokens are good
  */
@@ -215,9 +214,7 @@ public class RefreshTokens
 			}
 		}
 		if (response.getCode() != 200)
-		{
 			throw new TokensException("Tokens refresh failed");
-		}
 		else
 			return response.getBody();
 	}

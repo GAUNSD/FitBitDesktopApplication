@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 
  * @author Pearson and Patrick
  * This class will be used to get information from Fitbit services
  * as well as calling for new tokens and saving data
@@ -20,8 +19,8 @@ public class Fitbit
 	 */
 	public static void main (String [] args) throws JSONException, TokensException
 	{
-		//getHeartActivity("2016", "01", "29");
-		//getBestLifeActivity();
+		getHeartActivity("2016", "01", "29");
+		getBestLifeActivity();
 		getDailyActivity("2016", "01", "08");
 	}
 	
@@ -65,6 +64,7 @@ public class Fitbit
 		double lifeFloors = total.getInt("floors");
 		long lifeSteps = total.getInt("steps");
 		
+		//Return a new BestLifeStats object
 		return new BestLifeStats(valueDist, dateDist, valueFloors, dateFloors, valueSteps, dateSteps, lifeDist, lifeFloors, lifeSteps);
 	}
 
@@ -98,6 +98,7 @@ public class Fitbit
 		//get the resting heart rate value
 		int restHeartRate = value.getInt("restingHeartRate");
 		
+		//Return new HeartStats object
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
 	}
 		
@@ -139,7 +140,7 @@ public class Fitbit
 		int floorGoals = goals.getInt("floors");
 		int stepGoals = goals.getInt("steps");
 		
-		
+		//Return new DailyStats object
 		return new DailyStats (floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins, veryActiveMins, 
 				activeMinGoals, caloriesOutGoals, distanceGoals, floorGoals, stepGoals);
 	}

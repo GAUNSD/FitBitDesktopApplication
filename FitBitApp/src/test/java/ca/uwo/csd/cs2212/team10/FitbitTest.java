@@ -63,6 +63,7 @@ public class FitbitTest
 		double lifeFloors = total.getInt("floors");
 		long lifeSteps = total.getInt("steps");
 		
+		//Return a new BestLifeStats object
 		return new BestLifeStats(valueDist, dateDist, valueFloors, dateFloors, valueSteps, dateSteps, lifeDist, lifeFloors, lifeSteps);
 	}
 
@@ -94,6 +95,7 @@ public class FitbitTest
 		//get the resting heart rate value
 		int restHeartRate = value.getInt("restingHeartRate");
 		
+		//Return a new HeartStats object
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
 	}
 		
@@ -133,7 +135,7 @@ public class FitbitTest
 		int floorGoals = goals.getInt("floors");
 		int stepGoals = goals.getInt("steps");
 		
-		
+		//Return new DailyStats object
 		return new DailyStats (floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins, veryActiveMins, 
 				activeMinGoals, caloriesOutGoals, distanceGoals, floorGoals, stepGoals);
 	}
