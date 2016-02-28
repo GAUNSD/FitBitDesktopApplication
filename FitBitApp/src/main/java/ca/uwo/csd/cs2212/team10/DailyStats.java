@@ -1,7 +1,6 @@
 package ca.uwo.csd.cs2212.team10;
 
 /**
- * 
  * @author Pearson and Patrick
  * This class will be used to modify and store daily statistics 
  */
