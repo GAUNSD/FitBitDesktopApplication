@@ -1,6 +1,9 @@
 package ca.uwo.csd.cs2212.team10;
 
 import java.awt.event.*;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.*;
 

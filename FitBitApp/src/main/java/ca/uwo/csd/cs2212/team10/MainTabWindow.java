@@ -98,7 +98,7 @@ public class MainTabWindow extends JPanel {
 		JComponent panel1 = makeTextPanel("Custom Dashboard");								
 
 		// add a button to custom dashbboard
-		JButton btnadd = new JButton("+ Add elements to get started"); 
+		final JButton btnadd = new JButton("+ Add elements to get started"); 
 		btnadd.setForeground(new Color(255, 255, 255));
 		btnadd.setBackground(new Color(40, 40, 40));
 		btnadd.setBounds(478, 290, 257, 29);
@@ -106,7 +106,7 @@ public class MainTabWindow extends JPanel {
 		panel1.add(btnadd);
 
 		//add a panel that we the elements are going to be added on 
-		JPanel panelback1 = new JPanel();
+		final JPanel panelback1 = new JPanel();
 		panelback1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelback1.setBackground(new Color(40, 40, 40));
 		panelback1.setForeground(new Color(40, 40, 40));
@@ -134,7 +134,7 @@ public class MainTabWindow extends JPanel {
 		int floors1 = 23;
 		int steps1 = 34000;
 		double distance1 = 234.5;
-		TotalDistanceFrame totalDistContent = new TotalDistanceFrame(floors1, steps1, distance1);
+		TotalDistanceFrame totalDistContent = new TotalDistanceFrame(floors, steps, distance);
 		totalDistFrame.add(totalDistContent);
 		desktop.add( totalDistFrame );
 		
@@ -205,7 +205,7 @@ public class MainTabWindow extends JPanel {
 		mapDescript.setBounds(30, 120, 328, 93);
 		panelscroll.add(mapDescript);
 		//add a check box for map
-		JCheckBox chckbxMap_1 = new JCheckBox("Map"); 
+		final JCheckBox chckbxMap_1 = new JCheckBox("Map"); 
 		chckbxMap_1.setBounds(60, 220, 128, 23);
 		chckbxMap_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -227,7 +227,7 @@ public class MainTabWindow extends JPanel {
 		tsDescript.setBounds(430, 120, 728, 93);
 		panelscroll.add(tsDescript);
 		//add a check box for time series
-		JCheckBox chckbxTimeSeries = new JCheckBox("Time Series");
+		final JCheckBox chckbxTimeSeries = new JCheckBox("Time Series");
 		chckbxTimeSeries.setBounds(460, 220, 128, 23);
 		chckbxTimeSeries.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxTimeSeries.setForeground(Color.WHITE);
@@ -247,7 +247,7 @@ public class MainTabWindow extends JPanel {
 		hrDescript.setBounds(850, 120, 728, 93);
 		panelscroll.add(hrDescript);
 		//add a check box for heart rate
-		JCheckBox chckbxHeartRate = new JCheckBox("Heart Rate");
+		final JCheckBox chckbxHeartRate = new JCheckBox("Heart Rate");
 		chckbxHeartRate.setBounds(900, 220, 128, 23);
 		chckbxHeartRate.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxHeartRate.setForeground(Color.WHITE);
@@ -267,7 +267,7 @@ public class MainTabWindow extends JPanel {
 		cbDescript.setBounds(30, 360, 728, 93);
 		panelscroll.add(cbDescript);
 		
-		JCheckBox caloriesBurned = new JCheckBox("Calories Burned");
+		final JCheckBox caloriesBurned = new JCheckBox("Calories Burned");
 		caloriesBurned.setBounds(60, 470, 157, 23);
 		caloriesBurned.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		caloriesBurned.setForeground(Color.WHITE);
@@ -287,7 +287,7 @@ public class MainTabWindow extends JPanel {
 		smDescript.setBounds(430, 360, 728, 93);
 		panelscroll.add(smDescript);
 		
-		JCheckBox sedMin = new JCheckBox("Sedentary Min");
+		final JCheckBox sedMin = new JCheckBox("Sedentary Min");
 		sedMin.setBounds(460, 470, 168, 23);
 		sedMin.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		sedMin.setForeground(Color.WHITE);
@@ -307,7 +307,7 @@ public class MainTabWindow extends JPanel {
 		daDescript.setBounds(860, 360, 728, 93);
 		panelscroll.add(daDescript);
 		
-		JCheckBox dailyAct = new JCheckBox("Daily Activity");
+		final JCheckBox dailyAct = new JCheckBox("Daily Activity");
 		dailyAct.setBounds(900, 470, 157, 23);
 		dailyAct.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		dailyAct.setForeground(Color.WHITE);
@@ -342,7 +342,7 @@ public class MainTabWindow extends JPanel {
 		panel3.setPreferredSize(new Dimension(410, 50));
 
 		//panel of the life time button
-		JPanel panelLifeTime = new JPanel();
+		final JPanel panelLifeTime = new JPanel();
 		panelLifeTime.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelLifeTime.setBackground(new Color(40, 40, 40));
 		panelLifeTime.setForeground(new Color(40, 40, 40));
@@ -392,7 +392,7 @@ public class MainTabWindow extends JPanel {
 		panelLifeTime.add(lblLifetime);
 
 		//panel of the best days button
-		JPanel panelBestDays = new JPanel();
+		final JPanel panelBestDays = new JPanel();
 		panelBestDays.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelBestDays.setBackground(new Color(40, 40, 40));
 		panelBestDays.setForeground(new Color(40, 40, 40));
@@ -470,7 +470,7 @@ public class MainTabWindow extends JPanel {
 		
 
 		//panel of the accolades button
-		JPanel panelAccolades = new JPanel();
+		final JPanel panelAccolades = new JPanel();
 		panelAccolades.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelAccolades.setBackground(new Color(40, 40, 40));
 		panelAccolades.setForeground(new Color(40, 40, 40));
@@ -484,7 +484,7 @@ public class MainTabWindow extends JPanel {
 		panelAccolades.add(lblAccolades);
 
 		//panel where the buttons are added 
-		JPanel panel_1 = new JPanel();
+		final JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panel_1.setBackground(new Color(51, 51, 51));
 		panel_1.setForeground(new Color(40, 40, 40));
@@ -612,25 +612,25 @@ public class MainTabWindow extends JPanel {
 		comboBox_1.setBounds(262, 235, 140, 27);
 		panel4.add(comboBox_1);
 		//add a checkbox for pages
-		JCheckBox chckbxTimeSeriesData = new JCheckBox("Time series data");
+		final JCheckBox chckbxTimeSeriesData = new JCheckBox("Time series data");
 		chckbxTimeSeriesData.setForeground(Color.WHITE);
 		chckbxTimeSeriesData.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxTimeSeriesData.setBounds(262, 274, 177, 23);
 		panel4.add(chckbxTimeSeriesData);
 
-		JCheckBox chckbxHeartRateZones = new JCheckBox("Heart rate zones");
+		final JCheckBox chckbxHeartRateZones = new JCheckBox("Heart rate zones");
 		chckbxHeartRateZones.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxHeartRateZones.setForeground(Color.WHITE);
 		chckbxHeartRateZones.setBounds(262, 310, 177, 23);
 		panel4.add(chckbxHeartRateZones);
 
-		JCheckBox chckbxMap = new JCheckBox("Map");
+		final JCheckBox chckbxMap = new JCheckBox("Map");
 		chckbxMap.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxMap.setForeground(Color.WHITE);
 		chckbxMap.setBounds(262, 346, 128, 23);
 		panel4.add(chckbxMap);
 
-		JCheckBox chckbxDailyGoals = new JCheckBox("Daily Goals");
+		final JCheckBox chckbxDailyGoals = new JCheckBox("Daily Goals");
 		chckbxDailyGoals.setForeground(Color.WHITE);
 		chckbxDailyGoals.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxDailyGoals.setBounds(262,380, 155, 23);
@@ -670,7 +670,7 @@ public class MainTabWindow extends JPanel {
 		rdbtnImperial.setForeground(Color.WHITE);
 		rdbtnImperial.setBounds(460, 95, 141, 23);
 		panel4 .add(rdbtnImperial);
-		JPanel panelback = new JPanel();
+		final JPanel panelback = new JPanel();
 		panelback.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelback.setBackground(new Color(40, 40, 40));
 		panelback.setForeground(new Color(40, 40, 40));
