@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team10;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

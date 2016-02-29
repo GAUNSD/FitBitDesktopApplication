@@ -1,4 +1,5 @@
-import java.awt.*;
+package ca.uwo.csd.cs2212.team10;
+
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -52,4 +53,8 @@ public class MainWindow extends JFrame{
 		
 		return topMenubar;	
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546

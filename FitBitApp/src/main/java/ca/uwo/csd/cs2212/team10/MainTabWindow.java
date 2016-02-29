@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team10;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
@@ -37,8 +39,13 @@ public class MainTabWindow extends JPanel {
 
 		super(new GridLayout(1, 1));
 		
+<<<<<<< HEAD
+
+			HeartStats heartrate=Fitbit.getHeartActivity("2016", "01", "29");
+=======
 /**
 				HeartStats heartrate=Fitbit.getHeartActivity("2016", "01", "29");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 				 int outOfRange=  heartrate.getOutOfRange() ;
 				 int fatBurn=  heartrate.getFatBurn() ;
 				 int cardio= heartrate.getCardio();
@@ -77,7 +84,11 @@ public class MainTabWindow extends JPanel {
 				 double distanceGoals= daily.getDistanceGoals() ;
 				 int floorGoals= daily.getFloorGoals();
 				 int stepGoals=  daily.getStepGoals() ;				
+<<<<<<< HEAD
+				
+=======
 				**/
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 						
 		
 		
@@ -86,7 +97,11 @@ public class MainTabWindow extends JPanel {
 
 
 		//create a tabbed pane that will hold the contents
+<<<<<<< HEAD
+		final JTabbedPane tabbedPane = new JTabbedPane();
+=======
 		JTabbedPane tabbedPane = new JTabbedPane();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 
 
 		/**
@@ -94,7 +109,11 @@ public class MainTabWindow extends JPanel {
 		 */
 		JComponent panel1 = makeTextPanel("Custom Dashboard");								
 		//add a panel that we the elements are gonna be added on 
+<<<<<<< HEAD
+		final JPanel panelback1 = new JPanel();
+=======
 		JPanel panelback1 = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panelback1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelback1.setBackground(new Color(40, 40, 40));
 		panelback1.setForeground(new Color(40, 40, 40));
@@ -102,7 +121,11 @@ public class MainTabWindow extends JPanel {
 		panel1.add(panelback1, BorderLayout.WEST);
 		panelback1.setLayout(null);
 		
+<<<<<<< HEAD
+		final JPanel dailyActPanel = new JPanel();
+=======
 		JPanel dailyActPanel = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		dailyActPanel.setBackground(new Color(155,155,155));
 		dailyActPanel.setVisible(false);
 		dailyActPanel.setBounds(6, 12, 244, 546);
@@ -134,26 +157,42 @@ public class MainTabWindow extends JPanel {
 		calories1.setBounds(117, 380, 127, 111);
 		dailyActPanel.add(calories1);
 		
+<<<<<<< HEAD
+		final JPanel timeSeriesPanel = new JPanel();
+=======
 		JPanel timeSeriesPanel = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 
 		timeSeriesPanel.setBounds(262, 12, 480, 272);
 		timeSeriesPanel.setBackground(new Color(155,155,155));
 		timeSeriesPanel.setVisible(false);
 		panelback1.add(timeSeriesPanel);
 		
+<<<<<<< HEAD
+		final JPanel heartRatePanel = new JPanel();
+=======
 		JPanel heartRatePanel = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		heartRatePanel.setBounds(262, 296, 480, 262);
 		heartRatePanel.setBackground(new Color(155,155,155));
 		heartRatePanel.setVisible(false);
 		panelback1.add(heartRatePanel);
 		
+<<<<<<< HEAD
+		final JPanel mapPanel = new JPanel();
+=======
 		JPanel mapPanel = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		mapPanel.setBounds(754, 12, 404, 314);
 		mapPanel.setBackground(new Color(155,155,155));
 		mapPanel.setVisible(false);
 		panelback1.add(mapPanel);
 		
+<<<<<<< HEAD
+		final JPanel sedPanel = new JPanel();
+=======
 		JPanel sedPanel = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		sedPanel.setBounds(749, 338, 186, 220);
 		sedPanel.setBackground(new Color(155,155,155));
 		sedPanel.setVisible(false);
@@ -165,7 +204,11 @@ public class MainTabWindow extends JPanel {
 		lblNewLabel.setIcon(new ImageIcon("src/main/resources/sedMin.png"));
 		sedPanel.add(lblNewLabel);
 		
+<<<<<<< HEAD
+		final JPanel caloriesPanel = new JPanel();
+=======
 		JPanel caloriesPanel = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		caloriesPanel.setBounds(947, 338, 207, 220);
 		caloriesPanel.setBackground(new Color(155,155,155));
 		caloriesPanel.setVisible(false);
@@ -177,7 +220,11 @@ public class MainTabWindow extends JPanel {
 		lblNewLabel_1.setBounds(13, -12, 155, 195);
 		caloriesPanel.add(lblNewLabel_1);
 		// add a button to custom dashbboard
+<<<<<<< HEAD
+		final JButton btnadd = new JButton("+ Add elements to get started"); 
+=======
 		JButton btnadd = new JButton("+ Add elements to get started"); 
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		btnadd.setBounds(478, 290, 257, 29);
 		panelback1.add(btnadd);
 		btnadd.addActionListener(new ActionListener() {
@@ -216,15 +263,32 @@ public class MainTabWindow extends JPanel {
 
 		panel2.add(scrollPane);
 		//add a panel on top of the scroll pane to add the elements easier
+<<<<<<< HEAD
+		final JPanel panelscroll = new JPanel();
+=======
 		JPanel panelscroll = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panelscroll.setBounds(79, 100, 945, 300);
 		panelscroll.setBackground(new Color(40, 40, 40));
 		panelscroll.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		scrollPane.setViewportView(panelscroll);
+<<<<<<< HEAD
+		
+		JLabel mapDescript = new JLabel("");
+		mapDescript.setText("<html>An interactive map that displays the places that you have visited based on the total number of steps taken.</html>");
+		mapDescript.setFont(new Font ("Courier New",Font.BOLD,16));
+		mapDescript.setForeground(Color.LIGHT_GRAY);
+		mapDescript.setBounds(30, 120, 328, 93);
+		panelscroll.add(mapDescript);
+		//add a check box for map
+		final JCheckBox chckbxMap_1 = new JCheckBox("Map"); 
+		chckbxMap_1.setBounds(60, 220, 128, 23);
+=======
 		JLabel lblNewLabel_2 = new JLabel("");
 		//add a check box for map
 		JCheckBox chckbxMap_1 = new JCheckBox("Map"); 
 		chckbxMap_1.setBounds(30, 220, 128, 23);
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxMap_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			btnadd.setVisible(chckbxMap_1.isSelected()==false);
@@ -238,8 +302,19 @@ public class MainTabWindow extends JPanel {
 		
 		panelscroll.add(chckbxMap_1);
 
+<<<<<<< HEAD
+		JLabel tsDescript = new JLabel("");
+		tsDescript.setText("<html>The Time Series displays <BR>the information for all your <BR>accumulated progress,data like: <BR>total steps,calories,distance,<BR>and heart rate.</html>");
+		tsDescript.setFont(new Font ("Courier New",Font.BOLD,16));
+		tsDescript.setForeground(Color.LIGHT_GRAY);
+		tsDescript.setBounds(430, 120, 728, 93);
+		panelscroll.add(tsDescript);
+		//add a check box for time series
+		final JCheckBox chckbxTimeSeries = new JCheckBox("Time Series");
+=======
 		//add a check box for time series
 		JCheckBox chckbxTimeSeries = new JCheckBox("Time Series");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxTimeSeries.setBounds(460, 220, 128, 23);
 		chckbxTimeSeries.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxTimeSeries.setForeground(Color.WHITE);
@@ -252,8 +327,19 @@ public class MainTabWindow extends JPanel {
 		});
 		panelscroll.add(chckbxTimeSeries);
 
+<<<<<<< HEAD
+		JLabel hrDescript = new JLabel("");
+		hrDescript.setText("<html>The Heart Rate displays <BR> your daily heart zone <BR>information and resting <BR>heart rate.</html>");
+		hrDescript.setFont(new Font ("Courier New",Font.BOLD,16));
+		hrDescript.setForeground(Color.LIGHT_GRAY);
+		hrDescript.setBounds(850, 120, 728, 93);
+		panelscroll.add(hrDescript);
+		//add a check box for heart rate
+		final JCheckBox chckbxHeartRate = new JCheckBox("Heart Rate");
+=======
 		//add a check box for heart rate
 		JCheckBox chckbxHeartRate = new JCheckBox("Heart Rate");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxHeartRate.setBounds(900, 220, 128, 23);
 		chckbxHeartRate.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxHeartRate.setForeground(Color.WHITE);
@@ -266,8 +352,20 @@ public class MainTabWindow extends JPanel {
 		});
 		panelscroll.add(chckbxHeartRate);
 		
+<<<<<<< HEAD
+		JLabel cbDescript = new JLabel("");
+		cbDescript.setText("<html>The Calories Burned displays <BR>that amount of calories <BR>you burned</html>");
+		cbDescript.setFont(new Font ("Courier New",Font.BOLD,16));
+		cbDescript.setForeground(Color.LIGHT_GRAY);
+		cbDescript.setBounds(30, 360, 728, 93);
+		panelscroll.add(cbDescript);
+		
+		final JCheckBox caloriesBurned = new JCheckBox("Calories Burned");
+		caloriesBurned.setBounds(60, 470, 157, 23);
+=======
 		JCheckBox caloriesBurned = new JCheckBox("Calories Burned");
 		caloriesBurned.setBounds(30, 470, 157, 23);
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		caloriesBurned.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		caloriesBurned.setForeground(Color.WHITE);
 		caloriesBurned.addActionListener(new ActionListener() {
@@ -279,7 +377,18 @@ public class MainTabWindow extends JPanel {
 		});
 		panelscroll.add(caloriesBurned);
 		
+<<<<<<< HEAD
+		JLabel smDescript = new JLabel("");
+		smDescript.setText("<html>The Sedentary Min displays <BR> the time you are <BR>not in active state.</html>");
+		smDescript.setFont(new Font ("Courier New",Font.BOLD,16));
+		smDescript.setForeground(Color.LIGHT_GRAY);
+		smDescript.setBounds(430, 360, 728, 93);
+		panelscroll.add(smDescript);
+		
+		final JCheckBox sedMin = new JCheckBox("Sedentary Min");
+=======
 		JCheckBox sedMin = new JCheckBox("Sedntary Min");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		sedMin.setBounds(460, 470, 168, 23);
 		sedMin.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		sedMin.setForeground(Color.WHITE);
@@ -292,7 +401,18 @@ public class MainTabWindow extends JPanel {
 		});
 		panelscroll.add(sedMin);
 		
+<<<<<<< HEAD
+		JLabel daDescript = new JLabel("");
+		daDescript.setText("<html>The Daily Activity <BR>records your daily <BR> activity and progress<BR> you worked with FitBit.</html>");
+		daDescript.setFont(new Font ("Courier New",Font.BOLD,16));
+		daDescript.setForeground(Color.LIGHT_GRAY);
+		daDescript.setBounds(860, 360, 728, 93);
+		panelscroll.add(daDescript);
+		
+		final JCheckBox dailyAct = new JCheckBox("Daily Activity");
+=======
 		JCheckBox dailyAct = new JCheckBox("Daily Activity");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		dailyAct.setBounds(900, 470, 157, 23);
 		dailyAct.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		dailyAct.setForeground(Color.WHITE);
@@ -307,18 +427,30 @@ public class MainTabWindow extends JPanel {
 		
 		
 		//add the panel to the tabbed pane
+<<<<<<< HEAD
+		ImageIcon icon2 = new ImageIcon("src/main/resources/options_icon.png");
+=======
 		ImageIcon icon2 = new ImageIcon("options_icon.png");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		tabbedPane.addTab("Menu", icon2, panel2, "tmp2");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		/**
 		 * Stats page
 		 */
 		//create a panel and add it to the tabbed pane
+<<<<<<< HEAD
+		ImageIcon icon3 = new ImageIcon("/src/main/resources/stats_icon.png");
+=======
 		ImageIcon icon3 = new ImageIcon("stats_icon.png");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		JComponent panel3 = makeTextPanel("Stats");
 		tabbedPane.addTab("Stats", icon3, panel3, "tmp3");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
@@ -326,7 +458,11 @@ public class MainTabWindow extends JPanel {
 		panel3.setPreferredSize(new Dimension(410, 50));
 
 		//panel of the life time button
+<<<<<<< HEAD
+		final JPanel panelLifeTime = new JPanel();
+=======
 		JPanel panelLifeTime = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panelLifeTime.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelLifeTime.setBackground(new Color(40, 40, 40));
 		panelLifeTime.setForeground(new Color(40, 40, 40));
@@ -337,10 +473,53 @@ public class MainTabWindow extends JPanel {
 		lblLifetime.setForeground(SystemColor.inactiveCaption);
 		lblLifetime.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
 		lblLifetime.setBounds(44, 6, 382, 72);
+<<<<<<< HEAD
+		
+		JLabel distancelifetime= new JLabel("Distance");
+		distancelifetime.setForeground(Color.WHITE);
+		distancelifetime.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
+		distancelifetime.setBounds(60, 65, 382, 72);
+		panelLifeTime.add(distancelifetime);
+		
+		JLabel lifetimeDistance= new JLabel("Total distance Travelled:" + Double.toString(lifeDistance));
+		lifetimeDistance.setForeground(Color.WHITE);
+		lifetimeDistance.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lifetimeDistance.setBounds(90, 95, 382, 72);
+		panelLifeTime.add(lifetimeDistance);
+		
+		JLabel floorsTitleLifetime= new JLabel("Floors");
+		floorsTitleLifetime.setForeground(Color.WHITE);
+		floorsTitleLifetime.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
+		floorsTitleLifetime.setBounds(60, 180, 382, 72);
+		panelLifeTime.add(floorsTitleLifetime);
+		
+		JLabel totalFloorsLifeTime= new JLabel("Total Floors Climbed: ");//+lifeFloors);
+		totalFloorsLifeTime.setForeground(Color.WHITE);
+		totalFloorsLifeTime.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		totalFloorsLifeTime.setBounds(90, 210, 382, 72);
+		panelLifeTime.add(totalFloorsLifeTime);
+
+		JLabel lifeTimestepsTitle= new JLabel("Steps");
+		lifeTimestepsTitle.setForeground(Color.WHITE);
+		lifeTimestepsTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
+		lifeTimestepsTitle.setBounds(60, 295, 382, 72);
+		panelLifeTime.add(lifeTimestepsTitle);
+		
+		JLabel lifeTimeStepsTotal= new JLabel("Total Steps taken: "+ lifeSteps);
+		lifeTimeStepsTotal.setForeground(Color.WHITE);
+		lifeTimeStepsTotal.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lifeTimeStepsTotal.setBounds(90, 325, 382, 72);
+		panelLifeTime.add(lifeTimeStepsTotal);
+		panelLifeTime.add(lblLifetime);
+
+		//panel of the best days button
+		final JPanel panelBestDays = new JPanel();
+=======
 		panelLifeTime.add(lblLifetime);
 
 		//panel of the best days button
 		JPanel panelBestDays = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panelBestDays.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelBestDays.setBackground(new Color(40, 40, 40));
 		panelBestDays.setForeground(new Color(40, 40, 40));
@@ -361,12 +540,25 @@ public class MainTabWindow extends JPanel {
 		distance2.setBounds(60, 65, 382, 72);
 		panelBestDays.add(distance2);
 		
+<<<<<<< HEAD
+		JLabel bestDistancedate= new JLabel("Best Day: "  +bestDistanceDate);
+=======
 		JLabel bestDistancedate= new JLabel("Best Day: ");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		bestDistancedate.setForeground(Color.WHITE);
 		bestDistancedate.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		bestDistancedate.setBounds(90, 95, 382, 72);
 		panelBestDays.add(bestDistancedate);
 		
+<<<<<<< HEAD
+		JLabel bestDistance1= new JLabel("Best Distance: "+ bestDistance);
+		bestDistance1.setForeground(Color.WHITE);
+		bestDistance1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		bestDistance1.setBounds(110, 130, 382, 72);
+		panelBestDays.add(bestDistance1);
+		
+
+=======
 		JLabel bestDistance1= new JLabel("Best Distance: ");
 		bestDistance1.setForeground(Color.WHITE);
 		bestDistance1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
@@ -379,6 +571,7 @@ public class MainTabWindow extends JPanel {
 		lifeDistance1.setBounds(110, 140, 382, 72);
 		panelBestDays.add(lifeDistance1);
 		
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		
 		JLabel bestFloorstitle= new JLabel("Floors");
 		bestFloorstitle.setForeground(Color.WHITE);
@@ -386,12 +579,24 @@ public class MainTabWindow extends JPanel {
 		bestFloorstitle.setBounds(60, 180, 382, 72);
 		panelBestDays.add(bestFloorstitle);
 		
+<<<<<<< HEAD
+		JLabel bestFloorDtlbl= new JLabel("Best Floor Date: "+bestFloorDate);
+=======
 		JLabel bestFloorDtlbl= new JLabel("Best Floor Date: ");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		bestFloorDtlbl.setForeground(Color.WHITE);
 		bestFloorDtlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		bestFloorDtlbl.setBounds(90, 210, 382, 72);
 		panelBestDays.add(bestFloorDtlbl);
 		
+<<<<<<< HEAD
+		JLabel bestfloorlbl= new JLabel("Best Floor: "+bestFloor);
+		bestfloorlbl.setForeground(Color.WHITE);
+		bestfloorlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		bestfloorlbl.setBounds(110, 245, 382, 72);
+		panelBestDays.add(bestfloorlbl);
+		
+=======
 		JLabel bestfloorlbl= new JLabel("Best Floor: ");
 		bestfloorlbl.setForeground(Color.WHITE);
 		bestfloorlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
@@ -403,6 +608,7 @@ public class MainTabWindow extends JPanel {
 		lifeFloorlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		lifeFloorlbl.setBounds(110, 255, 382, 72);
 		panelBestDays.add(lifeFloorlbl);
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		
 		
 		
@@ -412,12 +618,24 @@ public class MainTabWindow extends JPanel {
 		bestStepstitle.setBounds(60, 295, 382, 72);
 		panelBestDays.add(bestStepstitle);
 		
+<<<<<<< HEAD
+		JLabel bestStepsDtlbl= new JLabel("Best Steps Date: "+ bestStepDate);
+=======
 		JLabel bestStepsDtlbl= new JLabel("Best Steps Date: ");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		bestStepsDtlbl.setForeground(Color.WHITE);
 		bestStepsDtlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		bestStepsDtlbl.setBounds(90, 325, 382, 72);
 		panelBestDays.add(bestStepsDtlbl);
 		
+<<<<<<< HEAD
+		JLabel bestStepslbl= new JLabel("Best Steps: "+ bestStep);
+		bestStepslbl.setForeground(Color.WHITE);
+		bestStepslbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		bestStepslbl.setBounds(110, 360, 382, 72);
+		panelBestDays.add(bestStepslbl);
+	
+=======
 		JLabel bestStepslbl= new JLabel("Best Steps: ");
 		bestStepslbl.setForeground(Color.WHITE);
 		bestStepslbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
@@ -429,11 +647,16 @@ public class MainTabWindow extends JPanel {
 		lifeStepslbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		lifeStepslbl.setBounds(110, 375, 382, 72);
 		panelBestDays.add(lifeStepslbl);
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		
 		
 
 		//panel of the accolades button
+<<<<<<< HEAD
+		final JPanel panelAccolades = new JPanel();
+=======
 		JPanel panelAccolades = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panelAccolades.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelAccolades.setBackground(new Color(40, 40, 40));
 		panelAccolades.setForeground(new Color(40, 40, 40));
@@ -447,7 +670,11 @@ public class MainTabWindow extends JPanel {
 		panelAccolades.add(lblAccolades);
 
 		//panel where the buttons are added 
+<<<<<<< HEAD
+		final JPanel panel_1 = new JPanel();
+=======
 		JPanel panel_1 = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panel_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panel_1.setBackground(new Color(51, 51, 51));
 		panel_1.setForeground(new Color(40, 40, 40));
@@ -575,25 +802,41 @@ public class MainTabWindow extends JPanel {
 		comboBox_1.setBounds(262, 235, 140, 27);
 		panel4.add(comboBox_1);
 		//add a checkbox for pages
+<<<<<<< HEAD
+		final JCheckBox chckbxTimeSeriesData = new JCheckBox("Time series data");
+=======
 		JCheckBox chckbxTimeSeriesData = new JCheckBox("Time series data");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxTimeSeriesData.setForeground(Color.WHITE);
 		chckbxTimeSeriesData.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxTimeSeriesData.setBounds(262, 274, 177, 23);
 		panel4.add(chckbxTimeSeriesData);
 
+<<<<<<< HEAD
+		final JCheckBox chckbxHeartRateZones = new JCheckBox("Heart rate zones");
+=======
 		JCheckBox chckbxHeartRateZones = new JCheckBox("Heart rate zones");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxHeartRateZones.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxHeartRateZones.setForeground(Color.WHITE);
 		chckbxHeartRateZones.setBounds(262, 310, 177, 23);
 		panel4.add(chckbxHeartRateZones);
 
+<<<<<<< HEAD
+		final JCheckBox chckbxMap = new JCheckBox("Map");
+=======
 		JCheckBox chckbxMap = new JCheckBox("Map");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxMap.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxMap.setForeground(Color.WHITE);
 		chckbxMap.setBounds(262, 346, 128, 23);
 		panel4.add(chckbxMap);
 
+<<<<<<< HEAD
+		final JCheckBox chckbxDailyGoals = new JCheckBox("Daily Goals");
+=======
 		JCheckBox chckbxDailyGoals = new JCheckBox("Daily Goals");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		chckbxDailyGoals.setForeground(Color.WHITE);
 		chckbxDailyGoals.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		chckbxDailyGoals.setBounds(262,380, 155, 23);
@@ -633,7 +876,11 @@ public class MainTabWindow extends JPanel {
 		rdbtnImperial.setForeground(Color.WHITE);
 		rdbtnImperial.setBounds(460, 95, 141, 23);
 		panel4 .add(rdbtnImperial);
+<<<<<<< HEAD
+		final JPanel panelback = new JPanel();
+=======
 		JPanel panelback = new JPanel();
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		panelback.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelback.setBackground(new Color(40, 40, 40));
 		panelback.setForeground(new Color(40, 40, 40));
@@ -642,7 +889,11 @@ public class MainTabWindow extends JPanel {
 
 		panel4.setPreferredSize(new Dimension(410, 50));
 
+<<<<<<< HEAD
+		ImageIcon icon = new ImageIcon("src/main/resources/settings_icon.png");
+=======
 		ImageIcon icon = new ImageIcon("settings_icon.png");
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546
 		tabbedPane.addTab("Settings", icon, panel4, "tmp4");
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_3);
 
@@ -674,4 +925,8 @@ public class MainTabWindow extends JPanel {
 		panel.setLayout(null);
 		return panel;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fa3e3fa4b541b87b1db2f3037dc075e42d5fc546

@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team10;
+
 import javax.swing.SwingUtilities;
 
 import org.json.JSONException;
