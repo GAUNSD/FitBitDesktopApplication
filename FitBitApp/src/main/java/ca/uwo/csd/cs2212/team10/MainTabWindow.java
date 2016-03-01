@@ -1,4 +1,5 @@
 package ca.uwo.csd.cs2212.team10;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
@@ -19,6 +20,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -30,79 +32,73 @@ import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
-		import org.json.JSONException; 
+
+import org.json.JSONException; 
 
 public class MainTabWindow extends JPanel {
 
 	public MainTabWindow() throws JSONException, TokensException {
 
 		super(new GridLayout(1, 1));
-		
 
-			HeartStats heartrate=Fitbit.getHeartActivity("2016", "01", "29");
-				 int outOfRange=  heartrate.getOutOfRange() ;
-				 int fatBurn=  heartrate.getFatBurn() ;
-				 int cardio= heartrate.getCardio();
-				 int peak= heartrate.getPeak() ;
-				 int restHeartRate= heartrate.getRestHeartRate();
-				
+		// Create the API classes and the relevant variables associated with each
+		HeartStats heartrate = Fitbit.getHeartActivity("2016", "01", "29");
+		int outOfRange = heartrate.getOutOfRange() ;
+		int fatBurn = heartrate.getFatBurn() ;
+		int cardio = heartrate.getCardio();
+		int peak = heartrate.getPeak() ;
+		int restHeartRate = heartrate.getRestHeartRate();
 
-				BestLifeStats bestlife=Fitbit.getBestLifeActivity();
-			
-				 double bestDistance= bestlife. getBestDistance() ;
-				 String bestDistanceDate= bestlife.getBestDistanceDate();
-				 double bestFloor = bestlife.getBestFloor();
-				 String bestFloorDate= bestlife.getBestFloorDate();
-				 long bestStep= bestlife.getBestStep();
-				 String bestStepDate= bestlife.getBestStepDate();
-				 double  lifeDistance= bestlife.getLifeDistance() ;
-				 double lifeFloors= bestlife.getLifeFloors();
-				 long lifeSteps= bestlife.getLifeSteps();
-				
-				
-				
-				
-				
-				DailyStats daily=Fitbit.getDailyActivity("2016", "01", "29");
+		BestLifeStats bestlife=Fitbit.getBestLifeActivity();
+		double bestDistance= bestlife. getBestDistance() ;
+		String bestDistanceDate= bestlife.getBestDistanceDate();
+		double bestFloor = bestlife.getBestFloor();
+		String bestFloorDate= bestlife.getBestFloorDate();
+		long bestStep= bestlife.getBestStep();
+		String bestStepDate= bestlife.getBestStepDate();
+		double lifeDistance= bestlife.getLifeDistance() ;
+		double lifeFloors= bestlife.getLifeFloors();
+		long lifeSteps= bestlife.getLifeSteps();
 
-				 int floors=daily. getFloors();
-				 int steps= daily.getSteps();
-				 double distance= daily.getDistance();
-				 int calories= daily.getCalories();
-				 int sedentaryMins=  daily.getSedentaryMins();
-				 int lightActiveMins= daily. getLightActiveMins();
-				 int fairlyActiveMins=daily. getFairlyActiveMins();
-				 int veryActiveMins= daily. getVeryActiveMins();
-				 int activeMinGoals= daily. getActiveMinGoals();				 
-				 int caloriesOutGoals = daily.getCaloriesOutGoals();
-				 double distanceGoals= daily.getDistanceGoals() ;
-				 int floorGoals= daily.getFloorGoals();
-				 int stepGoals=  daily.getStepGoals() ;				
-				
-						
+		DailyStats daily = Fitbit.getDailyActivity("2016", "01", "29");
+		int floors = daily. getFloors();
+		int steps = daily.getSteps();
+		double distance = daily.getDistance();
+		int calories = daily.getCalories();
+		int sedentaryMins =  daily.getSedentaryMins();
+		int lightActiveMins = daily. getLightActiveMins();
+		int fairlyActiveMins =daily. getFairlyActiveMins();
+		int veryActiveMins = daily. getVeryActiveMins();
+		int activeMinGoals = daily. getActiveMinGoals();				 
+		int caloriesOutGoals = daily.getCaloriesOutGoals();
+		double distanceGoals = daily.getDistanceGoals() ;
+		int floorGoals = daily.getFloorGoals();
+		int stepGoals = daily.getStepGoals() ;				
 		
+		// Investigate. This could possibly be used to set different color themes to the UI
+		//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
-		
-		
-
-
-		//create a tabbed pane that will hold the contents
+		//create a tabbed pane that will hold the contents.
 		JTabbedPane tabbedPane = new JTabbedPane();
 
 
 		/**
-		 * Empty Dashboard
+		 * Dashboard
 		 */
+
+
 		JComponent panel1 = makeTextPanel("Custom Dashboard");								
 
-		// add a button to custom dashbboard
+		// add a button to custom dashboard
 		final JButton btnadd = new JButton("+ Add elements to get started"); 
 		btnadd.setForeground(new Color(255, 255, 255));
 		btnadd.setBackground(new Color(40, 40, 40));
 		btnadd.setBounds(478, 290, 257, 29);
 		btnadd.setBorderPainted(false);
+		// Add to panel1
 		panel1.add(btnadd);
 
 		//add a panel that we the elements are going to be added on 
@@ -117,68 +113,63 @@ public class MainTabWindow extends JPanel {
 		// Adding the JDesktopPane into the "Dashboard" Panel
 		JDesktopPane desktop = new JDesktopPane();
 		desktop.setPreferredSize( new java.awt.Dimension(600,400) );
-		
+
 		/* Elements needed:
-		 * 	Total distance
-		 * 	Floors climbed
-		 * 	Steps
-		 * 	Active minutes
-		 * 	Sedentary minutes
+		 * 	Map
+		 *  HeartRate Zone
+		 *  Calories Burned
+		 *  Daily Activity Records //
+		 *  Sedentary Minutes      //
 		 */
 		// The Total Distance element 
-		JInternalFrame totalDistFrame = makeInternalFrame("Total Distance", 
+		JInternalFrame mapFrame = makeInternalFrame("Interactive Map", 
 				0, 0, 200, 200, true, true, true);
-		//  			neeeded for the API Test call
-		// floors steps, distance
-		//		Just for testing: these will be initialized with the API call at the top
-		int floors1 = 23;
-		int steps1 = 34000;
-		double distance1 = 234.5;
-		TotalDistanceFrame totalDistContent = new TotalDistanceFrame(floors, steps, distance);
-		totalDistFrame.add(totalDistContent);
-		desktop.add( totalDistFrame );
-		
+		MapFrame mapContent = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
+		mapFrame.add( mapContent);
+		desktop.add( mapFrame );
+
 		// The Floors Climbed element
-		JInternalFrame floorsClimbedFrame = makeInternalFrame("Floors Climbed", 
+		JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", 
 				200, 0, 200, 200, true, true, true);
-		FloorsClimbedFrame floorsClimbedContent = new FloorsClimbedFrame();
-		floorsClimbedFrame.add(floorsClimbedContent);
-		desktop.add( floorsClimbedFrame );
+		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(fatBurn, cardio, peak, restHeartRate);
+		heartRateFrame.add(heartRateContent);
+		desktop.add( heartRateFrame );
 
 		// The Steps Taken Element
-		JInternalFrame stepsFrame = makeInternalFrame("Steps", 
+		JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", 
 				400, 0, 200, 200, true, true, true);
-		StepsFrame stepsContent = new StepsFrame();
-		stepsFrame.add(stepsContent);
-		desktop.add( stepsFrame );
+		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
+		calBurnFrame.add(calBurnContent);
+		desktop.add( calBurnFrame );
+	
 
 		// The Active Minutes element
 		JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", 
 				600, 0, 200, 200, true, true, true);
-		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame();
+		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins, activeMinGoals);
 		activeMinFrame.add(activeMinContent);
 		desktop.add( activeMinFrame );
+
+		// The Sedentary Minutes element
 		JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", 
 				800, 0, 200, 200, true, true, true);
-		
-		// The Sedentary Minutes element
-		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(); 
+		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins); 
 		sedMinFrame.add(sedMinContent);
 		desktop.add( sedMinFrame );
 		
+
 		//add the the panel to the tabbed pane
 		ImageIcon icon1 = new ImageIcon("home_icon.png");
-		tabbedPane.addTab("Dashboard",icon1 , desktop, "tmp1");
+		tabbedPane.addTab("Dashboard",icon1 , desktop, "tmp1"); // Add the desktop pane to the tabbedPane
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.setBackgroundAt(0, Color.WHITE);
-
 
 		/**
 		 * Dashboard Menu
 		 */
 		JComponent panel2 = makeTextPanel("Dashboard Menu");
 		//create a label named dashboard menu and add it to the panel
-		
+
 		JLabel lblmenu = new JLabel("Dashboard Menu");
 		lblmenu.setForeground(SystemColor.inactiveCaption);
 		lblmenu.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
@@ -197,7 +188,7 @@ public class MainTabWindow extends JPanel {
 		panelscroll.setBackground(new Color(40, 40, 40));
 		panelscroll.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		scrollPane.setViewportView(panelscroll);
-		
+
 		JLabel mapDescript = new JLabel("");
 		mapDescript.setText("<html>An interactive map that displays the places that you have visited based on the total number of steps taken.</html>");
 		mapDescript.setFont(new Font ("Courier New",Font.BOLD,16));
@@ -209,15 +200,15 @@ public class MainTabWindow extends JPanel {
 		chckbxMap_1.setBounds(60, 220, 128, 23);
 		chckbxMap_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			btnadd.setVisible(chckbxMap_1.isSelected()==false);
-			//mapPanel.setVisible(chckbxMap_1.isSelected());
+				btnadd.setVisible(chckbxMap_1.isSelected()==false);
+				//mapPanel.setVisible(chckbxMap_1.isSelected());
 
 			}
 		});
 		panelscroll.setLayout(null);
 		chckbxMap_1.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxMap_1.setForeground(Color.WHITE);
-		
+
 		panelscroll.add(chckbxMap_1);
 
 		JLabel tsDescript = new JLabel("");
@@ -233,8 +224,8 @@ public class MainTabWindow extends JPanel {
 		chckbxTimeSeries.setForeground(Color.WHITE);
 		chckbxTimeSeries.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			btnadd.setVisible(chckbxTimeSeries.isSelected()==false);
-			//timeSeriesPanel.setVisible(chckbxTimeSeries.isSelected());
+				btnadd.setVisible(chckbxTimeSeries.isSelected()==false);
+				//timeSeriesPanel.setVisible(chckbxTimeSeries.isSelected());
 
 			}
 		});
@@ -253,79 +244,79 @@ public class MainTabWindow extends JPanel {
 		chckbxHeartRate.setForeground(Color.WHITE);
 		chckbxHeartRate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			btnadd.setVisible(chckbxHeartRate.isSelected()==false);
-		//	heartRatePanel.setVisible(chckbxHeartRate.isSelected());
+				btnadd.setVisible(chckbxHeartRate.isSelected()==false);
+				//	heartRatePanel.setVisible(chckbxHeartRate.isSelected());
 
 			}
 		});
 		panelscroll.add(chckbxHeartRate);
-		
+
 		JLabel cbDescript = new JLabel("");
 		cbDescript.setText("<html>The Calories Burned displays <BR>that amount of calories <BR>you burned</html>");
 		cbDescript.setFont(new Font ("Courier New",Font.BOLD,16));
 		cbDescript.setForeground(Color.LIGHT_GRAY);
 		cbDescript.setBounds(30, 360, 728, 93);
 		panelscroll.add(cbDescript);
-		
+
 		final JCheckBox caloriesBurned = new JCheckBox("Calories Burned");
 		caloriesBurned.setBounds(60, 470, 157, 23);
 		caloriesBurned.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		caloriesBurned.setForeground(Color.WHITE);
 		caloriesBurned.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			btnadd.setVisible(caloriesBurned.isSelected()==false);
-			//caloriesPanel.setVisible(caloriesBurned.isSelected());
+				btnadd.setVisible(caloriesBurned.isSelected()==false);
+				//caloriesPanel.setVisible(caloriesBurned.isSelected());
 
 			}
 		});
 		panelscroll.add(caloriesBurned);
-		
+
 		JLabel smDescript = new JLabel("");
 		smDescript.setText("<html>The Sedentary Min displays <BR> the time you are <BR>not in active state.</html>");
 		smDescript.setFont(new Font ("Courier New",Font.BOLD,16));
 		smDescript.setForeground(Color.LIGHT_GRAY);
 		smDescript.setBounds(430, 360, 728, 93);
 		panelscroll.add(smDescript);
-		
+
 		final JCheckBox sedMin = new JCheckBox("Sedentary Min");
 		sedMin.setBounds(460, 470, 168, 23);
 		sedMin.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		sedMin.setForeground(Color.WHITE);
 		sedMin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			btnadd.setVisible(sedMin.isSelected()==false);
-		//	sedPanel.setVisible(sedMin.isSelected());
+				btnadd.setVisible(sedMin.isSelected()==false);
+				//	sedPanel.setVisible(sedMin.isSelected());
 
 			}
 		});
 		panelscroll.add(sedMin);
-		
+
 		JLabel daDescript = new JLabel("");
 		daDescript.setText("<html>The Daily Activity <BR>records your daily <BR> activity and progress<BR> you worked with FitBit.</html>");
 		daDescript.setFont(new Font ("Courier New",Font.BOLD,16));
 		daDescript.setForeground(Color.LIGHT_GRAY);
 		daDescript.setBounds(860, 360, 728, 93);
 		panelscroll.add(daDescript);
-		
+
 		final JCheckBox dailyAct = new JCheckBox("Daily Activity");
 		dailyAct.setBounds(900, 470, 157, 23);
 		dailyAct.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		dailyAct.setForeground(Color.WHITE);
 		dailyAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			btnadd.setVisible(chckbxHeartRate.isSelected()==false);
-			//dailyActPanel.setVisible(dailyAct.isSelected());
+				btnadd.setVisible(chckbxHeartRate.isSelected()==false);
+				//dailyActPanel.setVisible(dailyAct.isSelected());
 
 			}
 		});
 		panelscroll.add(dailyAct);
-		
-		
+
+
 		//add the panel to the tabbed pane
 		ImageIcon icon2 = new ImageIcon("options_icon.png");
 		tabbedPane.addTab("Menu", icon2, panel2, "tmp2");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-		
+
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
 
 
@@ -353,25 +344,25 @@ public class MainTabWindow extends JPanel {
 		lblLifetime.setForeground(SystemColor.inactiveCaption);
 		lblLifetime.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
 		lblLifetime.setBounds(44, 6, 382, 72);
-		
+
 		JLabel distancelifetime= new JLabel("Distance");
 		distancelifetime.setForeground(Color.WHITE);
 		distancelifetime.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
 		distancelifetime.setBounds(60, 65, 382, 72);
 		panelLifeTime.add(distancelifetime);
-		
+
 		JLabel lifetimeDistance= new JLabel("Total distance Travelled:"+ Double.toString(lifeDistance));
 		lifetimeDistance.setForeground(Color.WHITE);
 		lifetimeDistance.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lifetimeDistance.setBounds(90, 95, 382, 72);
 		panelLifeTime.add(lifetimeDistance);
-		
+
 		JLabel floorsTitleLifetime= new JLabel("Floors");
 		floorsTitleLifetime.setForeground(Color.WHITE);
 		floorsTitleLifetime.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
 		floorsTitleLifetime.setBounds(60, 180, 382, 72);
 		panelLifeTime.add(floorsTitleLifetime);
-		
+
 		JLabel totalFloorsLifeTime= new JLabel("Total Floors Climbed: "+lifeFloors);
 		totalFloorsLifeTime.setForeground(Color.WHITE);
 		totalFloorsLifeTime.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -383,7 +374,7 @@ public class MainTabWindow extends JPanel {
 		lifeTimestepsTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
 		lifeTimestepsTitle.setBounds(60, 295, 382, 72);
 		panelLifeTime.add(lifeTimestepsTitle);
-		
+
 		JLabel lifeTimeStepsTotal= new JLabel("Total Steps taken: ");//+ lifeSteps);
 		lifeTimeStepsTotal.setForeground(Color.WHITE);
 		lifeTimeStepsTotal.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -399,75 +390,75 @@ public class MainTabWindow extends JPanel {
 		panelBestDays.setBounds(150, 6, 1000, 639);
 		panel3.add(panelBestDays, BorderLayout.CENTER);
 		panelBestDays.setLayout(null);
-		
-//these are the labels for the best days we're gonna add the test data when we write the data... I know how to do that i still didn't add it because it doesn't run it on my elcipse but it works	
+
+		//these are the labels for the best days we're gonna add the test data when we write the data... I know how to do that i still didn't add it because it doesn't run it on my elcipse but it works	
 		JLabel lblBestDays= new JLabel("Best Days");
 		lblBestDays.setForeground(SystemColor.inactiveCaption);
 		lblBestDays.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
 		lblBestDays.setBounds(44, 6, 382, 72);
 		panelBestDays.add(lblBestDays);
-		
+
 		JLabel distance2= new JLabel("Distance");
 		distance2.setForeground(Color.WHITE);
 		distance2.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
 		distance2.setBounds(60, 65, 382, 72);
 		panelBestDays.add(distance2);
-		
+
 		JLabel bestDistancedate= new JLabel("Best Day: "+bestDistanceDate);
 		bestDistancedate.setForeground(Color.WHITE);
 		bestDistancedate.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		bestDistancedate.setBounds(90, 95, 382, 72);
 		panelBestDays.add(bestDistancedate);
-		
+
 		JLabel bestDistance1= new JLabel("Best Distance: "+ bestDistance);
 		bestDistance1.setForeground(Color.WHITE);
 		bestDistance1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		bestDistance1.setBounds(110, 130, 382, 72);
 		panelBestDays.add(bestDistance1);
-		
 
-		
+
+
 		JLabel bestFloorstitle= new JLabel("Floors");
 		bestFloorstitle.setForeground(Color.WHITE);
 		bestFloorstitle.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
 		bestFloorstitle.setBounds(60, 180, 382, 72);
 		panelBestDays.add(bestFloorstitle);
-		
+
 		JLabel bestFloorDtlbl= new JLabel("Best Floor Date: "+bestFloorDate);
 		bestFloorDtlbl.setForeground(Color.WHITE);
 		bestFloorDtlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		bestFloorDtlbl.setBounds(90, 210, 382, 72);
 		panelBestDays.add(bestFloorDtlbl);
-		
+
 		JLabel bestfloorlbl= new JLabel("Best Floor: "+bestFloor);
 		bestfloorlbl.setForeground(Color.WHITE);
 		bestfloorlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		bestfloorlbl.setBounds(110, 245, 382, 72);
 		panelBestDays.add(bestfloorlbl);
-		
-		
-		
-		
+
+
+
+
 		JLabel bestStepstitle= new JLabel("Steps");
 		bestStepstitle.setForeground(Color.WHITE);
 		bestStepstitle.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
 		bestStepstitle.setBounds(60, 295, 382, 72);
 		panelBestDays.add(bestStepstitle);
-		
+
 		JLabel bestStepsDtlbl= new JLabel("Best Steps Date: "+ bestStepDate);
 		bestStepsDtlbl.setForeground(Color.WHITE);
 		bestStepsDtlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		bestStepsDtlbl.setBounds(90, 325, 382, 72);
 		panelBestDays.add(bestStepsDtlbl);
-		
+
 		JLabel bestStepslbl= new JLabel("Best Steps: "+ bestStep);
 		bestStepslbl.setForeground(Color.WHITE);
 		bestStepslbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		bestStepslbl.setBounds(110, 360, 382, 72);
 		panelBestDays.add(bestStepslbl);
-	
-		
-		
+
+
+
 
 		//panel of the accolades button
 		final JPanel panelAccolades = new JPanel();
@@ -711,7 +702,7 @@ public class MainTabWindow extends JPanel {
 		panel.setLayout(null);
 		return panel;
 	}
-	
+
 	private JInternalFrame makeInternalFrame(String title, int locationX, int locationY, int sizeX, int sizeY, 
 			boolean boolVisible, boolean boolResize, boolean boolIcon) {
 		JInternalFrame iFrame = new JInternalFrame(title);
@@ -723,4 +714,5 @@ public class MainTabWindow extends JPanel {
 		
 		return iFrame;
 	}
+
 }
