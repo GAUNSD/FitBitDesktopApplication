@@ -12,17 +12,19 @@ import org.json.JSONException;
  */
 public class Fitbit
 {	
+	/*
 	/**
 	 * THIS MAIN CAN BE MOVED ELSEWHERE, JUST HERE FOR TESTING
 	 * @throws JSONException 
 	 * @throws TokensException 
-	 */
+	 *
 	public static void main (String [] args) throws JSONException, TokensException
 	{
 		getHeartActivity("2016", "01", "29");
 		getBestLifeActivity();
 		getDailyActivity("2016", "01", "08");
 	}
+	*/
 	
 	/**
 	 * Best Statistics Call
@@ -36,9 +38,8 @@ public class Fitbit
 		String requestUrl = "https://api.fitbit.com/1/user/3WGW2P/activities.json";
 		String jsonResult = RefreshTokens.getTokens(requestUrl);
 		
+		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
-		
-		//get information via JSON
 		JSONObject best = object.getJSONObject("best");
 		JSONObject tracker = best.getJSONObject("tracker");
 		
@@ -118,6 +119,7 @@ public class Fitbit
 		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day + ".json";
 		String jsonResult = RefreshTokens.getTokens(requestUrl);
 		
+		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
 		JSONObject summary = object.getJSONObject("summary"); 
 		JSONArray distances = summary.getJSONArray("distances");
