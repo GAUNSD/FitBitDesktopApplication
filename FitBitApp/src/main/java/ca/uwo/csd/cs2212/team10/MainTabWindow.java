@@ -99,7 +99,7 @@ public class MainTabWindow extends JPanel {
 		//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 		//create a tabbed pane that will hold the contents.
-		JTabbedPane tabbedPane = new JTabbedPane();
+		final JTabbedPane tabbedPane = new JTabbedPane();
 
 
 		/**
@@ -112,7 +112,7 @@ public class MainTabWindow extends JPanel {
 
 		// A top menu bar that appears when the user first uses the Dashboard Menu
 		//		Expand options here in the future. For example; the refresh button
-		JMenuBar desktopMenuBar = new JMenuBar();
+		final JMenuBar desktopMenuBar = new JMenuBar();
 		desktopMenuBar.setBackground(new Color(100, 100, 100));
 		desktopMenuBar.setBorderPainted(false);
 		// Add the button that will lead the user to the Dashboard Menu to add elements
@@ -159,21 +159,21 @@ public class MainTabWindow extends JPanel {
 		 *  Sedentary Minutes      //
 		 */
 		// The Total Distance element 
-		JInternalFrame mapFrame = makeInternalFrame("Interactive Map", 
+		final JInternalFrame mapFrame = makeInternalFrame("Interactive Map", 
 				0, 0, 200, 200, false, true, true);
 		MapFrame mapContent = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
 		mapFrame.add( mapContent);
 		desktop.add( mapFrame );
 
 		// The Floors Climbed element
-		JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", 
+		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", 
 				200, 0, 200, 200, false, true, true);
 		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(fatBurn, cardio, peak, restHeartRate);
 		heartRateFrame.add(heartRateContent);
 		desktop.add( heartRateFrame );
 
 		// The Steps Taken Element
-		JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", 
+		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", 
 				400, 0, 200, 200, false, true, true);
 		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
 		calBurnFrame.add(calBurnContent);
@@ -181,14 +181,14 @@ public class MainTabWindow extends JPanel {
 
 
 		// The Active Minutes element
-		JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", 
+		final JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", 
 				600, 0, 200, 200, false, true, true);
 		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins, activeMinGoals);
 		activeMinFrame.add(activeMinContent);
 		desktop.add( activeMinFrame );
 
 		// The Sedentary Minutes element
-		JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", 
+		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", 
 				800, 0, 200, 200, false, true, true);
 		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins); 
 		sedMinFrame.add(sedMinContent);
