@@ -4,8 +4,24 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/**
+ * This class represents the information for the Dashboard element 'Heart Rate Zone'
+ * This will house all the data (as parameters in the constructor) and the graphical elements.
+ * As of Stage 2, only data is being supplied
+ * 
+ * @author Gustavo Murcia
+ */
 public class HeartRateZoneFrame extends JPanel {
 
+	/**
+	 * The constructor for the Heart Rate Zone Frame. 
+	 * The parameters represent information coming from the API
+	 * 
+	 * @param fatBurn
+	 * @param cardio
+	 * @param peak
+	 * @param restHeartRate
+	 */
 	public HeartRateZoneFrame(int fatBurn, int cardio, int peak, int restHeartRate) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));

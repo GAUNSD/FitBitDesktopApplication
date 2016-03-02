@@ -4,8 +4,22 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/**
+ * This class represents the information for the Dashboard element 'Calories Burned'
+ * This will house all the data (as parameters in the constructor) and the graphical elements.
+ * As of Stage 2, only data is being supplied
+ * 
+ * @author Gustavo Murcia
+ */
 public class CaloriesBurnedFrame extends JPanel {
 
+	/**
+	 * The constructor for the Calories Burned Frame. 
+	 * The parameters represent information coming from the API
+	 * 
+	 * @param calories
+	 * @param caloriesOutGoals
+	 */
 	public CaloriesBurnedFrame(int calories, int caloriesOutGoals) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));

@@ -4,8 +4,24 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/**
+ * This class represents the information for the Dashboard element 'Active Minutes'
+ * This will house all the data (as parameters in the constructor) and the graphical elements.
+ * As of Stage 2, only data is being supplied
+ * 
+ * @author Gustavo Murcia
+ */
 public class ActiveMinutesFrame extends JPanel {
 
+	/**
+	 * The constructor for Active Minutes Frame. 
+	 * The parameters represent information coming from the API
+	 * 
+	 * @param lightActiveMins
+	 * @param fairlyActiveMins
+	 * @param veryActiveMins
+	 * @param activeMinGoals
+	 */
 	public ActiveMinutesFrame(int lightActiveMins, int fairlyActiveMins, int veryActiveMins, int activeMinGoals) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));
