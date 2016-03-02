@@ -43,6 +43,12 @@ import javax.swing.ScrollPaneConstants;
 
 import org.json.JSONException; 
 
+/**
+ * This class represents the majority of the UI.
+ * This is a JTabbedPane that organizes the main sections of the program. 
+ * 
+ * @author UI Team (Vincent, John, Lina, Gustavo)
+ */
 public class MainTabWindow extends JPanel {
 	
 	/**
