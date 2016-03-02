@@ -1,4 +1,4 @@
-# Welcome to CS 2212 - Winter 2016
+# Welcome to CS 2212 - Winter 2016 Team 10! 
 
 To get started, you will need to run these commands in your terminal.
 
@@ -53,7 +53,7 @@ into the `dev` branch.
 To submit your assignment, open a pull request to merge your changes on `dev`
 back into the `master` branch.
 
-# Building the program into a package
+## Building the program into a package
 
 Change your directory to `FitBitApp`: 
 ```
@@ -67,7 +67,7 @@ mvn package
 
 The packaged jar file will be in the `target/` directory with the file name `"team10-FitBitApp-1.0-SNAPSHOT-jar-with-dependencies.jar"`.
 
-# Running the program
+## Running the program
 
 The program has two modes; an online mode that interfaces with the FitBit API and a test mode that works offline with locally stored old API data to test tthe program features without worring about being connected to the API. The normal online mode can be run with the following command from the `FitBitApp` directory: 
 
