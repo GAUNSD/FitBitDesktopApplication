@@ -3,6 +3,7 @@ package ca.uwo.csd.cs2212.team10;
 import javax.swing.SwingUtilities;
 
 import org.json.JSONException;
+import java.io.IOException; 
 
 public class App {
 	public static void main(String[] args) {
@@ -11,6 +12,7 @@ public class App {
 
 			public void run() {
 				MainWindow window = null;
+                Maps.main(null);
 				try {
 					window = new MainWindow();
 				} catch (JSONException e) {
