@@ -65,17 +65,17 @@ Make sure you are in `dev` branch, and it is up-to-date via `git pull`. Use the 
 mvn package
 ```
 
-The packaged jar file will be in the `target/` directory with the file name `"team10-FitBitApp-1.0-SNAPSHOT-jar-with-dependencies.jar"`.
+The packaged jar file will be in the `target/` directory called `"team10-FitBitApp-1.0-SNAPSHOT-jar-with-dependencies.jar"`.
 
 ## Running the program
 
-The program has two modes; an online mode that interfaces with the FitBit API and a test mode that works offline with locally stored old API data to test tthe program features without worring about being connected to the API. The normal online mode can be run with the following command from the `FitBitApp` directory: 
+The program has two modes; an online mode that interfaces with the FitBit API and a test mode that works offline with locally stored API data to test the program features without worring about being connected to the API. The normal online mode can be run with the following command from the `FitBitApp` directory: 
 
 ```
 java -jar target/team10-FitBitApp-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-Test mode can be invoked with the same command, but with a `"-test"` argument: 
+Test mode can be invoked with the same command, but with a `-test` argument: 
 
 ```
 java -jar target/team10-FitBitApp-1.0-SNAPSHOT-jar-with-dependencies.jar -test
