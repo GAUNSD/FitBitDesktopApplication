@@ -17,10 +17,10 @@ public class HeartRateZoneFrame extends JPanel {
 	 * The constructor for the Heart Rate Zone Frame. 
 	 * The parameters represent information coming from the API
 	 * 
-	 * @param fatBurn
-	 * @param cardio
-	 * @param peak
-	 * @param restHeartRate
+	 * @param fatBurn integer that contains fat burn heart rate
+	 * @param cardio integer that contains cardio heart rate
+	 * @param peak integer that contains peak heart raate
+	 * @param restHeartRate integer that contains the resting heart rate
 	 */
 	public HeartRateZoneFrame(int fatBurn, int cardio, int peak, int restHeartRate) {
 		// Change GridLayout to better organize the panel

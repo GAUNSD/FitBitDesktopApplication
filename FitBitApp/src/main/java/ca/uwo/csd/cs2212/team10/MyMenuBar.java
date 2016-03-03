@@ -6,6 +6,10 @@ import java.awt.Graphics2D;
 
 import javax.swing.JMenuBar;
 
+/**
+ * This class makes a JMenuBar object that is used in the MainWindow class. 
+ * @author UI Team
+ */
 public class MyMenuBar extends JMenuBar {
 
     @Override

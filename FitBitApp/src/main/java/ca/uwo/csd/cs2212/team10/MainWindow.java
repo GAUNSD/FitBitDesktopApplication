@@ -12,16 +12,25 @@ import org.json.JSONException;
  * A class that creates the main UI windows 
  * It calls out the MainTabWindow that has all the panels 
  * CS 2212 FitBit
- * @author Team 10
+ * @author UI Team
  *
  */
 public class MainWindow extends JFrame{
 
-
+    /**
+     * MainWindow Constructor
+     * @throws JSONException Method requests a JSON file that can throw this error
+     * @throws TokensException Method uses tokens to interface with API which can throw this error
+     */
 	public MainWindow() throws JSONException, TokensException {
 		this.initUI();
 	}
-
+    
+    /**
+     * Method initialises the UI
+     * @throws JSONException Method requests a JSON file that can throw this error
+     * @throws TokensException Method uses tokens to interface with API which can throw this error
+     */
 	private void initUI() throws JSONException, TokensException {
 		// Create and set up the window with its initial attributes.
 		this.setTitle("Fit Bit");
@@ -38,7 +47,11 @@ public class MainWindow extends JFrame{
 		MainTabWindow mainTabWindow = new MainTabWindow();
 		getContentPane().add(mainTabWindow, BorderLayout.CENTER);
 	}
-
+    
+    /**
+     * Method creates menu bar displayed on top of the screen
+     * @return JMenuBar topMenuBar
+     */
 	private JMenuBar createMenubar() {
 		// Create the Top Menu Bar and set its attributes
 		MyMenuBar topMenubar = new MyMenuBar();

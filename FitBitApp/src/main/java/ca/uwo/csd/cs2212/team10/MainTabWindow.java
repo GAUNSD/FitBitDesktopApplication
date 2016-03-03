@@ -60,8 +60,9 @@ public class MainTabWindow extends JPanel {
 	 * 		Settings
 	 * Each of these sections make their respective content that is housed inside a JTabbedPane container.
 	 * 
-	 * @throws JSONException
-	 * @throws TokensException
+     * @throws JSONException Method requests a JSON file that can throw this error
+     * @throws TokensException Method uses tokens to interface with API which can throw this error
+     *
 	 */
 	public MainTabWindow() throws JSONException, TokensException {
 
@@ -428,7 +429,7 @@ public class MainTabWindow extends JPanel {
 		lifeTimestepsTitle.setBounds(60, 295, 382, 72);
 		panelLifeTime.add(lifeTimestepsTitle);
 
-		JLabel lifeTimeStepsTotal= new JLabel("Total Steps taken: ");//+ lifeSteps);
+		JLabel lifeTimeStepsTotal= new JLabel("Total Steps taken: "+ lifeSteps);
 		lifeTimeStepsTotal.setForeground(Color.WHITE);
 		lifeTimeStepsTotal.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lifeTimeStepsTotal.setBounds(90, 325, 382, 72);
@@ -746,8 +747,8 @@ public class MainTabWindow extends JPanel {
 	}
 	/**
 	 * a method that will create  panel 
-	 * @param text
-	 * @return
+	 * @param text String that contains panel content
+	 * @return JPanel panel
 	 */
 	protected JComponent makeTextPanel(String text) {
 		JPanel panel = new JPanel(false);
@@ -760,15 +761,15 @@ public class MainTabWindow extends JPanel {
 	 * A Method that will make the JInternalFrames (ie- the elements in the Dashboard)
 	 * The parameters will dictate that frames initial values, who will change as the 
 	 * navigates the app.
-	 * @param title
-	 * @param locationX
-	 * @param locationY
-	 * @param sizeX
-	 * @param sizeY
-	 * @param boolVisible
-	 * @param boolResize
+	 * @param title String that contains frame title
+	 * @param locationX integer of x coordinate of panel on screen
+	 * @param locationY integer of y coordinate of panel on screen
+	 * @param sizeX integer of panel width
+	 * @param sizeY integer of panel height
+	 * @param boolVisible boolean that makes panel visible if true
+	 * @param boolResize boolean that resizes panel if true
 	 * @param boolIcon		Whether or not it can be set to the bottom of the screen
-	 * @return The internalFrame created
+	 * @return JInternalFrame iFrame
 	 */
 	private JInternalFrame makeInternalFrame(String title, int locationX, int locationY, int sizeX, int sizeY, 
 			boolean boolVisible, boolean boolResize, boolean boolIcon) {

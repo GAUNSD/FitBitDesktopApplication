@@ -17,7 +17,7 @@ public class SedentaryMinutesFrame extends JPanel {
 	 * The constructor for the Sedentary Minutes Frame. 
 	 * The parameters represent information coming from the API
 	 * 
-	 * @param sedentaryMins
+	 * @param sedentaryMins integer that contains sedentary minutes
 	 */
 	public SedentaryMinutesFrame(int sedentaryMins) {
 		// Change GridLayout to better organize the panel
