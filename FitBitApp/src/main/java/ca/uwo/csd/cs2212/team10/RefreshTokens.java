@@ -23,8 +23,8 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 /**
- * @author Pearson & Patrick
  * This class will be used to refresh tokens, handle calls to Fitbit and make sure tokens are good
+ * @author Pearson, Patrick
  */
 public class RefreshTokens
 {
@@ -32,10 +32,10 @@ public class RefreshTokens
 	private static int CALL_BACK_PORT = 8080;
 	
 	/**
-	 * 
-	 * @param requestUrl
-	 * @return
-	 * @throws TokensException 
+	 * Method gets tokens from /src/main/resources/Team10Tokens.txt 
+	 * @param requestUrl String that contains a specified FitBit URL
+	 * @return String containing the data downloaded from the URL request from the API
+     * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
 	public static String getTokens(String requestUrl) throws TokensException
 	{

@@ -4,9 +4,21 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/**
+ * This class represents the information for the Dashboard element 'Total Distance Count Frame'
+ * This will house all the data (as parameters in the constructor) and the graphical elements.
+ * As of Stage 2, only data is being supplied
+ * 
+ * @author UI Team
+ */
 public class TotalDistanceFrame extends JPanel {
 
-
+    /**
+     * TotalDistanceFrame constructor
+     * @param floors integer that contains total floor count
+     * @param steps integer that contains total step count
+     * @param distance double float that contains total distance
+     */
 	public TotalDistanceFrame(int floors, int steps, double distance) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));

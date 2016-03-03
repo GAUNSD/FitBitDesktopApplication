@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 
  * @author Pearson and Patrick
  * This class will be used to get information from Fitbit services
  * as well as calling for new tokens and saving data
@@ -13,17 +12,19 @@ import org.json.JSONException;
  */
 public class FitbitTest
 {	
+	/*
 	/**
 	 * THIS MAIN CAN BE MOVED ELSEWHERE, JUST HERE FOR TESTING
 	 * @throws JSONException 
 	 * @throws TokensException 
-	 */
+	 *
 	public static void main (String [] args) throws JSONException, TokensException
 	{
 		getHeartActivity("2016", "01", "29");
 		getBestLifeActivity();
 		getDailyActivity("2016", "01", "08");
 	}
+	*/
 	
 	/**
 	 * Best Statistics Call
@@ -35,9 +36,9 @@ public class FitbitTest
 	{
 		//API fake requests
 		String jsonResult = "{'best':{'total':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}},'tracker':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}}},'lifetime':{'total':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769},'tracker':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769}}}";
+				
+		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
-		
-		//get information via JSON
 		JSONObject best = object.getJSONObject("best");
 		JSONObject tracker = best.getJSONObject("tracker");
 		
@@ -113,6 +114,7 @@ public class FitbitTest
 		//API fake request
 		String jsonResult = "{'activities':[],'goals':{'activeMinutes':30,'caloriesOut':2551,'distance':8.05,'floors':10,'steps':10000},'summary':{'activeScore':-1,'activityCalories':1183,'caloriesBMR':1609,'caloriesOut':2565,'distances':[{'activity':'total','distance':7.52},{'activity':'tracker','distance':7.52},{'activity':'loggedActivities','distance':0},{'activity':'veryActive','distance':3.38},{'activity':'moderatelyActive','distance':0.28},{'activity':'lightlyActive','distance':3.85},{'activity':'sedentaryActive','distance':0}],'elevation':82.3,'fairlyActiveMinutes':6,'floors':27,'lightlyActiveMinutes':218,'marginalCalories':669,'sedentaryMinutes':1175,'steps':10042,'veryActiveMinutes':41}}";
 		
+		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
 		JSONObject summary = object.getJSONObject("summary"); 
 		JSONArray distances = summary.getJSONArray("distances");
