@@ -17,10 +17,10 @@ public class ActiveMinutesFrame extends JPanel {
 	 * The constructor for Active Minutes Frame. 
 	 * The parameters represent information coming from the API
 	 * 
-	 * @param lightActiveMins
-	 * @param fairlyActiveMins
-	 * @param veryActiveMins
-	 * @param activeMinGoals
+	 * @param lightActiveMins integer that contains light active minutes
+	 * @param fairlyActiveMins integer that contains fairly active minutes
+	 * @param veryActiveMins integer that contains very active minutes
+	 * @param activeMinGoals integer that contains active minute goals
 	 */
 	public ActiveMinutesFrame(int lightActiveMins, int fairlyActiveMins, int veryActiveMins, int activeMinGoals) {
 		// Change GridLayout to better organize the panel

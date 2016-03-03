@@ -17,8 +17,8 @@ public class CaloriesBurnedFrame extends JPanel {
 	 * The constructor for the Calories Burned Frame. 
 	 * The parameters represent information coming from the API
 	 * 
-	 * @param calories
-	 * @param caloriesOutGoals
+	 * @param calories integer containing calorie usage count
+	 * @param caloriesOutGoals integer containing calorie usage goal
 	 */
 	public CaloriesBurnedFrame(int calories, int caloriesOutGoals) {
 		// Change GridLayout to better organize the panel

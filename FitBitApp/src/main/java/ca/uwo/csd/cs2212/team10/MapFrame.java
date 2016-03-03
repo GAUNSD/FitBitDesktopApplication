@@ -17,9 +17,9 @@ public class MapFrame extends JPanel {
 	 * The constructor for the MapFrame. 
 	 * The parameters represent information coming from the API
 	 * 
-	 * @param bestDistance		
-	 * @param bestDistanceDate
-	 * @param lifeDistance
+	 * @param bestDistance integer that contains best distance count		
+	 * @param bestDistanceDate String that contains date best distance was achieved
+	 * @param lifeDistance integer that contains lifetime distance count
 	 */
 	public MapFrame(double bestDistance, String bestDistanceDate, double lifeDistance) {
 		// Change GridLayout to better organize the panel

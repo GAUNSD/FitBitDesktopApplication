@@ -5,15 +5,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * @author Pearson and Patrick
  * This class will be used to get information from Fitbit services
  * as well as calling for new tokens and saving data
  * Consists of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
+ * @author Pearson and Patrick
  */
 public class Fitbit
 {	
 	/*
-	/**
+	/*
 	 * THIS MAIN CAN BE MOVED ELSEWHERE, JUST HERE FOR TESTING
 	 * @throws JSONException 
 	 * @throws TokensException 
@@ -28,9 +28,9 @@ public class Fitbit
 	
 	/**
 	 * Best Statistics Call
-	 * @return
-	 * @throws JSONException
-	 * @throws TokensException
+	 * @return BestLifeStats object containing all best life statistics data
+	 * @throws JSONException method calls a JSON file which can throw this error
+	 * @throws TokensException method uses tokens which can throw this error
 	 */
 	public static BestLifeStats getBestLifeActivity() throws JSONException, TokensException
 	{
@@ -71,10 +71,13 @@ public class Fitbit
 
 	/**
 	 * Heart Rate Statistics Call
-	 * @return
-	 * @throws JSONException
-	 * @throws TokensException
-	 * Gathers information for Heart Statistics
+	 * Gathers information for Heart Statistics from a specified date
+     * @param year String that contains the year of request
+     * @param month String that contains the month of request
+     * @param day String that contains the day of request
+	 * @return HeartStats object containing all the heart rate data 
+	 * @throws JSONException Method requests a JSON file that can throw this error
+	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
 	public static HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
 	{
@@ -105,12 +108,12 @@ public class Fitbit
 		
 	/**
 	 * Daily Statistics Call
-	 * @param year
-	 * @param month
-	 * @param day
-	 * @return
-	 * @throws JSONException
-	 * @throws TokensException
+     * @param year String that contains the year of request
+     * @param month String that contains the month of request
+     * @param day String that contains the day of request
+	 * @return DailyStats object containing all the daily statistics data
+	 * @throws JSONException Method requests a JSON file that can throw this error
+	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
 	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
 	{

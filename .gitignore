@@ -4,7 +4,7 @@ target/
  
 # OS Files #
 .DS_Store
- 
+*.swp 
 *.class
  
 # Package Files #
