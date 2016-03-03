@@ -15,7 +15,7 @@ public class Maps {
         JFrame test = new JFrame("Google Maps");
 
         try {
-            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=London,Ontario&zoom=13&size=1200x600&maptype=roadmap&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0&format=png";
+            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=London,Ontario&zoom=1&size=1920x1080&maptype=roadmap&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0&format=png";
             String destinationFile = "src/main/resources/maptest.png";
             String str = destinationFile;
             URL url = new URL(imageUrl);
@@ -32,7 +32,7 @@ public class Maps {
             is.close();
             os.close();
 
-            test.add(new JLabel(new ImageIcon((new ImageIcon("src/main/resources/maptest.png")).getImage().getScaledInstance(1200, 600,java.awt.Image.SCALE_SMOOTH))));  
+            test.add(new JLabel(new ImageIcon((new ImageIcon("src/main/resources/maptest.png")).getImage().getScaledInstance(1920,1080,java.awt.Image.SCALE_SMOOTH))));  
             test.setVisible(true);
             test.pack();
 
