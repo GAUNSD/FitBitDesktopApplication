@@ -9,11 +9,9 @@ import org.json.JSONException;
  * as well as calling for new tokens and saving data
  * Consists of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
  * @author Pearson and Patrick
- * This class will be used to get information from Fitbit services
- * as well as calling for new tokens and saving data
- * Consists of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
  */
-public class Fitbit
+// renamed FitBit.java to FitBitAPI since we can't run this due a token problem. FitBitTest.java will be used for now. 
+public class FitbitAPI
 {	
 	/*
 	/*
@@ -31,15 +29,16 @@ public class Fitbit
 	
 	/**
 	 * Best Statistics Call
-     * @return BestLifeStats object containing all best life statistics data
-     * @throws JSONException method calls a JSON file which can throw this error
-     * @throws TokensException method uses tokens which can throw this error
+	 * @return BestLifeStats object containing all best life statistics data
+	 * @throws JSONException method calls a JSON file which can throw this error
+	 * @throws TokensException method uses tokens which can throw this error
 	 */
 	public static BestLifeStats getBestLifeActivity() throws JSONException, TokensException
 	{
-		//API fake requests
-		String jsonResult = "{'best':{'total':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}},'tracker':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}}},'lifetime':{'total':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769},'tracker':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769}}}";
-				
+		//API requests
+		String requestUrl = "https://api.fitbit.com/1/user/3WGW2P/activities.json";
+		String jsonResult = RefreshTokens.getTokens(requestUrl);
+		
 		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
 		JSONObject best = object.getJSONObject("best");
@@ -72,19 +71,21 @@ public class Fitbit
 	}
 
 	/**
-     * Heart Rate Statistics Call
-     * Gathers information for Heart Statistics from a specified date
+	 * Heart Rate Statistics Call
+	 * Gathers information for Heart Statistics from a specified date
      * @param year String that contains the year of request
      * @param month String that contains the month of request
      * @param day String that contains the day of request
-     * @return HeartStats object containing all the heart rate data 
-     * @throws JSONException Method requests a JSON file that can throw this error
-     * @throws TokensException Method uses tokens to interface with API which can throw this error
+	 * @return HeartStats object containing all the heart rate data 
+	 * @throws JSONException Method requests a JSON file that can throw this error
+	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
 	public static HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
 	{
-		//API fake request
-		String jsonResult = "{'activities-heart':[{'dateTime':'2016-01-29','value':{'customHeartRateZones':[],'heartRateZones':[{'caloriesOut':511.55104,'max':94,'min':30,'minutes':319,'name':'Out of Range'},{'caloriesOut':449.3958,'max':131,'min':94,'minutes':138,'name':'Fat Burn'},{'caloriesOut':16.09776,'max':159,'min':131,'minutes':2,'name':'Cardio'},{'caloriesOut':0,'max':220,'min':159,'minutes':0,'name':'Peak'}],'restingHeartRate':70}}]}";
+		//API Request	
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/heart/date/";
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day +"/"+ "1d" + ".json";
+		String jsonResult = RefreshTokens.getTokens(requestUrl);
 		
 		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
@@ -102,23 +103,25 @@ public class Fitbit
 		//get the resting heart rate value
 		int restHeartRate = value.getInt("restingHeartRate");
 		
-		//Return a new HeartStats object
+		//Return new HeartStats object
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
 	}
 		
 	/**
-     * Daily Statistics Call
+	 * Daily Statistics Call
      * @param year String that contains the year of request
      * @param month String that contains the month of request
      * @param day String that contains the day of request
-     * @return DailyStats object containing all the daily statistics data
-     * @throws JSONException Method requests a JSON file that can throw this error
-     * @throws TokensException Method uses tokens to interface with API which can throw this error
+	 * @return DailyStats object containing all the daily statistics data
+	 * @throws JSONException Method requests a JSON file that can throw this error
+	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
 	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
 	{
-		//API fake request
-		String jsonResult = "{'activities':[],'goals':{'activeMinutes':30,'caloriesOut':2551,'distance':8.05,'floors':10,'steps':10000},'summary':{'activeScore':-1,'activityCalories':1183,'caloriesBMR':1609,'caloriesOut':2565,'distances':[{'activity':'total','distance':7.52},{'activity':'tracker','distance':7.52},{'activity':'loggedActivities','distance':0},{'activity':'veryActive','distance':3.38},{'activity':'moderatelyActive','distance':0.28},{'activity':'lightlyActive','distance':3.85},{'activity':'sedentaryActive','distance':0}],'elevation':82.3,'fairlyActiveMinutes':6,'floors':27,'lightlyActiveMinutes':218,'marginalCalories':669,'sedentaryMinutes':1175,'steps':10042,'veryActiveMinutes':41}}";
+		//API Request	
+		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/date/";
+		String requestUrl = requestUrlPrefix + year +"-"+ month +"-"+ day + ".json";
+		String jsonResult = RefreshTokens.getTokens(requestUrl);
 		
 		//get information via JSON string result
 		JSONObject object = new JSONObject(jsonResult);
