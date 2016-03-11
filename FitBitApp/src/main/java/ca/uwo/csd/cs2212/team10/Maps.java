@@ -5,12 +5,53 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import jabva.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.simple.parser.JSONParser;
+
+/**
+ * This class implements the backend of the map functionality. 
+ *
+ * @author Conor
+ */
 public class Maps {
+
+    private JSONObject locationDistances; 
+
+    public static void calculateDistances() throws IOException, JSONException {
+        
+        // Read from locations.json
+        JSONParser parse = new JSONParser();
+        
+        Object obj = parser.parse(new FileReader("src/main/resources/locations.json"));
+        JSONObject object = (JSONObject) obj; 
+
+        JSONArray locations = object.getJSONArray("locations"); 
+
+        for (int i = 0; i < locations.length; i++) {
+        }
+    }
+
+    pubic static void getCurrentLocation() 
+
+
+
+
+
+
+
+
+
+
+
+
     public static void main(String[] args) {
         JFrame test = new JFrame("Google Maps");
 
