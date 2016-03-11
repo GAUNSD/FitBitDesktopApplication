@@ -11,7 +11,7 @@ import org.json.JSONException;
  * @author Pearson and Patrick
  */
 // renamed FitBit.java to FitBitAPI since we can't run this due a token problem. FitBitTest.java will be used for now. 
-public class FitbitAPI
+public class FitbitAPI implements Fitbit
 {	
 	/*
 	/*
@@ -33,7 +33,7 @@ public class FitbitAPI
 	 * @throws JSONException method calls a JSON file which can throw this error
 	 * @throws TokensException method uses tokens which can throw this error
 	 */
-	public static BestLifeStats getBestLifeActivity() throws JSONException, TokensException
+	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException
 	{
 		//API requests
 		String requestUrl = "https://api.fitbit.com/1/user/3WGW2P/activities.json";
@@ -80,7 +80,7 @@ public class FitbitAPI
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public static HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
+	public HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
 	{
 		//API Request	
 		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/heart/date/";
@@ -116,7 +116,7 @@ public class FitbitAPI
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
+	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
 	{
 		//API Request	
 		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/activities/date/";

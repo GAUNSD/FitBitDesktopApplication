@@ -16,7 +16,8 @@ public class App {
      * @param args String array that will contain any arguments passed when the jar is run, including the "-test" parameter. 
      */
     public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
+		final boolean test = args.length >0;
+    	SwingUtilities.invokeLater(new Runnable() {
 			@Override
             
             /**
@@ -25,7 +26,12 @@ public class App {
 			public void run() {
 				MainWindow window = null;
 				try {
-					window = new MainWindow();
+					Fitbit fitbit;
+					if (test)
+						fitbit = new FitbitTest();
+					else
+						fitbit = new FitbitAPI();
+					window = new MainWindow(fitbit);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
