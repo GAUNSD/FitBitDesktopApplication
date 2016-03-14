@@ -17,8 +17,10 @@ public class App {
      */
     public static void main(String[] args) {
         boolean isTest = false; 
-        // Set up test case 
-        if(args[0].equals("-test")) isTest = true; 
+        // Set up test case
+        if (args.length > 0) {
+            if(args[0].equals("-test")) isTest = true;
+        } 
         final boolean test = isTest; 
 
         SwingUtilities.invokeLater(new Runnable() {
