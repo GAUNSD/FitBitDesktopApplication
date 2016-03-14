@@ -19,7 +19,7 @@ public class App {
 		
         // Set up test case
         final boolean test = false; 
-       if(args[0] = "-test") test = true;  
+       if(args[0].equals("-test")) test = true;  
 
     	SwingUtilities.invokeLater(new Runnable() {
 			@Override
