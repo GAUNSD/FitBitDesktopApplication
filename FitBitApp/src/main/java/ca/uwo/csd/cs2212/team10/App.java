@@ -16,10 +16,10 @@ public class App {
      * @param args String array that will contain any arguments passed when the jar is run, including the "-test" parameter. 
      */
     public static void main(String[] args) {
-		
-        // Set up test case
-        final boolean test = false; 
-       if(args[0].equals("-test")) test = true;  
+		boolean isTest = false; 
+        // Set up test case 
+       if(args[0].equals("-test")) isTest = true; 
+       final boolean test = isTest; 
 
     	SwingUtilities.invokeLater(new Runnable() {
 			@Override
