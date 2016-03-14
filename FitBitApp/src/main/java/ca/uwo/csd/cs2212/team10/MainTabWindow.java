@@ -51,6 +51,8 @@ import org.json.JSONException;
  */
 public class MainTabWindow extends JPanel {
 	
+	private Fitbit fitbit;
+	
 	/**
 	 * The main constructor the holds the majority of the UI. 
 	 * The constructor is separated into the following sections;
@@ -64,19 +66,19 @@ public class MainTabWindow extends JPanel {
      * @throws TokensException Method uses tokens to interface with API which can throw this error
      *
 	 */
-	public MainTabWindow() throws JSONException, TokensException {
+	public MainTabWindow(Fitbit fitbit) throws JSONException, TokensException {
 
 		super(new GridLayout(1, 1));
-
+		this.fitbit = fitbit;
 		// Create the API classes and the relevant variables associated with each
-		HeartStats heartrate = Fitbit.getHeartActivity("2016", "01", "29");
+		HeartStats heartrate = fitbit.getHeartActivity("2016", "01", "29");
 		int outOfRange = heartrate.getOutOfRange() ;
 		int fatBurn = heartrate.getFatBurn() ;
 		int cardio = heartrate.getCardio();
 		int peak = heartrate.getPeak() ;
 		int restHeartRate = heartrate.getRestHeartRate();
 
-		BestLifeStats bestlife=Fitbit.getBestLifeActivity();
+		BestLifeStats bestlife=fitbit.getBestLifeActivity();
 		double bestDistance= bestlife. getBestDistance() ;
 		String bestDistanceDate= bestlife.getBestDistanceDate();
 		double bestFloor = bestlife.getBestFloor();
@@ -87,7 +89,7 @@ public class MainTabWindow extends JPanel {
 		double lifeFloors= bestlife.getLifeFloors();
 		long lifeSteps= bestlife.getLifeSteps();
 
-		DailyStats daily = Fitbit.getDailyActivity("2016", "01", "29");
+		DailyStats daily = fitbit.getDailyActivity("2016", "01", "29");
 		int floors = daily. getFloors();
 		int steps = daily.getSteps();
 		double distance = daily.getDistance();
