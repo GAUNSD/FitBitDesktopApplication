@@ -13,7 +13,7 @@ import org.json.JSONException;
  * as well as calling for new tokens and saving data
  * Consists of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
  */
-public class FitbitTest
+public class FitbitTest implements Fitbit
 {	
 	/*
 	/*
@@ -35,7 +35,7 @@ public class FitbitTest
      * @throws JSONException method calls a JSON file which can throw this error
      * @throws TokensException method uses tokens which can throw this error
 	 */
-	public static BestLifeStats getBestLifeActivity() throws JSONException, TokensException
+	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException
 	{
 		//API fake requests
 		String jsonResult = "{'best':{'total':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}},'tracker':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}}},'lifetime':{'total':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769},'tracker':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769}}}";
@@ -81,7 +81,7 @@ public class FitbitTest
      * @throws JSONException Method requests a JSON file that can throw this error
      * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public static HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
+	public  HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
 	{
 		//API fake request
 		String jsonResult = "{'activities-heart':[{'dateTime':'2016-01-29','value':{'customHeartRateZones':[],'heartRateZones':[{'caloriesOut':511.55104,'max':94,'min':30,'minutes':319,'name':'Out of Range'},{'caloriesOut':449.3958,'max':131,'min':94,'minutes':138,'name':'Fat Burn'},{'caloriesOut':16.09776,'max':159,'min':131,'minutes':2,'name':'Cardio'},{'caloriesOut':0,'max':220,'min':159,'minutes':0,'name':'Peak'}],'restingHeartRate':70}}]}";
@@ -115,7 +115,7 @@ public class FitbitTest
      * @throws JSONException Method requests a JSON file that can throw this error
      * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public static DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
+	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
 	{
 		//API fake request
 		String jsonResult = "{'activities':[],'goals':{'activeMinutes':30,'caloriesOut':2551,'distance':8.05,'floors':10,'steps':10000},'summary':{'activeScore':-1,'activityCalories':1183,'caloriesBMR':1609,'caloriesOut':2565,'distances':[{'activity':'total','distance':7.52},{'activity':'tracker','distance':7.52},{'activity':'loggedActivities','distance':0},{'activity':'veryActive','distance':3.38},{'activity':'moderatelyActive','distance':0.28},{'activity':'lightlyActive','distance':3.85},{'activity':'sedentaryActive','distance':0}],'elevation':82.3,'fairlyActiveMinutes':6,'floors':27,'lightlyActiveMinutes':218,'marginalCalories':669,'sedentaryMinutes':1175,'steps':10042,'veryActiveMinutes':41}}";

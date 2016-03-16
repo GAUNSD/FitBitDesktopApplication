@@ -22,8 +22,8 @@ public class MainWindow extends JFrame{
      * @throws JSONException Method requests a JSON file that can throw this error
      * @throws TokensException Method uses tokens to interface with API which can throw this error
      */
-	public MainWindow() throws JSONException, TokensException {
-		this.initUI();
+	public MainWindow(Fitbit fitbit) throws JSONException, TokensException {
+		this.initUI(fitbit);
 	}
     
     /**
@@ -31,7 +31,7 @@ public class MainWindow extends JFrame{
      * @throws JSONException Method requests a JSON file that can throw this error
      * @throws TokensException Method uses tokens to interface with API which can throw this error
      */
-	private void initUI() throws JSONException, TokensException {
+	private void initUI(Fitbit fitbit ) throws JSONException, TokensException {
 		// Create and set up the window with its initial attributes.
 		this.setTitle("Fit Bit");
 		this.setSize(1230, 685); // The screen size should be 16x9; We use a scale factor of 75
@@ -44,7 +44,7 @@ public class MainWindow extends JFrame{
 		this.setJMenuBar(this.createMenubar());
 
 		// Create the Main Tab Window. This JPanel will be used to navigate through the window
-		MainTabWindow mainTabWindow = new MainTabWindow();
+		MainTabWindow mainTabWindow = new MainTabWindow(fitbit);
 		getContentPane().add(mainTabWindow, BorderLayout.CENTER);
 	}
     
