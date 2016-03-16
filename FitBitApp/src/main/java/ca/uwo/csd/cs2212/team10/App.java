@@ -19,7 +19,7 @@ public class App {
         boolean isTest = false; 
         // Set up test case
         if (args.length > 0) {
-            if(args[0].equals("-test")) isTest = true;
+            if(args[0].equals("-test") || args[0].equals("test")) isTest = true;
         } 
         final boolean test = isTest; 
 
