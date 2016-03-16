@@ -25,7 +25,6 @@ public class App {
              */ 
 			public void run() {
 				MainWindow window = null;
-                Maps.main(null);
 				try {
 					window = new MainWindow();
 				} catch (JSONException e) {
