@@ -52,7 +52,7 @@ public class ActiveMinutesFrame extends JPanel {
 
 		/////This might not be the best way to do it
 		ProgressBar progBar = new ProgressBar();
-		progBar.setArcAngle(angleProgress);
+		progBar.setArcAngle(180);
 		//this.add(content);
 		this.add(progBar);
 		this.add(lblName);
