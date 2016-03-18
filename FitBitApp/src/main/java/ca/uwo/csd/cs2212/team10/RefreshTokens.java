@@ -47,11 +47,10 @@ public class RefreshTokens
 	 */
 	public static void setUnits(String newUnits)
 	{
-		if (newUnits.compareTo("US") == 0)
+		if (newUnits.compareTo("imperial") == 0)
 			RefreshTokens.units = "en_US";
-		else if (newUnits.compareTo("GB") == 0)
-			RefreshTokens.units = "en_GB";
 		else
+			//The default will be metric
 			units = null;
 	}
 
