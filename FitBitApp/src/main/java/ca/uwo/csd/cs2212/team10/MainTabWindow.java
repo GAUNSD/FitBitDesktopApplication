@@ -71,7 +71,7 @@ public class MainTabWindow extends JPanel {
 		super(new GridLayout(1, 1));
 		this.fitbit = fitbit;
 		// Create the API classes and the relevant variables associated with each
-		HeartStats heartrate = fitbit.getHeartActivity("2016", "01", "29");
+		HeartStats heartrate = fitbit.getHeartActivity("2015", "01", "29");
 		int outOfRange = heartrate.getOutOfRange() ;
 		int fatBurn = heartrate.getFatBurn() ;
 		int cardio = heartrate.getCardio();
@@ -89,7 +89,7 @@ public class MainTabWindow extends JPanel {
 		double lifeFloors= bestlife.getLifeFloors();
 		long lifeSteps= bestlife.getLifeSteps();
 
-		DailyStats daily = fitbit.getDailyActivity("2016", "01", "29");
+		DailyStats daily = fitbit.getDailyActivity("2015", "01", "29");
 		int floors = daily. getFloors();
 		int steps = daily.getSteps();
 		double distance = daily.getDistance();
