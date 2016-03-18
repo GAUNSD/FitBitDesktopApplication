@@ -3,7 +3,7 @@ package ca.uwo.csd.cs2212.team10;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import java.awt.geom.*;
 
 /**
  * This class represents the information for the Dashboard element 'Active Minutes'
@@ -50,7 +50,6 @@ public class ActiveMinutesFrame extends JPanel {
 		double d = (lightActiveMins + fairlyActiveMins + veryActiveMins)/(double)activeMinGoals;
 		int angleProgress = (int)((d)*360);
 
-		System.out.println(angleProgress);
 		/////This might not be the best way to do it
 		ProgressBar progBar = new ProgressBar();
 		progBar.setArcAngle(angleProgress);
@@ -63,35 +62,35 @@ public class ActiveMinutesFrame extends JPanel {
 	 * Private class to draw the progress bar for the active minutes
 	 */
 	private class ProgressBar extends JComponent {
-		Ellipse2D.Double fill, inside;
+		Ellipse2D.Double fill;
+		Area inside;
 		int x = 10;
 		int y = 10;
 		int width = 100;
 		int height = 100;
 		int startAngle = 0; 
 		int arcAngle = 270;
-		
+
 		public void setArcAngle(int angle) {
 			this.arcAngle = angle;
 		}
-		
+
 		@Override
 		public void paint(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(Color.RED);
 
-			g.setColor(Color.RED);
-
-
-			g.fillArc(10, 10, 100, 100, 0, arcAngle);
-			//g.fillArc(15, 15, 85, 85, 0, 360);
-
+			//Fill the progress bar
+			g2.fillArc(x, y, width, height, startAngle+270, arcAngle);
+			g2.setColor(this.getBackground());
+			g2.fillArc(x+10, y+10, width-20, height-20, startAngle, 360);
 
 		}
 	}
 	public static void main(String[] args) {
 		// Test Data 
-		int lightActiveMins = 1234;
+		int lightActiveMins = 123;
 		int fairlyActiveMins = 456;
 		int veryActiveMins = 789;
 		int activeMinGoals = 1500;
