@@ -30,20 +30,23 @@ public class ObjectSerialization implements Serializable
 	 */
 	public void storeUserSettings() throws Exception
 	{
-		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("/src/main/resources/fitbit.settings"));
+		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/main/resources/fitbit.settings"));
 		out.writeObject(userSettings);
 		out.close();
 	}
 
 	/**
-	 * This method will load the user settings
+	 * This method will load user settings
+	 * @return
 	 * @throws Exception
 	 */
-	public void loadUserSettings() throws Exception
+	public UserSettings loadUserSettings() throws Exception
 	{
-		ObjectInputStream in = new ObjectInputStream(new FileInputStream("/src/main/resources/fitbit.settings"));
+		ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/fitbit.settings"));
 		UserSettings userSettings = (UserSettings) in.readObject();
 		System.out.println(userSettings.toString());
 		in.close();
+		
+		return userSettings;
 	}
 }

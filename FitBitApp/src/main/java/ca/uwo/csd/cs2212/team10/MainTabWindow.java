@@ -61,15 +61,21 @@ public class MainTabWindow extends JPanel {
 	 * 		Stats
 	 * 		Settings
 	 * Each of these sections make their respective content that is housed inside a JTabbedPane container.
-	 * 
-     * @throws JSONException Method requests a JSON file that can throw this error
-     * @throws TokensException Method uses tokens to interface with API which can throw this error
+	 * @throws Exception 
      *
 	 */
-	public MainTabWindow(Fitbit fitbit) throws JSONException, TokensException {
+	public MainTabWindow(Fitbit fitbit) throws Exception {
 
 		super(new GridLayout(1, 1));
 		this.fitbit = fitbit;
+		
+		////////////////TESTING OBJECT SERIALIZATION//////////////
+		UserSettings userSettings = new UserSettings();
+		ObjectSerialization objSerial = new ObjectSerialization(userSettings);
+		objSerial.storeUserSettings();
+		userSettings = objSerial.loadUserSettings();
+		////////////////TESTING OBJECT SERIALIZATION//////////////
+		
 		// Create the API classes and the relevant variables associated with each
 		HeartStats heartrate = fitbit.getHeartActivity("2015", "01", "29");
 		int outOfRange = heartrate.getOutOfRange() ;
