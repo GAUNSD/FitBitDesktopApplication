@@ -29,7 +29,7 @@ public class FitbitAPI implements Fitbit
 	 * @throws TokensException method uses tokens which can throw this error
 	 */
 	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException
-	{	
+	{
 		// API requests
 		String requestUrl = "https://api.fitbit.com/1/user/3WGW2P/activities.json";
 		String jsonResult = RefreshTokens.getTokens(requestUrl);
