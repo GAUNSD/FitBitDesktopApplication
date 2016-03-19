@@ -30,6 +30,29 @@ public class RefreshTokens
 {
 	private static String CALL_BACK_URI = "http://localhost:8080";
 	private static int CALL_BACK_PORT = 8080;
+	private static String units = null;
+
+	/**
+	 * Returns the unit type we are using for fitbit
+	 * @return
+	 */
+	public static String getUnits()
+	{
+		return units;
+	}
+
+	/**
+	 * Sets the unit type specified for fitbit call
+	 * @param newUnits
+	 */
+	public static void setUnits(String newUnits)
+	{
+		if (newUnits.compareTo("imperial") == 0)
+			RefreshTokens.units = "en_US";
+		else
+			// The default will be metric
+			units = null;
+	}
 
 	/**
 	 * Method gets tokens from /src/main/resources/Team10Tokens.txt
@@ -39,6 +62,8 @@ public class RefreshTokens
 	 */
 	public static String getTokens(String requestUrl) throws TokensException
 	{
+		units = RefreshTokens.getUnits();
+
 		// Read credentials from a file
 		BufferedReader bufferedReader = null;
 		// To reference a line
@@ -121,6 +146,8 @@ public class RefreshTokens
 		// YOU MUST DO THIS BEFORE THE REQUEST WILL WORK
 		// See: https://dev.fitbit.com/docs/oauth2/#making-requests
 		service.signRequest(accessToken, request);
+		// Set the units we want fitbit to send us
+		request.addHeader("Accept-Language", units);
 		// If you are curious, since it has a header, body...
 		// System.out.println(request.toString());
 		// System.out.println(request.getHeaders());

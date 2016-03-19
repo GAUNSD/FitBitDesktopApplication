@@ -6,13 +6,23 @@ public class UserSettings implements Serializable
 {
 	private String units = "metric";
 
+	public UserSettings()
+	{
+		this.units = units;
+	}
+
 	@Override
 	public String toString()
 	{
 		return "UserSettings [units=" + units + "]";
 	}
 
-	public UserSettings()
+	public String getUnits()
+	{
+		return units;
+	}
+
+	public void setUnits(String units)
 	{
 		this.units = units;
 	}
