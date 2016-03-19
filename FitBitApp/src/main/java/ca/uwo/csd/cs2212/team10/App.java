@@ -24,7 +24,7 @@ public class App {
         final boolean test = isTest; 
 
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
+            //@Override
 
             /**
              * Opens new main window

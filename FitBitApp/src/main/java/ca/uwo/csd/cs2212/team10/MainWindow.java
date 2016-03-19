@@ -78,7 +78,7 @@ public class MainWindow extends JFrame{
 		mniUserNameExit.setMnemonic(KeyEvent.VK_E);
 		mniUserNameExit.setToolTipText("Exit application");
 		mniUserNameExit.addActionListener(new ActionListener() {
-			@Override
+			//@Override
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0); }
 		});
