@@ -32,6 +32,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
@@ -40,6 +41,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
+
+import javax.swing.SwingUtilities;
 
 import org.json.JSONException; 
 
@@ -52,6 +55,7 @@ import org.json.JSONException;
 public class MainTabWindow extends JPanel {
 	
 	private Fitbit fitbit;
+	private Point[] pointArray;
 	
 	/**
 	 * The main constructor the holds the majority of the UI. 
@@ -220,7 +224,21 @@ public class MainTabWindow extends JPanel {
 		tabbedPane.addTab("Dashboard",icon1 , panel1, "tmp1"); // Add the desktop pane to the tabbedPane
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.setBackgroundAt(0, Color.WHITE);
-
+		
+		// Retrieve the locations of all the frame elements from the desktop screen.
+		Point mapFramePoint = mapFrame.getLocation();
+		Point heartRateFramePoint = heartRateFrame.getLocation();
+		Point calBurnFramePoint = calBurnFrame.getLocation();
+		Point activeMinFramePoint = activeMinFrame.getLocation();
+		Point sedMinFramePoint = sedMinFrame.getLocation();
+		
+		// Add these points to the pointArray for the object serialization. 
+		pointArray = new Point[5];
+		this.setPointArray(mapFramePoint, 
+				heartRateFramePoint, 
+				calBurnFramePoint, 
+				activeMinFramePoint, 
+				sedMinFramePoint);	
 		/**
 		 * Dashboard Menu
 		 */
@@ -767,6 +785,18 @@ public class MainTabWindow extends JPanel {
 		panel.setBackground(new Color (55,55,55));
 		panel.setLayout(null);
 		return panel;
+	}
+	
+	private void setPointArray(Point mapPoint, Point heartPoint, Point calPoint, Point activePoint, Point sedPoint) {
+		this.pointArray[0] = mapPoint;
+		this.pointArray[1] = heartPoint;
+		this.pointArray[2] = calPoint;
+		this.pointArray[3] = activePoint;
+		this.pointArray[4] = sedPoint;
+	}
+	
+	private Point[] getPointArray() {
+		return this.pointArray; //This should probably be a copy, to maintain security (?)
 	}
 
 	/**
