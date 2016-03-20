@@ -56,6 +56,7 @@ public class MainTabWindow extends JPanel {
 	
 	private Fitbit fitbit;
 	private Point[] pointArray;
+	private UserSettings userSettings;
 	
 	/**
 	 * The main constructor the holds the majority of the UI. 
@@ -74,14 +75,14 @@ public class MainTabWindow extends JPanel {
 		this.fitbit = fitbit;
 		
 		////////////////TESTING OBJECT SERIALIZATION//////////////
-		UserSettings userSettings = new UserSettings();
-		
-		userSettings.setUnits("imperial");
-		RefreshTokens.setUnits(userSettings.getUnits());
-		
+		userSettings = new UserSettings();
+		//userSettings.setUnits("imperial");
+				
 		ObjectSerialization objSerial = new ObjectSerialization(userSettings);
-		objSerial.storeUserSettings();
+		//objSerial.storeUserSettings();
 		userSettings = objSerial.loadUserSettings();
+		
+		RefreshTokens.setUnits(userSettings.getUnits());
 		////////////////TESTING OBJECT SERIALIZATION//////////////
 		
 		// Create the API classes and the relevant variables associated with each
