@@ -5,21 +5,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * This class will be used to get information from Fitbit services 
- * as well as calling for new tokens and saving data 
- * Consists of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
+ * This class will be used to get information from Fitbit services as well as calling for new tokens and saving data Consists
+ * of: Heart Statistics, Best and Lifetime Statistics, Daily Statistics and Goals
  * @author Pearson and Patrick
  */
 public class FitbitTest implements Fitbit
 {
 	/*
-	 * Main for testing purposes only 
-	 * public static void main (String [] args) throws JSONException, TokensException 
-	 * {
-	 * 		getHeartActivity("2016", "01", "29"); 
-	 * 		getBestLifeActivity(); 
-	 * 		getDailyActivity("2016", "01", "08"); 
-	 * }
+	 * Main for testing purposes only public static void main (String [] args) throws JSONException, TokensException {
+	 * getHeartActivity("2016", "01", "29"); getBestLifeActivity(); getDailyActivity("2016", "01", "08"); }
 	 */
 
 	/**

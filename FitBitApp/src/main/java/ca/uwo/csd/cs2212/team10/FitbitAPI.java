@@ -67,7 +67,7 @@ public class FitbitAPI implements Fitbit
 			lifeFloors = total.getInt("floors");
 			lifeSteps = total.getInt("steps");
 		}
-		catch (JSONException e)
+		catch (Exception e)
 		{
 			valueDist = 0.00;
 			dateDist = "Date not found";
@@ -125,9 +125,9 @@ public class FitbitAPI implements Fitbit
 			// Get the resting heart rate value
 			restHeartRate = value.getInt("restingHeartRate");
 		}
-		catch (JSONException e)
+		catch (Exception e)
 		{
-			outOfRange = 30;
+			outOfRange = 0;
 			fatBurn = 0;
 			cardio = 0;
 			peak = 0;
@@ -193,7 +193,7 @@ public class FitbitAPI implements Fitbit
 			floorGoals = goals.getInt("floors");
 			stepGoals = goals.getInt("steps");
 		}
-		catch (JSONException e)
+		catch (Exception e)
 		{
 			distance = 0.00;
 			calories = 0;
