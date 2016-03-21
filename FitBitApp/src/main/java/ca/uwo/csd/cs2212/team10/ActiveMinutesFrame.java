@@ -3,7 +3,10 @@ package ca.uwo.csd.cs2212.team10;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.event.ActionListener;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.event.ActionEvent;
 
 /**
  * This class represents the information for the Dashboard element 'Active Minutes'
@@ -13,12 +16,7 @@ import java.awt.geom.*;
  * @author Gustavo Murcia
  */
 public class ActiveMinutesFrame extends JPanel {
-	//TMP
-	private final static int MAX_PROGRESS_AMOUNT = 100;
-	private static final int DELAY = 50;
-	private Timer timer;
-	private int prgValue = 0;
-	//
+
 	/**
 	 * The constructor for Active Minutes Frame. 
 	 * The parameters represent information coming from the API
@@ -28,54 +26,160 @@ public class ActiveMinutesFrame extends JPanel {
 	 * @param veryActiveMins integer that contains very active minutes
 	 * @param activeMinGoals integer that contains active minute goals
 	 */
-	public ActiveMinutesFrame(int lightActiveMins, int fairlyActiveMins, int veryActiveMins, int activeMinGoals) {
-		// Change GridLayout to better organize the panel
-		super(new GridLayout(1, 5));
-
+	public ActiveMinutesFrame(int lightActiveMins, int fairlyActiveMins, int veryActiveMins, int activeMinGoals, int floors, int steps, double distance,int floorGoals,int stepGoals,double distanceGoals) {
+		
+		
 		// JLabels to print the text for the testFitBitAPI
 		String stringLabel = "<html>" +
 				"<u>Active Minutes</u>" +
 				"<br>Light: " + lightActiveMins + 
 				"<br>Fairly: " + fairlyActiveMins +
 				"<br>Very: " + veryActiveMins + 
-				"<br><br>Goals: " + activeMinGoals + 
+				"<br>Goals: " + activeMinGoals + 
 				"</html>";
 		JLabel lblName = new JLabel(stringLabel, JLabel.CENTER);
-
+		lblName.setBounds(300, 184, 110, 100);
 		lblName.setOpaque(false);	
-		lblName.setToolTipText("tmp");
-		this.setBackground(new Color(150, 150, 150));
-
-		//Calculate the progress of the Active Minute Goals	
-		double d = (lightActiveMins + fairlyActiveMins + veryActiveMins)/(double)activeMinGoals;
-		int angleProgress = (int)((d)*360);
-
-		/////This might not be the best way to do it
-
-		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
-		ProgressBar progBar2 = new ProgressBar(0,0, Color.BLUE);
-		ProgressBar progBar3 = new ProgressBar(0,200, Color.YELLOW);
-		ProgressBar progBar4 = new ProgressBar(0,200, Color.ORANGE);
-		ProgressBar progBar5 = new ProgressBar(0,200, Color.GREEN);
+		lblName.setToolTipText("Daily Goals");
+		this.setBackground(new Color(155, 155, 155)); 
+		setLayout(null);
 		
 		
-		progBar1.setArcAngle(180);
-		progBar2.setArcAngle(180);
-		progBar3.setArcAngle(180);
-		progBar4.setArcAngle(180);
-		progBar5.setArcAngle(180);
 		//this.add(content);
-		this.add(progBar1);
-		this.add(progBar2);
-		this.add(progBar3);
-		this.add(progBar4);
-		this.add(progBar5);
-		//this.add(lblName);
-	}
+		this.add(lblName);
+		String	stepslabel;
+		
+		int stepsLeft= stepGoals-steps;
+		if(stepsLeft<0){
+				// JLabels to print the text for the testFitBitAPI
+			stepslabel = "<html>" +  "<br> You are above your goal by "+ -stepsLeft+
+						"<br>Steps: " + steps + " steps"+
+						"<br>Steps (Goals): " + stepGoals + " steps"+
+						"</html>";
+		}
+		else if(stepsLeft>0){
+			stepslabel = "<html>" +  "<br> You are below your goal by "+ stepsLeft+
+						"<br>Steps: " + steps + " steps"+
+						"<br>Steps (Goals): " + stepGoals + " steps"+
+						"</html>";
+		}
+		else{ 
+			 stepslabel = "<html>" +  "<br> You are met your goal by "+ stepsLeft+
+						"<br>Steps: " + steps + " steps"+
+						"<br>Steps (Goals): " + stepGoals + " steps"+
+						"</html>";
+			
+		}
+		
+		JLabel lblSteps = new JLabel(stepslabel);
+		lblSteps.setBounds(150, 115, 140, 70);
+		add(lblSteps);
+		
+	String	floorslabel;
+		
+		int floorsLeft= stepGoals-steps;
+		if(floorsLeft<0){
+				// JLabels to print the text for the testFitBitAPI
+			floorslabel = "<html>" +  "<br> You are above your goal by "+ -floorsLeft+
+						"<br>floors: " + floors + " steps"+
+						"<br>floors (Goals): " + floorGoals + " floors"+
+						"</html>";
+		}
+		else if(floorsLeft>0){
+			floorslabel = "<html>" +  "<br> You are below your goal by "+ floorsLeft+
+						"<br>floors: " + floors + " steps"+
+						"<br>floors (Goals): " + floorGoals + " floors"+
+						"</html>";
+		}
+		else{ 
+			floorslabel = "<html>" +  "<br> You are met your goal by "+ floorsLeft+
+						"<br>floors: " + floors + " steps"+
+						"<br>floors (Goals): " + floorGoals + " floors"+
+						"</html>";
+			
+		}
+		
+		
+		
+		JLabel lblNewLabel_1 = new JLabel(floorslabel);
+		lblNewLabel_1.setBounds(20, 195, 135, 70);
+		add(lblNewLabel_1);
+		
+		int trial=7;
+		double activeMin = (lightActiveMins + fairlyActiveMins + veryActiveMins)/(double)activeMinGoals;
+		int angleProgressActiveMin = (int)((activeMin)*360);
+		
+		double floorsArc = (trial)/(double)floorGoals;
+		int angleProgressFloors = (int)((floorsArc)*360);
+		
+		double stepsArc = (steps)/(double)stepGoals;
+		int angleProgressSteps = (int)((stepsArc)*360);
+		
+		
+		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
+		progBar1.setArcAngle(angleProgressSteps);
+		ProgressBar progBar2 = new ProgressBar(0,0, Color.BLUE);
+		ProgressBar progBar3 = new ProgressBar(0,0, Color.YELLOW);
+		progBar3.setArcAngle(angleProgressActiveMin);
+		
+		
+		/*
+		JLabel lblNewLabel_2 = new JLabel("<html>"+ distance + " Miles<br>"+ distanceGoals +" to go<html>");
+		lblNewLabel_2.setBounds(357, 215, 92, 32);
+		add(lblNewLabel_2);
+		*/
+		
+		/*JLabel btnNewButton_2 = new JLabel("");
+		btnNewButton_2.setIcon(new ImageIcon("/Users/linaradwan/Downloads/ActiveMin.png"));
+		btnNewButton_2.setBounds(290, 85, 128, 108);
+		add(btnNewButton_2);
+	*/
+		
+		JLabel btnNewButton_1 = new JLabel("");
+		btnNewButton_1.setIcon(new ImageIcon("ActiveMin.png"));
+		btnNewButton_1.setBounds(287, 85, 128, 108);
+		progBar3.setBounds(302, 89, 128, 122);
+		add(btnNewButton_1);
+		add(progBar3);
 
-	/*
-	 * Private class to draw the progress bar for the active minutes
-	 */
+		/*
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setIcon(new ImageIcon("/Users/linaradwan/Downloads/ActiveMin.png"));
+		btnNewButton_3.setBounds(176, 165, 121, 108);
+		add(btnNewButton_3);
+		*/
+		/*JLabel btnNewButton_1 = new JLabel("");
+		btnNewButton_1.setIcon(new ImageIcon("/Users/linaradwan/Downloads/Steps.png"));
+		btnNewButton_1.setBounds(137, 0, 135, 122);
+		add(btnNewButton_1);
+		*/
+		
+
+		JLabel stepsPic = new JLabel("");
+		stepsPic.setIcon(new ImageIcon("StepsGoals.png"));
+		stepsPic.setBounds(138, 0, 135, 122);
+		progBar1.setBounds(153, 13, 128, 150);
+		add(stepsPic);
+		this.add(progBar1);
+
+		
+		/*JLabel btnNewButton = new JLabel("");
+		btnNewButton.setIcon(new ImageIcon("/Users/linaradwan/Downloads/floors.png"));
+		btnNewButton.setBounds(12, 85, 121, 108);
+		add(btnNewButton);*/
+		progBar2.setArcAngle(angleProgressFloors);
+		JLabel floorsPic = new JLabel("");
+		floorsPic.setIcon(new ImageIcon("floors.png"));
+		floorsPic.setBounds(12, 85, 121, 108);
+		progBar2.setBounds(22, 89, 128, 122);
+		add(floorsPic);
+		add(progBar2);
+		
+		
+	}
+	
+	
+	
 	private class ProgressBar extends JComponent {
 		Ellipse2D.Double fill;
 		Area inside;
@@ -111,37 +215,7 @@ public class ActiveMinutesFrame extends JPanel {
 
 		}
 	}
-	public static void main(String[] args) {
-		// Test Data 
-		int lightActiveMins = 123;
-		int fairlyActiveMins = 456;
-		int veryActiveMins = 789;
-		int activeMinGoals = 1500;
-
-		// Create the Frames needed 
-		ActiveMinutesFrame testActiveMin = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins,veryActiveMins,activeMinGoals);
-		JInternalFrame testFrame = new JInternalFrame("Test");
-		testFrame.setLocation(100, 100 );
-		//testFrame.setSize( 200, 200 );
-		testFrame.setVisible( true );
-		testFrame.setResizable( false );
-		testFrame.setIconifiable( false );
-		JDesktopPane testPanel = new JDesktopPane();
-		JFrame testOFrame = new JFrame();
-		testOFrame.setSize(1000, 800);
-
-		// add the elements for the frame
-
-		testFrame.setSize(800, 800);
-		testFrame.getContentPane().add(testActiveMin, BorderLayout.CENTER);
-		
-		
-		testPanel.add(testFrame);
-
-		testOFrame.add(testPanel);
-		testOFrame.setVisible(true);
-	}
+	
+	
+	
 }
-
-
-

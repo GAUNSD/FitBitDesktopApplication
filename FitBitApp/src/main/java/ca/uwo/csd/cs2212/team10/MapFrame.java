@@ -21,16 +21,16 @@ public class MapFrame extends JPanel {
 	 * @param bestDistanceDate String that contains date best distance was achieved
 	 * @param lifeDistance integer that contains lifetime distance count
 	 */
-	public MapFrame(double bestDistance, String bestDistanceDate, double lifeDistance) {
+	public MapFrame(double bestDistance, String bestDistanceDate, double lifeDistance,String measurment) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));
 		
 		
 		// JLabels to print the text for the testFitBitAPI
 		String stringLabel = "<html>" + 
-				"<br>Best Distance: " + bestDistance + 
+				"<br>Best Distance: " + bestDistance + measurment+
 				"<br>	Date achieved: " + bestDistanceDate + 
-				"<br>Life Distance: (Goals): " + lifeDistance + 
+				"<br>Life Distance: (Goals): " + lifeDistance + measurment+
 				"</html>";
 		JLabel lblName = new JLabel(stringLabel, JLabel.CENTER);
 		
@@ -41,35 +41,5 @@ public class MapFrame extends JPanel {
 		
 		//this.add(content);
 		this.add(lblName);
-	}
-	
-	// TMP test
-	public static void main(String[] args) {
-		// Test Data 
-		double bestDistance = 123.6;
-		String bestDistanceDate = "2016.02.03";
-		double lifeDistance = 321.6;
-		
-		// Create the Frames needed 
-		MapFrame testMap = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
-		JInternalFrame testFrame = new JInternalFrame("Test");
-		testFrame.setLocation(100, 100 );
-		testFrame.setSize( 200, 200 );
-		testFrame.setVisible( true );
-		testFrame.setResizable( false );
-		testFrame.setIconifiable( false );
-		JDesktopPane testPanel = new JDesktopPane();
-		JFrame testOFrame = new JFrame();
-		testOFrame.setSize(1000, 800);
-		
-		// add the elements for the frame
-		
-		testFrame.setSize(600, 400);
-		testFrame.getContentPane().add(testMap, BorderLayout.CENTER);
-		
-		testPanel.add(testFrame);
-		
-		testOFrame.add(testPanel);
-		testOFrame.setVisible(true);
 	}
 }
