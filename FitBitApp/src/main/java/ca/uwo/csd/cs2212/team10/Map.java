@@ -235,11 +235,12 @@ public class Map {
 
         refreshMap();
 
-        for(int i =0; i < this.locations.length; i++) if(!this.locations[i].getAchieved()) markers = markers + this.locations[i].getCoordinates() + "%7C";
+        for(int i =0; i < this.locations.length; i++) if(this.locations[i].getAchieved()) markers = markers + this.locations[i].getCoordinates() + "%7C";
 
         String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=0,0&zoom=1&size=600x400&scale=2&markers=size:tiny%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
 
         System.out.println(imageURL.length());
+        System.out.println(imageURL);
 
         BufferedImage image = null;
         URL url = new URL(imageURL);
@@ -255,10 +256,14 @@ public class Map {
      */
     public Location[] refreshMap() {
         double lifeDistance = getLifeDistance();
+        System.out.println(lifeDistance);
         List<Location> places = new ArrayList<Location>();
 
         for(int i = 0; i < this.locations.length; i++) {
-            if(this.locations[i].getDistance() >= lifeDistance || this.locations[i].getAchieved()) places.add(this.locations[i]); 
+            if(lifeDistance >= this.locations[i].getDistance() || this.locations[i].getAchieved()) {
+                this.locations[i].setAchieved(true); 
+                places.add(this.locations[i]); 
+            }
         }
         return places.toArray(new Location[places.size()]);
     }

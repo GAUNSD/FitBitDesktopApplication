@@ -41,6 +41,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
 
+import java.io.File;
+
 import org.json.JSONException; 
 
 /**
@@ -540,6 +542,42 @@ public class MainTabWindow extends JPanel {
 		lblAccolades.setBounds(44, 6, 382, 72);
 		panelAccolades.add(lblAccolades);
 
+		// Panel of the Map button
+		final JPanel panelMap = new JPanel();
+		panelMap.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
+		panelMap.setBackground(new Color(40, 40, 40));
+		panelMap.setForeground(new Color(40, 40, 40));
+		panelMap.setBounds(150, 6, 1000, 639);
+		panel3.add(panelMap, BorderLayout.CENTER);
+		panelMap.setLayout(new BorderLayout());
+		JLabel lblMap= new JLabel("Map");
+		lblMap.setForeground(SystemColor.inactiveCaption);
+		lblMap.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
+		lblMap.setBounds(44, 6, 382, 72);
+		
+        // Create map object
+        JLabel worldMap;
+        Map map; 
+        try {
+            map = new Map(fitbit);
+            map.calculateDistances(); 
+            map.writeToJSONFile();
+            map.refreshMap();
+            worldMap = new JLabel((new ImageIcon(map.getMap())));
+            panelMap.add(worldMap);
+        } catch(Exception e) {
+            e.printStackTrace(); 
+        }
+        
+        
+        
+        
+        
+        
+        
+        //panelMap.add(lblMap);
+		
+
 		//panel where the buttons are added 
 		final JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
@@ -564,6 +602,7 @@ public class MainTabWindow extends JPanel {
 				panelBestDays.setVisible(false);
 				panelAccolades.setVisible(false);
 				panelLifeTime.setVisible(true);
+                panelMap.setVisible(false);
 
 			}
 		});
@@ -581,6 +620,7 @@ public class MainTabWindow extends JPanel {
 				panelBestDays.setVisible(true);
 				panelAccolades.setVisible(true);
 				panelLifeTime.setVisible(false);
+                panelMap.setVisible(false);
 
 			}
 		});
@@ -600,11 +640,31 @@ public class MainTabWindow extends JPanel {
 				panelBestDays.setVisible(false);
 				panelAccolades.setVisible(true);
 				panelLifeTime.setVisible(false);
+                panelMap.setVisible(false);
 
 			}
 		});
 		tglbtnAccolades.setOpaque(true);	
 		buttonGroupobj.add(tglbtnAccolades);
+
+		//add button Map
+        JToggleButton tglbtnMap;
+		tglbtnMap = new JToggleButton("Map                ");
+		panel_1.add(tglbtnMap);
+		tglbtnMap.setBackground(new Color(55,55,55));
+		//show the Maps panel  and hide the rest
+		tglbtnMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				panelBestDays.setVisible(false);
+				panelAccolades.setVisible(false);
+				panelLifeTime.setVisible(false);
+                panelMap.setVisible(true);
+
+			}
+		});
+		tglbtnMap.setOpaque(true);	
+		buttonGroupobj.add(tglbtnMap);
 
 
 		//Add a vertical Glue so the Settings option is at the bottom of the tab bar on the left
