@@ -30,7 +30,7 @@ public class ActiveMinutesFrame extends JPanel {
 	 */
 	public ActiveMinutesFrame(int lightActiveMins, int fairlyActiveMins, int veryActiveMins, int activeMinGoals) {
 		// Change GridLayout to better organize the panel
-		super(new GridLayout(1, 1));
+		super(new GridLayout(1, 5));
 
 		// JLabels to print the text for the testFitBitAPI
 		String stringLabel = "<html>" +
@@ -51,11 +51,26 @@ public class ActiveMinutesFrame extends JPanel {
 		int angleProgress = (int)((d)*360);
 
 		/////This might not be the best way to do it
-		ProgressBar progBar = new ProgressBar();
-		progBar.setArcAngle(180);
+
+		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
+		ProgressBar progBar2 = new ProgressBar(0,0, Color.BLUE);
+		ProgressBar progBar3 = new ProgressBar(0,200, Color.YELLOW);
+		ProgressBar progBar4 = new ProgressBar(0,200, Color.ORANGE);
+		ProgressBar progBar5 = new ProgressBar(0,200, Color.GREEN);
+		
+		
+		progBar1.setArcAngle(180);
+		progBar2.setArcAngle(180);
+		progBar3.setArcAngle(180);
+		progBar4.setArcAngle(180);
+		progBar5.setArcAngle(180);
 		//this.add(content);
-		this.add(progBar);
-		this.add(lblName);
+		this.add(progBar1);
+		this.add(progBar2);
+		this.add(progBar3);
+		this.add(progBar4);
+		this.add(progBar5);
+		//this.add(lblName);
 	}
 
 	/*
@@ -64,13 +79,21 @@ public class ActiveMinutesFrame extends JPanel {
 	private class ProgressBar extends JComponent {
 		Ellipse2D.Double fill;
 		Area inside;
-		int x = 10;
-		int y = 10;
+		int x;
+		int y;
 		int width = 100;
 		int height = 100;
 		int startAngle = 0; 
 		int arcAngle = 270;
-
+		Color colour;
+		
+		public ProgressBar(int startX, int startY, Color colourIn) {
+			//When initializing the progress bar, we will also initialize the bars position and color
+			this.x = startX;
+			this.y = startY;
+			this.colour = colourIn;
+		}
+		
 		public void setArcAngle(int angle) {
 			this.arcAngle = angle;
 		}
@@ -78,13 +101,13 @@ public class ActiveMinutesFrame extends JPanel {
 		@Override
 		public void paint(Graphics g) {
 			super.paintComponent(g);
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setColor(Color.RED);
+			//Graphics2D g2 = (Graphics2D) g;
+			g.setColor(colour);
 
 			//Fill the progress bar
-			g2.fillArc(x, y, width, height, startAngle+270, arcAngle);
-			g2.setColor(this.getBackground());
-			g2.fillArc(x+10, y+10, width-20, height-20, startAngle, 360);
+			g.fillArc(this.x, this.y, width, height, startAngle+270, arcAngle);
+			g.setColor(this.getBackground());
+			g.fillArc(x+10, y+10, width-20, height-20, startAngle, 360);
 
 		}
 	}
@@ -99,7 +122,7 @@ public class ActiveMinutesFrame extends JPanel {
 		ActiveMinutesFrame testActiveMin = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins,veryActiveMins,activeMinGoals);
 		JInternalFrame testFrame = new JInternalFrame("Test");
 		testFrame.setLocation(100, 100 );
-		testFrame.setSize( 200, 200 );
+		//testFrame.setSize( 200, 200 );
 		testFrame.setVisible( true );
 		testFrame.setResizable( false );
 		testFrame.setIconifiable( false );
@@ -109,9 +132,10 @@ public class ActiveMinutesFrame extends JPanel {
 
 		// add the elements for the frame
 
-		testFrame.setSize(600, 400);
+		testFrame.setSize(800, 800);
 		testFrame.getContentPane().add(testActiveMin, BorderLayout.CENTER);
-
+		
+		
 		testPanel.add(testFrame);
 
 		testOFrame.add(testPanel);
