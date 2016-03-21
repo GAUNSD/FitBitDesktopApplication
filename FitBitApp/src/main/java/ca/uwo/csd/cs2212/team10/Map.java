@@ -235,12 +235,21 @@ public class Map {
 
         refreshMap();
 
-        for(int i =0; i < this.locations.length; i++) if(this.locations[i].getAchieved()) markers = markers + this.locations[i].getCoordinates() + "%7C";
+        int lat;
+        int lng;
+
+        for(int i =0; i < this.locations.length; i++) {
+            if(this.locations[i].getAchieved()) {
+
+                lat = (int)Double.parseDouble(locations[i].getCoordinates().substring(0,locations[i].getCoordinates().indexOf(',')));
+                lng = (int)Double.parseDouble(locations[i].getCoordinates().substring(locations[i].getCoordinates().indexOf(',')+1,locations[i].getCoordinates().length()));
+                markers = markers + lat + "," + lng + "%7C";
+            }
+        }
 
         String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=0,0&zoom=1&size=600x400&scale=2&markers=size:tiny%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
 
         System.out.println(imageURL.length());
-        System.out.println(imageURL);
 
         BufferedImage image = null;
         URL url = new URL(imageURL);
@@ -256,7 +265,6 @@ public class Map {
      */
     public Location[] refreshMap() {
         double lifeDistance = getLifeDistance();
-        System.out.println(lifeDistance);
         List<Location> places = new ArrayList<Location>();
 
         for(int i = 0; i < this.locations.length; i++) {
