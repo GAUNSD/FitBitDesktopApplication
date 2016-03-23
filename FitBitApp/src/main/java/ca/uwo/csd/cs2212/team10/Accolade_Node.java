@@ -16,7 +16,7 @@ public class Accolade_Node {
 	 * intializing all values to null
 	 */
 	public Accolade_Node(){
-		this.title=" "
+		this.title=" ";
 		this.description=" ";
 		this.check=false;
 	}
@@ -45,7 +45,7 @@ public class Accolade_Node {
      * Method returns description of accolade
      * @return String Description
      */
-	public boolean getDescription(){
+	public String getDescription(){
 		return this.description;
 	}
 	
