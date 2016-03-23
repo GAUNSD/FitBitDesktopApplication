@@ -659,12 +659,12 @@ private int dateSetting = 0; //The following will be the formats used and the co
 		
 		
 		JLabel lock2Accold= new JLabel("");
-		lock2Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock2Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock2Accold.setBounds(150, 110, 106, 72);
 		panelAccolades.add(lock2Accold);
 		lock2Accold.setToolTipText(	accolades.getTitle(1));
 if(accolades.getCheck(1)==true){
-lock2Accold.setIcon(new ImageIcon("src/main/resources/rsz_1rsz_badge1.png"));
+lock2Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_1rsz_badge1.png"));
 	lock2Accold.setBounds(150, 90, 106, 110);
 	lock2Accold.setToolTipText(accolades.getDescription(1));
 
@@ -674,12 +674,12 @@ lock2Accold.setIcon(new ImageIcon("src/main/resources/rsz_1rsz_badge1.png"));
 
 		
 		JLabel lock3Accold= new JLabel("");
-		lock3Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock3Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock3Accold.setBounds(270, 110, 106, 72);
 		lock3Accold.setToolTipText(	accolades.getTitle(2));
 		panelAccolades.add(lock3Accold);
 if(accolades.getCheck(2)==true){
-lock3Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge2.png"));
+lock3Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge2.png"));
 	lock3Accold.setBounds(270, 90, 120, 110);
 	lock3Accold.setToolTipText(accolades.getDescription(2));
 
@@ -689,12 +689,12 @@ lock3Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge2.png"));
 		
 		
 		JLabel lock4Accold= new JLabel("");
-		lock4Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock4Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock4Accold.setBounds(390, 110, 106, 72);
 		lock4Accold.setToolTipText(	accolades.getTitle(3));
 		panelAccolades.add(lock4Accold);
 		if(accolades.getCheck(3)==true){
-lock4Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge3.png"));
+lock4Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge3.png"));
 			lock4Accold.setBounds(390, 90, 120, 110);			
 			lock4Accold.setToolTipText(accolades.getDescription(3));
 
@@ -703,13 +703,13 @@ lock4Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge3.png"));
 		
 		
 		JLabel lock5Accold= new JLabel("");
-		lock5Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock5Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock5Accold.setBounds(500, 110, 106, 72);
 		lock5Accold.setToolTipText(	accolades.getTitle(4));
 		panelAccolades.add(lock5Accold);
 if(accolades.getCheck(4)==true){
 
-	lock5Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge4.png"));
+	lock5Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge4.png"));
 	lock5Accold.setBounds(500, 90, 120, 110);
 	
 	lock5Accold.setToolTipText(accolades.getDescription(4));
@@ -719,12 +719,12 @@ if(accolades.getCheck(4)==true){
 		
 		
 		JLabel lock6Accold= new JLabel("");
-		lock6Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock6Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock6Accold.setBounds(610, 110, 106, 72);
 		lock6Accold.setToolTipText(	accolades.getTitle(5));
 		panelAccolades.add(lock6Accold);
 if(accolades.getCheck(5)==true){
-lock6Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge5.png"));
+lock6Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge5.png"));
 	lock6Accold.setBounds(610, 90, 120, 110);
 	lock6Accold.setToolTipText(accolades.getDescription(5));
 
@@ -732,13 +732,13 @@ lock6Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge5.png"));
 
 		
 		JLabel lock7Accold= new JLabel("");
-		lock7Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock7Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock7Accold.setBounds(720, 110, 106, 72);
 		lock7Accold.setToolTipText(	accolades.getTitle(6));
 		
 		panelAccolades.add(lock7Accold);
 if(accolades.getCheck(6)==true){
-lock7Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge6.png"));
+lock7Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge6.png"));
 	lock7Accold.setBounds(720, 90, 120, 110);
 	lock7Accold.setToolTipText(accolades.getDescription(6));
 
@@ -748,13 +748,13 @@ lock7Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge6.png"));
 		
 		
 		JLabel lock8Accold= new JLabel("");
-		lock8Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock8Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock8Accold.setBounds(830, 110, 106, 72);
 		lock8Accold.setToolTipText(	accolades.getTitle(7));
 		panelAccolades.add(lock8Accold);
 		
 if(accolades.getCheck(7)==true){
-lock8Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge7.png"));
+lock8Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge7.png"));
 	lock8Accold.setBounds(830, 90, 120, 110);
 	lock8Accold.setToolTipText(accolades.getDescription(7));
 
@@ -766,13 +766,13 @@ lock8Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge7.png"));
 		
 		
 		JLabel lock9Accold= new JLabel("");
-		lock9Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock9Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock9Accold.setBounds(30, 240, 382, 72);
 		lock9Accold.setToolTipText(	accolades.getTitle(8));
 		lock9Accold.setVisible(true);
 		panelAccolades.add(lock9Accold);
 if(accolades.getCheck(8)==true){
-lock9Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge8.png"));
+lock9Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge8.png"));
 	lock9Accold.setBounds(30, 240, 120, 110);
 	lock9Accold.setToolTipText(accolades.getDescription(8));
 	
@@ -782,12 +782,12 @@ lock9Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge8.png"));
 		
 		
 		JLabel lock10Accold= new JLabel("");
-		lock10Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock10Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock10Accold.setBounds(150, 240, 382, 72);
 		lock10Accold.setToolTipText(	accolades.getTitle(9));
 		panelAccolades.add(lock10Accold);
 if(accolades.getCheck(9)==true){
-lock10Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge9.png"));
+lock10Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge9.png"));
 	lock10Accold.setBounds(150, 240, 120, 110);
 	lock10Accold.setToolTipText(accolades.getDescription(9));
 
@@ -795,12 +795,12 @@ lock10Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge9.png"));
 		}
 		
 		JLabel lock11Accold= new JLabel("");
-		lock11Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock11Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock11Accold.setBounds(280, 240, 382, 72);
 		lock11Accold.setToolTipText(	accolades.getTitle(10));
 		panelAccolades.add(lock11Accold);
 if(accolades.getCheck(10)==true){
-lock11Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge10.png"));
+lock11Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge10.png"));
 	lock11Accold.setBounds(280, 240, 120, 110);
 	lock1Accold.setToolTipText(accolades.getDescription(10));
 
@@ -810,24 +810,24 @@ lock11Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge10.png"));
 		
 		
 		JLabel lock12Accold= new JLabel("");
-		lock12Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock12Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock12Accold.setBounds(390, 240, 382, 72);
 		lock12Accold.setToolTipText(	accolades.getTitle(11));
 		panelAccolades.add(lock12Accold);
 if(accolades.getCheck(11)==true){
-	lock12Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge11.png"));
+	lock12Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge11.png"));
 	lock12Accold.setBounds(390, 240, 120, 110);
 	lock12Accold.setToolTipText(accolades.getDescription(11));
 
 		}
 		
 		JLabel lock13Accold= new JLabel("");
-		lock13Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock13Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock13Accold.setBounds(500, 240, 382, 72);		
 		lock13Accold.setToolTipText(	accolades.getTitle(12));
 		panelAccolades.add(lock13Accold);
 if(accolades.getCheck(12)==true){
-	lock13Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge12.png"));
+	lock13Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge12.png"));
 	lock13Accold.setBounds(500, 240, 120, 110);
 	lock13Accold.setToolTipText(accolades.getDescription(12));
 
@@ -836,24 +836,24 @@ if(accolades.getCheck(12)==true){
 		
 		
 		JLabel lock14Accold= new JLabel("");
-		lock14Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock14Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock14Accold.setBounds(610, 240, 382, 72);
 		lock14Accold.setToolTipText(	accolades.getTitle(13));
 		panelAccolades.add(lock14Accold);
 if(accolades.getCheck(13)==true){
-lock14Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge13.png"));
+lock14Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge13.png"));
 	lock14Accold.setBounds(610, 240, 120, 110);
 	lock14Accold.setToolTipText(accolades.getDescription(13));
 
 		}
 		
 		JLabel lock15Accold= new JLabel("");
-		lock15Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock15Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock15Accold.setBounds(720, 240, 382, 72);
 		lock15Accold.setToolTipText(	accolades.getTitle(14));
 		panelAccolades.add(lock15Accold);
 if(accolades.getCheck(14)==true){
-lock15Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge14.png"));
+lock15Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge14.png"));
 	lock15Accold.setBounds(720, 240, 120, 110);
 	lock15Accold.setToolTipText(accolades.getDescription(14));
 
@@ -863,12 +863,12 @@ lock15Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge14.png"));
 		
 		
 		JLabel lock16Accold= new JLabel("");
-		lock16Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock16Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock16Accold.setBounds(830, 240, 382, 72);
 		lock16Accold.setToolTipText(	accolades.getTitle(15));
 		panelAccolades.add(lock16Accold);
 if(accolades.getCheck(15)==true){		
-lock16Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge15.png"));
+lock16Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge15.png"));
 	lock16Accold.setBounds(830, 240, 120, 110);
 	lock16Accold.setToolTipText(accolades.getDescription(15));
 
@@ -879,12 +879,12 @@ lock16Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge15.png"));
 		
 		
 		JLabel lock17Accold= new JLabel("");
-		lock17Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock17Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock17Accold.setBounds(30, 400, 382, 72);
 		lock17Accold.setToolTipText(	accolades.getTitle(16));
 		panelAccolades.add(lock17Accold);
 if(accolades.getCheck(16)==true){
-lock17Accold.setIcon(new ImageIcon("src/main/resources/Badges/rsz_badge16.png"));
+lock17Accold.setIcon(new ImageIcon("src/main/resources/Badges/Accolades/rsz_badge16.png"));
 	lock17Accold.setBounds(30, 410, 120, 110);
 	lock17Accold.setToolTipText(accolades.getDescription(16));
 
@@ -893,12 +893,12 @@ lock17Accold.setIcon(new ImageIcon("src/main/resources/Badges/rsz_badge16.png"))
 		
 		
 		JLabel lock18Accold= new JLabel("");
-		lock18Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock18Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock18Accold.setBounds(150, 400, 382, 72);
 		lock18Accold.setToolTipText(	accolades.getTitle(17));
 		panelAccolades.add(lock18Accold);
 if(accolades.getCheck(17)==true){
-lock18Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge17.png"));
+lock18Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge17.png"));
 	lock18Accold.setBounds(150, 410, 382, 110);
 	lock18Accold.setToolTipText(accolades.getDescription(17));
 
@@ -906,12 +906,12 @@ lock18Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge17.png"));
 		
 		
 		JLabel lock19Accold= new JLabel("");
-		lock19Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock19Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock19Accold.setBounds(270, 400, 382, 72);
 		lock19Accold.setToolTipText(	accolades.getTitle(18));
 		panelAccolades.add(lock19Accold);
 if(accolades.getCheck(18)==true){
-lock19Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge18.png"));
+lock19Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge18.png"));
 	lock19Accold.setBounds(270, 410, 120, 110);
 
 	lock19Accold.setToolTipText(accolades.getDescription(18));
@@ -921,12 +921,12 @@ lock19Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge18.png"));
 		
 		
 		JLabel lock20Accold= new JLabel("");
-		lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock20Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock20Accold.setBounds(390, 400, 382, 72);
 		lock20Accold.setToolTipText(accolades.getTitle(19));
 		panelAccolades.add(lock20Accold);
 if(accolades.getCheck(19)==true){
-lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge19.png"));
+lock20Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_badge19.png"));
 	lock20Accold.setBounds(390, 410, 120, 110);
 	lock20Accold.setToolTipText(accolades.getDescription(19));
 
