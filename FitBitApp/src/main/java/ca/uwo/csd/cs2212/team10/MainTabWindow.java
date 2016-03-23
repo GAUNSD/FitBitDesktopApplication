@@ -59,7 +59,6 @@ private Fitbit fitbit;
 private int dateSetting = 0; //The following will be the formats used and the corresponding numerical value
                              //		0 = dd/mm/yyyy
                              //		1 = yyyy/mm/dd
-//private FitB i
 
 
 	/**
@@ -75,19 +74,23 @@ private int dateSetting = 0; //The following will be the formats used and the co
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 *
 	 */
-	public MainTabWindow() throws JSONException, TokensException {
+	public MainTabWindow(Fitbit fitbit) throws JSONException, TokensException {
 
-		super(new GridLayout(1, 1));
+
+        super(new GridLayout(1, 1));
+            
+
+		this.fitbit = fitbit; 
 
 		// Create the API classes and the relevant variables associated with each
-		HeartStats heartrate = Fitbit.getHeartActivity("2016", "01", "29");
+		HeartStats heartrate = fitbit.getHeartActivity("2016", "01", "29");
 		int outOfRange = heartrate.getOutOfRange() ;
 		int fatBurn = heartrate.getFatBurn() ;
 		int cardio = heartrate.getCardio();
 		int peak = heartrate.getPeak() ;
 		int restHeartRate = heartrate.getRestHeartRate();
 
-		BestLifeStats bestlife=Fitbit.getBestLifeActivity();
+		BestLifeStats bestlife=fitbit.getBestLifeActivity();
 		double bestDistance= bestlife. getBestDistance() ;
 		String bestDistanceDate= bestlife.getBestDistanceDate();
 		double bestFloor = bestlife.getBestFloor();
@@ -98,7 +101,7 @@ private int dateSetting = 0; //The following will be the formats used and the co
 		double lifeFloors= bestlife.getLifeFloors();
 		long lifeSteps= bestlife.getLifeSteps();
 
-		DailyStats daily = Fitbit.getDailyActivity("2016", "01", "29");
+		DailyStats daily = fitbit.getDailyActivity("2016", "01", "29");
 		int floors = daily. getFloors();
 		int steps = daily.getSteps();
 		double distance = daily.getDistance();
@@ -190,7 +193,7 @@ private int dateSetting = 0; //The following will be the formats used and the co
 
 
 		// Adding the JDesktopPane into the "Dashboard" Panel
-		JDesktopPane desktop = new JDesktopPane();
+		final JDesktopPane desktop = new JDesktopPane();
 		desktop.setPreferredSize( new java.awt.Dimension(600,400) );
 		desktop.setBackground(new Color(40, 40, 40));
 
@@ -203,11 +206,6 @@ private int dateSetting = 0; //The following will be the formats used and the co
 		 *  Sedentary Minutes      //
 		 */
 		// Add the mapFrame one with Metric distance and one with imperial distance and set the imperial one  to false
-		final JInternalFrame mapFrameMetric = makeInternalFrame("Interactive Map", 
-				420, 0, 330, 320, true, true, true);
-		MapFrame mapContent = new MapFrame( bestDistance, bestDistanceDate, lifeDistance,"km");
-		mapFrameMetric.add( mapContent);
-		desktop.add( mapFrameMetric );
 		
 		/*final JInternalFrame mapFrameImperial = makeInternalFrame("Interactive Map", 
 				400, 0, 200, 200, true, true, true);
@@ -1127,7 +1125,7 @@ lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge19.png"));
 
 
 		//add a radiobutton for the time format
-		JRadioButton rdbtnhourClock = new JRadioButton("12-hour clock");
+		final JRadioButton rdbtnhourClock = new JRadioButton("12-hour clock");
 		buttonGroup_1.add(rdbtnhourClock);
 		rdbtnhourClock.setSelected(true);
 		rdbtnhourClock.setForeground(Color.WHITE);
@@ -1137,7 +1135,7 @@ lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge19.png"));
 
 
 		//add a radiobutton for the time format
-		JRadioButton rdbtnhourClock_1 = new JRadioButton("24-hour clock");
+		final JRadioButton rdbtnhourClock_1 = new JRadioButton("24-hour clock");
 		buttonGroup_1.add(rdbtnhourClock_1);
 		rdbtnhourClock_1.setForeground(Color.WHITE);
 		rdbtnhourClock_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
@@ -1185,7 +1183,7 @@ lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge19.png"));
 				desktop.repaint();
 				
 			
-				Date date= new Date();
+				final Date date= new Date();
 				int day=date.getDay();
 			int hours=	date.getHours();
 			if(hours>12&&tmp==true){
@@ -1225,14 +1223,6 @@ lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge19.png"));
 		
 		
 		
-		chckbxMap_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mapFrameMetric.setVisible(chckbxMap_1.isSelected()&& rdbtnMetric.isSelected());
-				//mapFrameImperial.setVisible(chckbxMap_1.isSelected()&& rdbtnImperial.isSelected());
-
-
-			}
-		});
 	}
 
 
