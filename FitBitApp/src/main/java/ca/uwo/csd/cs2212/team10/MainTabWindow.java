@@ -26,6 +26,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 import javax.swing.UIManager;
+import javax.swing.BoxLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -558,24 +559,48 @@ public class MainTabWindow extends JPanel {
         // Create map object
         JLabel worldMap;
         Map map; 
+        panelMap.add(lblMap, BorderLayout.PAGE_START);
+        final JPanel mapButtonPanel = new JPanel();
+        
+        final JButton zoomOut = new JButton("Zoom  -");
+        final JButton zoomIn = new JButton("Zoom +");
+        final JButton setLocation = new JButton("Set Location"); 
+
+        mapButtonPanel.setLayout(new BoxLayout(mapButtonPanel,BoxLayout.Y_AXIS));
+        mapButtonPanel.add(zoomOut);
+        mapButtonPanel.add(zoomIn); 
+        mapButtonPanel.add(setLocation);
+        mapButtonPanel.setPreferredSize(new Dimension(175,400));
+		mapButtonPanel.setBackground(new Color(40, 40, 40));
+
+        final JPanel mapPanel = new JPanel();
+        mapPanel.setLayout(new BorderLayout());
+        mapPanel.setPreferredSize(new Dimension(600,400));
+        mapPanel.setMaximumSize(new Dimension(600,400));
+		mapPanel.setBackground(new Color(40, 40, 40));
         try {
             map = new Map(fitbit);
             map.calculateDistances(); 
-            map.writeToJSONFile();
             map.refreshMap();
-            worldMap = new JLabel((new ImageIcon(map.getMap())));
-            panelMap.add(worldMap);
+            worldMap = new JLabel(new ImageIcon((new ImageIcon(map.getMap(1))).getImage().getScaledInstance(600,400,java.awt.Image.SCALE_SMOOTH)));
+            mapPanel.add(worldMap, BorderLayout.NORTH);
+            map.writeToJSONFile();
         } catch(Exception e) {
             e.printStackTrace(); 
         }
+
+        final JPanel mapListPanel = new JPanel();
+        mapListPanel.setLayout(new BoxLayout(mapListPanel,BoxLayout.Y_AXIS)); 
+        mapListPanel.setPreferredSize(new Dimension(200,400));
+        mapListPanel.setMaximumSize(new Dimension(200,400));
+		mapListPanel.setBackground(new Color(40, 40, 40));
+        JLabel test = new JLabel("test");
+        mapListPanel.add(test);
+
+        panelMap.add(mapListPanel, BorderLayout.LINE_START);  
+        panelMap.add(mapPanel, BorderLayout.CENTER);
+        panelMap.add(mapButtonPanel, BorderLayout.LINE_END);
         
-        
-        
-        
-        
-        
-        
-        //panelMap.add(lblMap);
 		
 
 		//panel where the buttons are added 
@@ -649,7 +674,7 @@ public class MainTabWindow extends JPanel {
 
 		//add button Map
         JToggleButton tglbtnMap;
-		tglbtnMap = new JToggleButton("Map                ");
+		tglbtnMap = new JToggleButton("Map                     ");
 		panel_1.add(tglbtnMap);
 		tglbtnMap.setBackground(new Color(55,55,55));
 		//show the Maps panel  and hide the rest

@@ -224,10 +224,11 @@ public class Map {
     
     /**
      * Method retrieves a map containing markers of all the cities that have been reached
+     * @param Integer value that will be set from 1-8. 
      * @return String that contains the file path of the map
      * @throws IOException Method uses IO to save image
      */
-    public String getMap() throws IOException { 
+    public String getMap(int zoom) throws IOException { 
         // Get large map from API call, return path to image
 
         String imageFile = "src/main/resources/locationImages/map.png";
@@ -241,15 +242,17 @@ public class Map {
         for(int i =0; i < this.locations.length; i++) {
             if(this.locations[i].getAchieved()) {
 
-                lat = (int)Double.parseDouble(locations[i].getCoordinates().substring(0,locations[i].getCoordinates().indexOf(',')));
+                /*lat = (int)Double.parseDouble(locations[i].getCoordinates().substring(0,locations[i].getCoordinates().indexOf(',')));
                 lng = (int)Double.parseDouble(locations[i].getCoordinates().substring(locations[i].getCoordinates().indexOf(',')+1,locations[i].getCoordinates().length()));
-                markers = markers + lat + "," + lng + "%7C";
+                markers = markers + lat + "," + lng + "%7C";*/
+                markers = markers + this.locations[i].getCoordinates() + "%7C";
             }
         }
 
-        String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=0,0&zoom=1&size=600x400&scale=2&markers=size:tiny%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
+        String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.currentLocation.getName().replaceAll("\\s","%20")  + "&zoom=" + zoom + "&size=600x400&scale=2&markers=size:tiny%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
 
         System.out.println(imageURL.length());
+        System.out.println(imageURL.substring(0,imageURL.length()-44));
 
         BufferedImage image = null;
         URL url = new URL(imageURL);
