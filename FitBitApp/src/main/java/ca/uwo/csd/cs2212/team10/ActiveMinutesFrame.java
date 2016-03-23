@@ -1,12 +1,17 @@
 package ca.uwo.csd.cs2212.team10;
 
 import javax.swing.*;
-
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+
 
 /**
  * This class represents the information for the Dashboard element 'Active Minutes'
@@ -16,6 +21,9 @@ import java.awt.event.ActionEvent;
  * @author Gustavo Murcia
  */
 public class ActiveMinutesFrame extends JPanel {
+
+	Color bg = new Color(155,155,155);
+	String[] userDate = {"yyyy","mm","dd"};
 
 	/**
 	 * The constructor for Active Minutes Frame. 
@@ -27,195 +35,260 @@ public class ActiveMinutesFrame extends JPanel {
 	 * @param activeMinGoals integer that contains active minute goals
 	 */
 	public ActiveMinutesFrame(int lightActiveMins, int fairlyActiveMins, int veryActiveMins, int activeMinGoals, int floors, int steps, double distance,int floorGoals,int stepGoals,double distanceGoals) {
+
+		// Set the layout of this Frame to a BoxLayout. This allows all additional elements to be added horizontally
+		//BoxLayout bl = new BoxLayout(this, BoxLayout.Y_AXIS);
+		//this.setLayout(bl);
+
+		this.setLayout(null);
+
+		//tmp
+		this.setBackground(this.bg); 
+
+
+		// A top menu bar for the user input
+		/*JMenuBar desktopMenuBar = new JMenuBar();
+		desktopMenuBar.setBackground(new Color(100, 255, 100));
+		desktopMenuBar.setBorderPainted(false);
+		desktopMenuBar.setBounds(0, 0, 500, 20);
+		//Create the UserInput Text Box
+		JFormattedTextField userInput = new JFormattedTextField(
+				createFormatter("####/##/##"));
+		userInput.setBounds(0, 0, 150, 20);
 		
+		// Create a refresh button
+		JButton refreshbutn = new JButton("Input Desired Date"); 
+		//refreshbutn.setIcon();
+		refreshbutn.setBackground(new Color(250, 150, 150));
+		refreshbutn.setBorderPainted(false);
+		refreshbutn.setBounds(400, 0, 100, 20);
+		refreshbutn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ActiveMinutesFrame.this.repaintAndUpdate();
+				ActiveMinutesFrame.this.setUserDate(userInput);
+				System.out.println(ActiveMinutesFrame.this.getUserDateString());
+			}
+		});
 		
-		// JLabels to print the text for the testFitBitAPI
-		String stringLabel = "<html>" +
-				"<u>Active Minutes</u>" +
-				"<br>Light: " + lightActiveMins + 
-				"<br>Fairly: " + fairlyActiveMins +
-				"<br>Very: " + veryActiveMins + 
-				"<br>Goals: " + activeMinGoals + 
-				"</html>";
-		JLabel lblName = new JLabel(stringLabel, JLabel.CENTER);
-		lblName.setBounds(300, 184, 110, 100);
-		lblName.setOpaque(false);	
-		lblName.setToolTipText("Daily Goals");
-		this.setBackground(new Color(155, 155, 155)); 
-		setLayout(null);
-		
-		
-		//this.add(content);
-		this.add(lblName);
-		String	stepslabel;
-		
-		int stepsLeft= stepGoals-steps;
-		if(stepsLeft<0){
-				// JLabels to print the text for the testFitBitAPI
-			stepslabel = "<html>" +  "<br> You are above your goal by "+ -stepsLeft+
-						"<br>Steps: " + steps + " steps"+
-						"<br>Steps (Goals): " + stepGoals + " steps"+
-						"</html>";
-		}
-		else if(stepsLeft>0){
-			stepslabel = "<html>" +  "<br> You are below your goal by "+ stepsLeft+
-						"<br>Steps: " + steps + " steps"+
-						"<br>Steps (Goals): " + stepGoals + " steps"+
-						"</html>";
-		}
-		else{ 
-			 stepslabel = "<html>" +  "<br> You are met your goal by "+ stepsLeft+
-						"<br>Steps: " + steps + " steps"+
-						"<br>Steps (Goals): " + stepGoals + " steps"+
-						"</html>";
-			
-		}
-		
-		JLabel lblSteps = new JLabel(stepslabel);
-		lblSteps.setBounds(150, 115, 140, 70);
-		add(lblSteps);
-		
-	String	floorslabel;
-		
-		int floorsLeft= stepGoals-steps;
-		if(floorsLeft<0){
-				// JLabels to print the text for the testFitBitAPI
-			floorslabel = "<html>" +  "<br> You are above your goal by "+ -floorsLeft+
-						"<br>floors: " + floors + " steps"+
-						"<br>floors (Goals): " + floorGoals + " floors"+
-						"</html>";
-		}
-		else if(floorsLeft>0){
-			floorslabel = "<html>" +  "<br> You are below your goal by "+ floorsLeft+
-						"<br>floors: " + floors + " steps"+
-						"<br>floors (Goals): " + floorGoals + " floors"+
-						"</html>";
-		}
-		else{ 
-			floorslabel = "<html>" +  "<br> You are met your goal by "+ floorsLeft+
-						"<br>floors: " + floors + " steps"+
-						"<br>floors (Goals): " + floorGoals + " floors"+
-						"</html>";
-			
-		}
+		// Add the elements for the top Menu bar
+		this.add(userInput);
+		desktopMenuBar.add(Box.createHorizontalGlue());
+		desktopMenuBar.add(refreshbutn);
+		// Add the menu bar
+		this.add(desktopMenuBar);
+*/
+		////// Active Minutes Goal
+		int totalActiveMins = lightActiveMins + fairlyActiveMins + veryActiveMins;		//Find the total active min's
+		JPanel activeMinGoalsPanel = new JPanel();										//Create the subPanel
+		activeMinGoalsPanel.setBackground(this.getBackground());
+		//Calculate the progress label
+		String activelabel = this.setProgressLabel("Minutes:", "min's", totalActiveMins, stepGoals);	
+		JLabel lblActive = new JLabel(activelabel); //Make the label with the textual representation
+		//lblActive.setBounds(150, 115, 140, 70);                                          
+		activeMinGoalsPanel.add(lblActive, BorderLayout.EAST); // Add the label to the subPanel
 		
 		
 		
-		JLabel lblNewLabel_1 = new JLabel(floorslabel);
-		lblNewLabel_1.setBounds(20, 195, 135, 70);
-		add(lblNewLabel_1);
-		
-		int trial=7;
-		double activeMin = (lightActiveMins + fairlyActiveMins + veryActiveMins)/(double)activeMinGoals;
+
+		// Calculate the progress
+		double activeMin = (totalActiveMins)/(double)activeMinGoals;
+
 		int angleProgressActiveMin = (int)((activeMin)*360);
-		
-		double floorsArc = (trial)/(double)floorGoals;
-		int angleProgressFloors = (int)((floorsArc)*360);
-		
-		double stepsArc = (steps)/(double)stepGoals;
-		int angleProgressSteps = (int)((stepsArc)*360);
-		
-		
-		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
-		progBar1.setArcAngle(angleProgressSteps);
-		ProgressBar progBar2 = new ProgressBar(0,0, Color.BLUE);
+		// Create the progress bar 
 		ProgressBar progBar3 = new ProgressBar(0,0, Color.YELLOW);
 		progBar3.setArcAngle(angleProgressActiveMin);
-		
-		
-		/*
-		JLabel lblNewLabel_2 = new JLabel("<html>"+ distance + " Miles<br>"+ distanceGoals +" to go<html>");
-		lblNewLabel_2.setBounds(357, 215, 92, 32);
-		add(lblNewLabel_2);
-		*/
-		
-		/*JLabel btnNewButton_2 = new JLabel("");
-		btnNewButton_2.setIcon(new ImageIcon("/Users/linaradwan/Downloads/ActiveMin.png"));
-		btnNewButton_2.setBounds(290, 85, 128, 108);
-		add(btnNewButton_2);
-	*/
-		
-		JLabel btnNewButton_1 = new JLabel("");
-		btnNewButton_1.setIcon(new ImageIcon("ActiveMin.png"));
-		btnNewButton_1.setBounds(287, 85, 128, 108);
-		progBar3.setBounds(302, 89, 128, 122);
-		add(btnNewButton_1);
-		add(progBar3);
+		progBar3.setBounds(0, 10, 120, 120);
+		this.add(progBar3);
 
-		/*
-		JButton btnNewButton_3 = new JButton("");
-		btnNewButton_3.setIcon(new ImageIcon("/Users/linaradwan/Downloads/ActiveMin.png"));
-		btnNewButton_3.setBounds(176, 165, 121, 108);
-		add(btnNewButton_3);
-		*/
-		/*JLabel btnNewButton_1 = new JLabel("");
-		btnNewButton_1.setIcon(new ImageIcon("/Users/linaradwan/Downloads/Steps.png"));
-		btnNewButton_1.setBounds(137, 0, 135, 122);
-		add(btnNewButton_1);
-		*/
+		activeMinGoalsPanel.setBounds(0, 10, 500, 120);
+		add(activeMinGoalsPanel);	//Add the subPanel to the parent
 		
+		/////// Floor Goal
+		JPanel floorGoalsPanel = new JPanel();
+		floorGoalsPanel.setBackground(this.getBackground());
+		String floorslabel = this.setProgressLabel("Floors", "floors", floors, floorGoals);
+		JLabel lblFloors = new JLabel(floorslabel);
+		
+		floorGoalsPanel.add(lblFloors, BorderLayout.EAST);
 
-		JLabel stepsPic = new JLabel("");
-		stepsPic.setIcon(new ImageIcon("StepsGoals.png"));
-		stepsPic.setBounds(138, 0, 135, 122);
-		progBar1.setBounds(153, 13, 128, 150);
-		add(stepsPic);
+		// Calculate the progress
+		//int trial=7;
+		double floorsArc = (floors)/(double)floorGoals;
+		int angleProgressFloors = (int)((floorsArc)*360);
+		// Create the progress Bar
+		ProgressBar progBar2 = new ProgressBar(0,0, Color.BLUE);
+		progBar2.setArcAngle(angleProgressFloors);
+		progBar2.setBounds(0, 130, 120, 120);
+
+		this.add(progBar2);
+
+		floorGoalsPanel.setBounds(0, 130, 500, 120);
+		add(floorGoalsPanel);
+		////// Steps Goal
+		JPanel stepsGoalsPanel = new JPanel();
+		stepsGoalsPanel.setBackground(this.getBackground());
+		String stepslabel = this.setProgressLabel("Steps", "steps", steps, stepGoals);
+		JLabel lblSteps = new JLabel(stepslabel);
+		stepsGoalsPanel.add(lblSteps, BorderLayout.EAST);
+
+		// Calculate the progress
+		double stepsArc = (steps)/(double)stepGoals;
+		int angleProgressSteps = (int)((stepsArc)*360);
+		// Create the progress bar
+		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
+		progBar1.setArcAngle(angleProgressSteps);
+		progBar1.setBounds(0, 250, 120, 120);
+
 		this.add(progBar1);
 
-		
-		/*JLabel btnNewButton = new JLabel("");
-		btnNewButton.setIcon(new ImageIcon("/Users/linaradwan/Downloads/floors.png"));
-		btnNewButton.setBounds(12, 85, 121, 108);
-		add(btnNewButton);*/
-		progBar2.setArcAngle(angleProgressFloors);
-		JLabel floorsPic = new JLabel("");
-		floorsPic.setIcon(new ImageIcon("floors.png"));
-		floorsPic.setBounds(12, 85, 121, 108);
-		progBar2.setBounds(22, 89, 128, 122);
-		add(floorsPic);
-		add(progBar2);
-		
-		
+		stepsGoalsPanel.setBounds(0, 250, 500, 120);
+		add(stepsGoalsPanel);
+		////// Distance Goal
+		String units = "km"; //tmp - here we put the unit change
+		JPanel distanceGoalsPanel = new JPanel();
+		distanceGoalsPanel.setBackground(this.getBackground());
+		String distanceLabel = this.setProgressLabel("Distance", units, distance, distanceGoals);
+		JLabel lblDistance = new JLabel(distanceLabel);
+		distanceGoalsPanel.add(lblDistance,BorderLayout.EAST);
+
+		// Calculate the progress
+		double distArc = (distance)/(double)distanceGoals;
+		int angleProgressDistance = (int)((distArc)*360);
+		// Create the progress bar
+		ProgressBar progBar4 = new ProgressBar(0, 0, Color.GREEN);
+		progBar4.setArcAngle(angleProgressDistance);
+		progBar4.setBounds(0, 370, 120, 120);
+
+		this.add(progBar4);
+
+		distanceGoalsPanel.setBounds(0, 370, 600, 120);
+		add(distanceGoalsPanel);
+
 	}
 	
-	
-	
-	private class ProgressBar extends JComponent {
-		Ellipse2D.Double fill;
-		Area inside;
-		int x;
-		int y;
-		int width = 100;
-		int height = 100;
-		int startAngle = 0; 
-		int arcAngle = 270;
-		Color colour;
-		
-		public ProgressBar(int startX, int startY, Color colourIn) {
-			//When initializing the progress bar, we will also initialize the bars position and color
-			this.x = startX;
-			this.y = startY;
-			this.colour = colourIn;
+	/**
+	 * Used to set the formatting for the JFormattedTextField at the top of the Panel
+	 * 
+	 * @param s		the format
+	 * @return
+	 */
+	protected MaskFormatter createFormatter(String s) {
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter(s);
+		} catch (java.text.ParseException exc) {
+			System.err.println("formatter is bad: " + exc.getMessage());
+			System.exit(-1);
 		}
-		
-		public void setArcAngle(int angle) {
-			this.arcAngle = angle;
+		return formatter;
+	}
+	
+	/**
+	 * Set the user date from the JFormattedTextField.
+	 * This sets the String array's 3 respective elements
+	 * 
+	 * @param userInput
+	 */
+	public void setUserDate(JFormattedTextField userInput) {
+		String in = userInput.getText();
+		if (in == null) {
+			//do nothing - yet?
 		}
-
-		@Override
-		public void paint(Graphics g) {
-			super.paintComponent(g);
-			//Graphics2D g2 = (Graphics2D) g;
-			g.setColor(colour);
-
-			//Fill the progress bar
-			g.fillArc(this.x, this.y, width, height, startAngle+270, arcAngle);
-			g.setColor(this.getBackground());
-			g.fillArc(x+10, y+10, width-20, height-20, startAngle, 360);
-
+		else {
+			this.userDate[0] = in.substring(0, 4);
+			this.userDate[1] = in.substring(6, 8);
+			this.userDate[2] = in.substring(8, 10);
 		}
 	}
 	
+	/**
+	 * Returns the User Date String Array.
+	 * This will be used for creating new API objects with the user's requested date
+	 * 
+	 * @return String[] userDate
+	 */
+	public String[] getUserDate() {
+		return this.userDate;
+	}
 	
+	/**
+	 * Returns a single String that holds the components of the userDate String array.
+	 * This will be used to print the date where needed within the element itself
+	 * 
+	 * @return String 
+	 */
+	public String getUserDateString() {
+		String[] tmpArr = this.getUserDate();
+		String year = tmpArr[0];
+		String month = tmpArr[1];
+		String day = tmpArr[2];
+		String out = year + "/" + month + "/" + day;
+		return out;
+	}
 	
+	/**
+	 * Repaint the entire panel. ***in test***
+	 */
+	public void repaintAndUpdate() {
+		this.setBg(new Color(100,0,0));
+		this.validate();
+		this.repaint();
+	}
+
+	/**
+	 * Get the Background of the panel
+	 * 
+	 * @return Color
+	 */
+	public Color getBg() {
+		return bg;
+	}
+	
+	/**
+	 * Set the background of the panel
+	 * 
+	 * @param Color bg
+	 */
+	public void setBg(Color bg) {
+		this.bg = bg;
+	}
+
+	/**
+	 * Method to make the label making easier since there are many conditions for the progress
+	 * @param category			ex: Distance
+	 * @param categoryUnits		ex: km's
+	 * @param progress			
+	 * @param progressGoal		
+	 * @return	progressLabel
+	 */
+	public String setProgressLabel(String category, String categoryUnits, double progress, double progressGoal) {
+		String progressLabel;
+		double progressLeft = progressGoal - progress;
+		if(progressLeft<0){
+			// JLabels to print the text for the testFitBitAPI
+			progressLabel = "<html>" +  "<br> You are above your goal by "+ -progressLeft +
+					"<br>" + category + "       : " + progress     + " " + categoryUnits +
+					"<br>" + category + "(Goals): " + progressGoal + " " + categoryUnits +
+					"</html>";
+		}
+		else if(progressLeft>0){
+			progressLabel = "<html>" +  "<br> You are below your goal by "+ progressLeft+
+					"<br>" + category + "       : " + progress     + " " + categoryUnits +
+					"<br>" + category + "(Goals): " + progressGoal + " " + categoryUnits +
+					"</html>";
+		}
+		else{ 
+			progressLabel = "<html>" +  "<br> You have exceeded your goal by "+ progressLeft+
+					"<br>" + category + "       : " + progress     + " " + categoryUnits +
+					"<br>" + category + "(Goals): " + progressGoal + " " + categoryUnits +
+					"</html>";
+
+		}
+
+		return progressLabel;
+	}
+
+
 }
+
+

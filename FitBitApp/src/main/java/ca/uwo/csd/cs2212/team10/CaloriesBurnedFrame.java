@@ -25,6 +25,17 @@ public class CaloriesBurnedFrame extends JPanel {
 		super(new GridLayout(1, 1));
 		this.setLayout(null);
 		String stringLabel;
+		
+		double colriesArc = (calories)/(double)caloriesOutGoals;
+		int angleProgressCalories = (int)((colriesArc)*360);
+		// Create the progress bar
+		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
+		progBar1.setArcAngle(angleProgressCalories);
+		progBar1.setBounds(33,0, 198, 132);
+
+		this.add(progBar1);
+		
+		
 int caloriesLeft= caloriesOutGoals-calories;
 if(caloriesLeft<0){
 		// JLabels to print the text for the testFitBitAPI
@@ -52,15 +63,15 @@ else{
 
 		
 		lblName.setOpaque(false);	
-		lblName.setToolTipText("tmp");
+		lblName.setToolTipText("Calories Burned");
 		
-		JLabel lblNewLabel = new JLabel("");
+		/*JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("src/main/resources/caloriesBurned.png"));
 		lblNewLabel.setBounds(33,0, 198, 132);
-		
+		*/
 		
 		this.setBackground(new Color(155, 155, 155));
-		this.add(lblNewLabel);
+		//this.add(lblNewLabel);
 		
 		//this.add(content);
 		this.add(lblName);
