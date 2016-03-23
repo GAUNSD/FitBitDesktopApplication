@@ -22,9 +22,11 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
+import javax.swing.JFormattedTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
@@ -34,6 +36,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -50,9 +53,15 @@ import org.json.JSONException;
  * @author UI Team (Vincent, John, Lina, Gustavo)
  */
 public class MainTabWindow extends JPanel {
-	
-	private Fitbit fitbit;
-	
+	JLabel time;
+Boolean tmp;
+private Fitbit fitbit;
+private int dateSetting = 0; //The following will be the formats used and the corresponding numerical value
+                             //		0 = dd/mm/yyyy
+                             //		1 = yyyy/mm/dd
+//private FitB i
+
+
 	/**
 	 * The main constructor the holds the majority of the UI. 
 	 * The constructor is separated into the following sections;
@@ -62,23 +71,23 @@ public class MainTabWindow extends JPanel {
 	 * 		Settings
 	 * Each of these sections make their respective content that is housed inside a JTabbedPane container.
 	 * 
-     * @throws JSONException Method requests a JSON file that can throw this error
-     * @throws TokensException Method uses tokens to interface with API which can throw this error
-     *
+	 * @throws JSONException Method requests a JSON file that can throw this error
+	 * @throws TokensException Method uses tokens to interface with API which can throw this error
+	 *
 	 */
-	public MainTabWindow(Fitbit fitbit) throws JSONException, TokensException {
+	public MainTabWindow() throws JSONException, TokensException {
 
 		super(new GridLayout(1, 1));
-		this.fitbit = fitbit;
+
 		// Create the API classes and the relevant variables associated with each
-		HeartStats heartrate = fitbit.getHeartActivity("2016", "01", "29");
+		HeartStats heartrate = Fitbit.getHeartActivity("2016", "01", "29");
 		int outOfRange = heartrate.getOutOfRange() ;
 		int fatBurn = heartrate.getFatBurn() ;
 		int cardio = heartrate.getCardio();
 		int peak = heartrate.getPeak() ;
 		int restHeartRate = heartrate.getRestHeartRate();
 
-		BestLifeStats bestlife=fitbit.getBestLifeActivity();
+		BestLifeStats bestlife=Fitbit.getBestLifeActivity();
 		double bestDistance= bestlife. getBestDistance() ;
 		String bestDistanceDate= bestlife.getBestDistanceDate();
 		double bestFloor = bestlife.getBestFloor();
@@ -89,7 +98,7 @@ public class MainTabWindow extends JPanel {
 		double lifeFloors= bestlife.getLifeFloors();
 		long lifeSteps= bestlife.getLifeSteps();
 
-		DailyStats daily = fitbit.getDailyActivity("2016", "01", "29");
+		DailyStats daily = Fitbit.getDailyActivity("2016", "01", "29");
 		int floors = daily. getFloors();
 		int steps = daily.getSteps();
 		double distance = daily.getDistance();
@@ -103,6 +112,52 @@ public class MainTabWindow extends JPanel {
 		double distanceGoals = daily.getDistanceGoals() ;
 		int floorGoals = daily.getFloorGoals();
 		int stepGoals = daily.getStepGoals() ;				
+
+		double lifeDistanceImperial= lifeDistance/1000; 
+		float bestDistanceImperialnum=(float) (bestDistance/1000);
+
+
+		
+		//Parse through the date information from the API so the user can change the way they see it
+				//**
+				/* Parse through the date information from the API so the user can change the way they see it
+				 * note: The FitBitAPI sends date information in the following format: yyyy-mm-dd
+				 * 			The user will be able to change it to the following formats:
+				 * 				yyyy/mm/dd
+				 * 				dd/mm/yyyy
+				 * 					more in the future?
+				 */
+				//dateArr will hold all the date values coming from the API
+				String[] dateArr = {bestDistanceDate, bestFloorDate, bestStepDate};
+				//SingleComponents will hold the individual components from the API date info 
+				//As of now, there are only (and only will be?) 3 pieces of data pertaining to dates.
+				String[][] singleComponents = {
+						{"yyyy","mm","dd"},
+						{"yyyy","mm","dd"},
+						{"yyyy","mm","dd"}
+				};
+				for (int i = 0; i < 3; i++) {
+					// Get the info from the dateArr and put it into the singleComponents array.
+					// (substring values have been chosen because of the following incoming format; yyyy-mm-dd
+					singleComponents[i][0] = dateArr[i].substring(0, 4); // Get the year 
+					singleComponents[i][1] = dateArr[i].substring(5, 7); // Get the month 
+					singleComponents[i][2] = dateArr[i].substring(8, 10); // Get the day
+				}
+				// Now we set the values of the dates from the API to the setting the user has chosen.
+				if (dateSetting == 0) { //If 0, then set format to dd/mm/yyyy
+					bestDistanceDate = singleComponents[0][2] + "/" + singleComponents[0][1] + "/" + singleComponents[0][0];
+					bestFloorDate 	 = singleComponents[1][2] + "/" + singleComponents[1][1] + "/" + singleComponents[1][0];
+					bestStepDate 	 = singleComponents[2][2] + "/" + singleComponents[2][1] + "/" + singleComponents[2][0];
+				}
+				else { 					//If 1, then set formate to mm/dd/yyyy
+					bestDistanceDate = singleComponents[0][1] + "/" + singleComponents[0][2] + "/" + singleComponents[0][0];
+					bestFloorDate 	 = singleComponents[1][1] + "/" + singleComponents[1][2] + "/" + singleComponents[1][0];
+					bestStepDate 	 = singleComponents[2][1] + "/" + singleComponents[2][2] + "/" + singleComponents[2][0];
+				}
+				
+				
+				
+		
 
 		// Investigate. This could possibly be used to set different color themes to the UI
 		//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -120,45 +175,25 @@ public class MainTabWindow extends JPanel {
 		panel1.setLayout(new BorderLayout());
 
 		// A top menu bar that appears when the user first uses the Dashboard Menu
-		//		Expand options here in the future. For example; the refresh button
 		final JMenuBar desktopMenuBar = new JMenuBar();
 		desktopMenuBar.setBackground(new Color(100, 100, 100));
 		desktopMenuBar.setBorderPainted(false);
-		// Add the button that will lead the user to the Dashboard Menu to add elements
-		final JButton btnadd = new JButton("+ Add elements to get started"); 
-		btnadd.setBackground(new Color(150, 150, 150));
-		btnadd.setBorderPainted(true);
 		
-
-		// Add the action
-		btnadd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabbedPane.setSelectedIndex(1);
-			}
-		});
-		desktopMenuBar.add(Box.createHorizontalGlue());
-		desktopMenuBar.add(btnadd);
+	
+	
+		
+		
+		
+		
 		// Add the menu bar
 		panel1.add(desktopMenuBar, BorderLayout.NORTH);
 
-
-		/* 
-		//add a panel that we the elements are going to be added on 
-		final JPanel panelback1 = new JPanel();
-		panelback1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
-		panelback1.setBackground(new Color(40, 40, 40));
-		panelback1.setForeground(new Color(40, 40, 40));
-		panelback1.setBounds(0, 0, 1128, 644);
-		panel1.add(panelback1, BorderLayout.WEST);
-		panelback1.setLayout(null);
-		 */
 
 		// Adding the JDesktopPane into the "Dashboard" Panel
 		JDesktopPane desktop = new JDesktopPane();
 		desktop.setPreferredSize( new java.awt.Dimension(600,400) );
 		desktop.setBackground(new Color(40, 40, 40));
 
-		// Put the +Add elements to the top of the desktopPane
 
 		/* Elements needed:
 		 * 	Map
@@ -167,38 +202,95 @@ public class MainTabWindow extends JPanel {
 		 *  Daily Activity Records //
 		 *  Sedentary Minutes      //
 		 */
-		// The Total Distance element 
-		final JInternalFrame mapFrame = makeInternalFrame("Interactive Map", 
-				0, 0, 200, 200, false, true, true);
-		MapFrame mapContent = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
-		mapFrame.add( mapContent);
-		desktop.add( mapFrame );
-
-		// The Floors Climbed element
+		// Add the mapFrame one with Metric distance and one with imperial distance and set the imperial one  to false
+		final JInternalFrame mapFrameMetric = makeInternalFrame("Interactive Map", 
+				420, 0, 330, 320, true, true, true);
+		MapFrame mapContent = new MapFrame( bestDistance, bestDistanceDate, lifeDistance,"km");
+		mapFrameMetric.add( mapContent);
+		desktop.add( mapFrameMetric );
+		
+		/*final JInternalFrame mapFrameImperial = makeInternalFrame("Interactive Map", 
+				400, 0, 200, 200, true, true, true);
+		MapFrame mapContent2 = new MapFrame(bestDistanceImperialnum, bestDistanceDate, lifeDistanceImperial,"mile");
+		mapFrameImperial.add( mapContent2);
+		mapFrameImperial.setVisible(false);
+		desktop.add( mapFrameImperial );
+		*/
+		
+		// The Heart Rate Zone element
 		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", 
-				200, 0, 200, 200, false, true, true);
-		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(fatBurn, cardio, peak, restHeartRate);
+				720, 200, 485, 355, true, true, true);
+		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(outOfRange,fatBurn, cardio, peak, restHeartRate);
 		heartRateFrame.add(heartRateContent);
 		desktop.add( heartRateFrame );
 
-		// The Steps Taken Element
+		// The Calories Burne Element
 		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", 
-				400, 0, 200, 200, false, true, true);
+				760, 0, 226, 230, true, true, true);
 		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
 		calBurnFrame.add(calBurnContent);
 		desktop.add( calBurnFrame );
 
 
+
 		// The Active Minutes element
-		final JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", 
-				600, 0, 200, 200, false, true, true);
-		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins, activeMinGoals);
+		final JInternalFrame activeMinFrame = makeInternalFrame("Daily Goals", 
+				0, 0, 510, 520, true, true, true);
+		
+		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins, activeMinGoals, floors,steps, distance,floorGoals,stepGoals,distanceGoals);
+
+		
 		activeMinFrame.add(activeMinContent);
 		desktop.add( activeMinFrame );
+		
+		
+		
 
+		//Create the UserInput Text Box
+		JFormattedTextField userInput = new JFormattedTextField(createFormatter("####/##/##"));
+		userInput.setBounds(0, 0, 150, 20);
+		
+		
+		
+		// Create a refresh button
+		JButton desiredDate = new JButton("Input Desired Date"); 
+		//refreshbutn.setIcon();
+		desiredDate.setBackground(new Color(250, 150, 150));
+		desiredDate.setBorderPainted(false);
+		desiredDate.setBounds(400, 0, 100, 20);
+	/*	desiredDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ActiveMinutesFrame.this.repaintAndUpdate();
+				ActiveMinutesFrame.this.setUserDate(userInput);
+				System.out.println(ActiveMinutesFrame.this.getUserDateString());
+			}
+		});
+		
+		*/
+		desktopMenuBar.add(desiredDate);
+		desktopMenuBar.add(userInput);
+
+		// Add a refresh button
+		final JButton refreshbutn = new JButton(""); 
+		refreshbutn.setIcon(new ImageIcon("src/main/resources/refreshbutton.png"));
+		refreshbutn.setBackground(new Color(150, 150, 150));
+		refreshbutn.setBorderPainted(false);
+		desktopMenuBar.add(Box.createHorizontalGlue());
+		desktopMenuBar.add(refreshbutn);
+		
+;
+				
+				// Add the elements for the top Menu bar
+			//	this.add(userInput);
+				desktopMenuBar.add(Box.createHorizontalGlue());
+				desktopMenuBar.add(refreshbutn);
+				// Add the menu bar
+		
+		
+		
 		// The Sedentary Minutes element
 		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", 
-				800, 0, 200, 200, false, true, true);
+				970, 0, 223, 230, true, true, true);
 		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins); 
 		sedMinFrame.add(sedMinContent);
 		desktop.add( sedMinFrame );
@@ -206,10 +298,15 @@ public class MainTabWindow extends JPanel {
 		panel1.add(desktop);
 
 		//add the the panel to the tabbed pane
-		ImageIcon icon1 = new ImageIcon("home_icon.png");
-		tabbedPane.addTab("Dashboard",icon1 , panel1, "tmp1"); // Add the desktop pane to the tabbedPane
+		tabbedPane.addTab("Dashboard",null , panel1, "tmp1"); // Add the desktop pane to the tabbedPane
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.setBackgroundAt(0, Color.WHITE);
+		time=new JLabel(" "+new Date());
+
+	
+
+
+
 
 		/**
 		 * Dashboard Menu
@@ -228,6 +325,7 @@ public class MainTabWindow extends JPanel {
 		scrollPane.setForeground(new Color(40, 40, 40));
 		scrollPane.setBounds(18, 77, 1110, 567);
 
+		
 		panel2.add(scrollPane);
 		//add a panel on top of the scroll pane to add the elements easier
 		JPanel panelscroll = new JPanel();
@@ -235,6 +333,8 @@ public class MainTabWindow extends JPanel {
 		panelscroll.setBackground(new Color(40, 40, 40));
 		panelscroll.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		scrollPane.setViewportView(panelscroll);
+		
+		
 
 		// Interactive Map description and button add
 		JLabel mapDescript = new JLabel("");
@@ -243,46 +343,19 @@ public class MainTabWindow extends JPanel {
 		mapDescript.setForeground(Color.LIGHT_GRAY);
 		mapDescript.setBounds(30, 80, 328, 93);	//In the future, make this non-static positions
 		panelscroll.add(mapDescript);
+		
+		
 		//add a check box for map
 		final JCheckBox chckbxMap_1 = new JCheckBox("Map"); 
+		chckbxMap_1.setSelected(true);
 		chckbxMap_1.setBounds(60, 180, 128, 23);
 		chckbxMap_1.setBackground(new Color(40, 40, 40));
-		chckbxMap_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				desktopMenuBar.setVisible(chckbxMap_1.isSelected()==false);
-				mapFrame.setVisible(chckbxMap_1.isSelected());
-
-			}
-		});
 		panelscroll.setLayout(null);
 		chckbxMap_1.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxMap_1.setForeground(Color.WHITE);
-
 		panelscroll.add(chckbxMap_1);
 
-		/* TMP - commented out since the time series is not needed as of 2016.03.01
-		// Time Series description and button add 
-		JLabel tsDescript = new JLabel("");
-		tsDescript.setText("<html>The Time Series displays <BR>the information for all your <BR>accumulated progress,data like: <BR>total steps,calories,distance,<BR>and heart rate.</html>");
-		tsDescript.setFont(new Font ("Courier New",Font.BOLD,16));
-		tsDescript.setForeground(Color.LIGHT_GRAY);
-		tsDescript.setBounds(430, 120, 728, 93);
-		panelscroll.add(tsDescript);
-		//add a check box for time series
-		final JCheckBox chckbxTimeSeries = new JCheckBox("Time Series");
-		chckbxTimeSeries.setBounds(460, 220, 128, 23);
-		chckbxTimeSeries.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		chckbxTimeSeries.setForeground(Color.WHITE);
-		chckbxTimeSeries.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnadd.setVisible(chckbxTimeSeries.isSelected()==false);
-				//timeSeriesPanel.setVisible(chckbxTimeSeries.isSelected());
-
-			}
-		});
-		panelscroll.add(chckbxTimeSeries);
-		 */
-
+		
 		// Heart Rate Zone description and button add
 		JLabel hrDescript = new JLabel("");
 		hrDescript.setText("<html>The Heart Rate displays <BR> your daily heart zone <BR>information and resting <BR>heart rate.</html>");
@@ -292,13 +365,13 @@ public class MainTabWindow extends JPanel {
 		panelscroll.add(hrDescript);
 		//add a check box for heart rate
 		final JCheckBox chckbxHeartRate = new JCheckBox("Heart Rate");
+		chckbxHeartRate.setSelected(true);
 		chckbxHeartRate.setBounds(900, 180, 128, 23);
 		chckbxHeartRate.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		chckbxHeartRate.setForeground(Color.WHITE);
 		chckbxHeartRate.setBackground(new Color(40, 40, 40));
 		chckbxHeartRate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				desktopMenuBar.setVisible(chckbxHeartRate.isSelected()==false);
 				heartRateFrame.setVisible(chckbxHeartRate.isSelected());
 			}
 		});
@@ -313,17 +386,18 @@ public class MainTabWindow extends JPanel {
 		panelscroll.add(cbDescript);
 
 		final JCheckBox caloriesBurned = new JCheckBox("Calories Burned");
+		caloriesBurned.setSelected(true);
 		caloriesBurned.setBounds(60, 430, 157, 23);
 		caloriesBurned.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		caloriesBurned.setForeground(Color.WHITE);
 		caloriesBurned.setBackground(new Color(40, 40, 40));
 		caloriesBurned.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				desktopMenuBar.setVisible(caloriesBurned.isSelected()==false);
 				calBurnFrame.setVisible(caloriesBurned.isSelected());
 			}
 		});
 		panelscroll.add(caloriesBurned);
+		
 
 		// Sedentary Minutes description and button add
 		JLabel smDescript = new JLabel("");
@@ -334,13 +408,14 @@ public class MainTabWindow extends JPanel {
 		panelscroll.add(smDescript);
 
 		final JCheckBox sedMin = new JCheckBox("Sedentary Min");
+		sedMin.setSelected(true);
+
 		sedMin.setBounds(460, 180, 168, 23);
 		sedMin.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		sedMin.setForeground(Color.WHITE);
 		sedMin.setBackground(new Color(40, 40, 40));
 		sedMin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				desktopMenuBar.setVisible(sedMin.isSelected()==false);
 				sedMinFrame.setVisible(sedMin.isSelected());
 			}
 		});
@@ -355,13 +430,13 @@ public class MainTabWindow extends JPanel {
 		panelscroll.add(daDescript);
 
 		final JCheckBox dailyAct = new JCheckBox("Daily Activity");
+		dailyAct.setSelected(true);
 		dailyAct.setBounds(900, 430, 157, 23);
 		dailyAct.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		dailyAct.setForeground(Color.WHITE);
 		dailyAct.setBackground(new Color(40, 40, 40));
 		dailyAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				desktopMenuBar.setVisible(chckbxHeartRate.isSelected()==false);
 				activeMinFrame.setVisible(dailyAct.isSelected());
 			}
 		});
@@ -369,11 +444,13 @@ public class MainTabWindow extends JPanel {
 
 
 		//add the panel to the tabbed pane
-		ImageIcon icon2 = new ImageIcon("options_icon.png");
-		tabbedPane.addTab("Menu", icon2, panel2, "tmp2");
+		tabbedPane.addTab("Menu", null, panel2, "tmp2");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
+
+
+
 
 
 
@@ -407,11 +484,29 @@ public class MainTabWindow extends JPanel {
 		distancelifetime.setBounds(60, 65, 382, 72);
 		panelLifeTime.add(distancelifetime);
 
-		JLabel lifetimeDistance= new JLabel("Total distance Travelled:"+ Double.toString(lifeDistance));
-		lifetimeDistance.setForeground(Color.WHITE);
-		lifetimeDistance.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lifetimeDistance.setBounds(90, 95, 382, 72);
-		panelLifeTime.add(lifetimeDistance);
+
+
+
+
+
+		JLabel lifetimeDistanceMetric= new JLabel("Total distance Travelled:"+ Double.toString(lifeDistance)+"km");
+		lifetimeDistanceMetric.setForeground(Color.WHITE);
+		lifetimeDistanceMetric.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lifetimeDistanceMetric.setBounds(90, 95, 382, 72);
+		lifetimeDistanceMetric.setVisible(true);
+		panelLifeTime.add(lifetimeDistanceMetric);
+
+		JLabel lifetimeDistanceImperial= new JLabel("Total distance Travelled:"+ Double.toString(lifeDistanceImperial)+"mile");
+		lifetimeDistanceImperial.setForeground(Color.WHITE);
+		lifetimeDistanceImperial.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lifetimeDistanceImperial.setBounds(90, 95, 382, 72);
+		lifetimeDistanceImperial.setVisible(false);
+		panelLifeTime.add(lifetimeDistanceImperial);
+
+
+
+
+
 
 		JLabel floorsTitleLifetime= new JLabel("Floors");
 		floorsTitleLifetime.setForeground(Color.WHITE);
@@ -419,7 +514,7 @@ public class MainTabWindow extends JPanel {
 		floorsTitleLifetime.setBounds(60, 180, 382, 72);
 		panelLifeTime.add(floorsTitleLifetime);
 
-		JLabel totalFloorsLifeTime= new JLabel("Total Floors Climbed: "+lifeFloors);
+		JLabel totalFloorsLifeTime= new JLabel("Total Floors Climbed: "+lifeFloors +" floors");
 		totalFloorsLifeTime.setForeground(Color.WHITE);
 		totalFloorsLifeTime.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		totalFloorsLifeTime.setBounds(90, 210, 382, 72);
@@ -431,7 +526,7 @@ public class MainTabWindow extends JPanel {
 		lifeTimestepsTitle.setBounds(60, 295, 382, 72);
 		panelLifeTime.add(lifeTimestepsTitle);
 
-		JLabel lifeTimeStepsTotal= new JLabel("Total Steps taken: "+ lifeSteps);
+		JLabel lifeTimeStepsTotal= new JLabel("Total Steps taken: "+ lifeSteps +" steps");
 		lifeTimeStepsTotal.setForeground(Color.WHITE);
 		lifeTimeStepsTotal.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lifeTimeStepsTotal.setBounds(90, 325, 382, 72);
@@ -447,7 +542,7 @@ public class MainTabWindow extends JPanel {
 		panel3.add(panelBestDays, BorderLayout.CENTER);
 		panelBestDays.setLayout(null);
 
-		//these are the labels for the best days we're gonna add the test data when we write the data... I know how to do that i still didn't add it because it doesn't run it on my elcipse but it works	
+
 		JLabel lblBestDays= new JLabel("Best Days");
 		lblBestDays.setForeground(SystemColor.inactiveCaption);
 		lblBestDays.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
@@ -466,11 +561,24 @@ public class MainTabWindow extends JPanel {
 		bestDistancedate.setBounds(90, 95, 382, 72);
 		panelBestDays.add(bestDistancedate);
 
-		JLabel bestDistance1= new JLabel("Best Distance: "+ bestDistance);
-		bestDistance1.setForeground(Color.WHITE);
-		bestDistance1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		bestDistance1.setBounds(110, 130, 382, 72);
-		panelBestDays.add(bestDistance1);
+
+
+
+
+
+		JLabel bestDistanceMetric= new JLabel("Best Distance: "+ bestDistance);
+		bestDistanceMetric.setForeground(Color.WHITE);
+		bestDistanceMetric.setVisible(true);
+		bestDistanceMetric.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		bestDistanceMetric.setBounds(110, 130, 382, 72);
+		panelBestDays.add(bestDistanceMetric);
+
+		JLabel bestDistanceImperial= new JLabel("Best Distance: "+ bestDistanceImperialnum+"mile");
+		bestDistanceImperial.setForeground(Color.WHITE);
+		bestDistanceImperial.setVisible(false);
+		bestDistanceImperial.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		bestDistanceImperial.setBounds(110, 130, 382, 72);
+		panelBestDays.add(bestDistanceImperial);
 
 
 
@@ -486,7 +594,7 @@ public class MainTabWindow extends JPanel {
 		bestFloorDtlbl.setBounds(90, 210, 382, 72);
 		panelBestDays.add(bestFloorDtlbl);
 
-		JLabel bestfloorlbl= new JLabel("Best Floor: "+bestFloor);
+		JLabel bestfloorlbl= new JLabel("Best Floor: "+bestFloor +" floors");
 		bestfloorlbl.setForeground(Color.WHITE);
 		bestfloorlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		bestfloorlbl.setBounds(110, 245, 382, 72);
@@ -507,7 +615,7 @@ public class MainTabWindow extends JPanel {
 		bestStepsDtlbl.setBounds(90, 325, 382, 72);
 		panelBestDays.add(bestStepsDtlbl);
 
-		JLabel bestStepslbl= new JLabel("Best Steps: "+ bestStep);
+		JLabel bestStepslbl= new JLabel("Best Steps: "+ bestStep+" steps");
 		bestStepslbl.setForeground(Color.WHITE);
 		bestStepslbl.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		bestStepslbl.setBounds(110, 360, 382, 72);
@@ -524,11 +632,323 @@ public class MainTabWindow extends JPanel {
 		panelAccolades.setBounds(150, 6, 1000, 639);
 		panel3.add(panelAccolades, BorderLayout.CENTER);
 		panelAccolades.setLayout(null);
+		
+		
 		JLabel lblAccolades= new JLabel("Accolades");
 		lblAccolades.setForeground(SystemColor.inactiveCaption);
 		lblAccolades.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
 		lblAccolades.setBounds(44, 6, 382, 72);
 		panelAccolades.add(lblAccolades);
+		
+		///	ACColades
+		Accolades accolades=new Accolades();
+		accolades.set_accolades(0,  bestlife, daily, heartrate);
+		//accolades.getCheck(index)
+		
+		JLabel lock1Accold= new JLabel("");
+		lock1Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock1Accold.setBounds(30, 110, 106, 72);
+		lock1Accold.setToolTipText(	accolades.getTitle(0));
+		panelAccolades.add(lock1Accold);
+		if(accolades.getCheck(0)==true){
+			lock1Accold.setIcon(new ImageIcon("src/main/resources/rsz_1rsz_badge0.png"));
+			lock1Accold.setBounds(30, 90, 106, 110);
+			lock1Accold.setToolTipText(accolades.getDescription(0));
+
+
+		}
+		
+		
+		
+		JLabel lock2Accold= new JLabel("");
+		lock2Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock2Accold.setBounds(150, 110, 106, 72);
+		panelAccolades.add(lock2Accold);
+		lock2Accold.setToolTipText(	accolades.getTitle(1));
+if(accolades.getCheck(1)==true){
+lock2Accold.setIcon(new ImageIcon("src/main/resources/rsz_1rsz_badge1.png"));
+	lock2Accold.setBounds(150, 90, 106, 110);
+	lock2Accold.setToolTipText(accolades.getDescription(1));
+
+	
+
+		}
+
+		
+		JLabel lock3Accold= new JLabel("");
+		lock3Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock3Accold.setBounds(270, 110, 106, 72);
+		lock3Accold.setToolTipText(	accolades.getTitle(2));
+		panelAccolades.add(lock3Accold);
+if(accolades.getCheck(2)==true){
+lock3Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge2.png"));
+	lock3Accold.setBounds(270, 90, 120, 110);
+	lock3Accold.setToolTipText(accolades.getDescription(2));
+
+			
+		}
+		
+		
+		
+		JLabel lock4Accold= new JLabel("");
+		lock4Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock4Accold.setBounds(390, 110, 106, 72);
+		lock4Accold.setToolTipText(	accolades.getTitle(3));
+		panelAccolades.add(lock4Accold);
+		if(accolades.getCheck(3)==true){
+lock4Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge3.png"));
+			lock4Accold.setBounds(390, 90, 120, 110);			
+			lock4Accold.setToolTipText(accolades.getDescription(3));
+
+		}
+		
+		
+		
+		JLabel lock5Accold= new JLabel("");
+		lock5Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock5Accold.setBounds(500, 110, 106, 72);
+		lock5Accold.setToolTipText(	accolades.getTitle(4));
+		panelAccolades.add(lock5Accold);
+if(accolades.getCheck(4)==true){
+
+	lock5Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge4.png"));
+	lock5Accold.setBounds(500, 90, 120, 110);
+	
+	lock5Accold.setToolTipText(accolades.getDescription(4));
+
+		}
+		
+		
+		
+		JLabel lock6Accold= new JLabel("");
+		lock6Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock6Accold.setBounds(610, 110, 106, 72);
+		lock6Accold.setToolTipText(	accolades.getTitle(5));
+		panelAccolades.add(lock6Accold);
+if(accolades.getCheck(5)==true){
+lock6Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge5.png"));
+	lock6Accold.setBounds(610, 90, 120, 110);
+	lock6Accold.setToolTipText(accolades.getDescription(5));
+
+		}
+
+		
+		JLabel lock7Accold= new JLabel("");
+		lock7Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock7Accold.setBounds(720, 110, 106, 72);
+		lock7Accold.setToolTipText(	accolades.getTitle(6));
+		
+		panelAccolades.add(lock7Accold);
+if(accolades.getCheck(6)==true){
+lock7Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge6.png"));
+	lock7Accold.setBounds(720, 90, 120, 110);
+	lock7Accold.setToolTipText(accolades.getDescription(6));
+
+			
+		}
+		
+		
+		
+		JLabel lock8Accold= new JLabel("");
+		lock8Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock8Accold.setBounds(830, 110, 106, 72);
+		lock8Accold.setToolTipText(	accolades.getTitle(7));
+		panelAccolades.add(lock8Accold);
+		
+if(accolades.getCheck(7)==true){
+lock8Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge7.png"));
+	lock8Accold.setBounds(830, 90, 120, 110);
+	lock8Accold.setToolTipText(accolades.getDescription(7));
+
+			
+		}
+		
+		
+		
+		
+		
+		JLabel lock9Accold= new JLabel("");
+		lock9Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock9Accold.setBounds(30, 240, 382, 72);
+		lock9Accold.setToolTipText(	accolades.getTitle(8));
+		lock9Accold.setVisible(true);
+		panelAccolades.add(lock9Accold);
+if(accolades.getCheck(8)==true){
+lock9Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge8.png"));
+	lock9Accold.setBounds(30, 240, 120, 110);
+	lock9Accold.setToolTipText(accolades.getDescription(8));
+	
+
+		}
+		
+		
+		
+		JLabel lock10Accold= new JLabel("");
+		lock10Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock10Accold.setBounds(150, 240, 382, 72);
+		lock10Accold.setToolTipText(	accolades.getTitle(9));
+		panelAccolades.add(lock10Accold);
+if(accolades.getCheck(9)==true){
+lock10Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge9.png"));
+	lock10Accold.setBounds(150, 240, 120, 110);
+	lock10Accold.setToolTipText(accolades.getDescription(9));
+
+			
+		}
+		
+		JLabel lock11Accold= new JLabel("");
+		lock11Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock11Accold.setBounds(280, 240, 382, 72);
+		lock11Accold.setToolTipText(	accolades.getTitle(10));
+		panelAccolades.add(lock11Accold);
+if(accolades.getCheck(10)==true){
+lock11Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge10.png"));
+	lock11Accold.setBounds(280, 240, 120, 110);
+	lock1Accold.setToolTipText(accolades.getDescription(10));
+
+			
+		}
+		
+		
+		
+		JLabel lock12Accold= new JLabel("");
+		lock12Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock12Accold.setBounds(390, 240, 382, 72);
+		lock12Accold.setToolTipText(	accolades.getTitle(11));
+		panelAccolades.add(lock12Accold);
+if(accolades.getCheck(11)==true){
+	lock12Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge11.png"));
+	lock12Accold.setBounds(390, 240, 120, 110);
+	lock12Accold.setToolTipText(accolades.getDescription(11));
+
+		}
+		
+		JLabel lock13Accold= new JLabel("");
+		lock13Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock13Accold.setBounds(500, 240, 382, 72);		
+		lock13Accold.setToolTipText(	accolades.getTitle(12));
+		panelAccolades.add(lock13Accold);
+if(accolades.getCheck(12)==true){
+	lock13Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge12.png"));
+	lock13Accold.setBounds(500, 240, 120, 110);
+	lock13Accold.setToolTipText(accolades.getDescription(12));
+
+		}
+		
+		
+		
+		JLabel lock14Accold= new JLabel("");
+		lock14Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock14Accold.setBounds(610, 240, 382, 72);
+		lock14Accold.setToolTipText(	accolades.getTitle(13));
+		panelAccolades.add(lock14Accold);
+if(accolades.getCheck(13)==true){
+lock14Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge13.png"));
+	lock14Accold.setBounds(610, 240, 120, 110);
+	lock14Accold.setToolTipText(accolades.getDescription(13));
+
+		}
+		
+		JLabel lock15Accold= new JLabel("");
+		lock15Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock15Accold.setBounds(720, 240, 382, 72);
+		lock15Accold.setToolTipText(	accolades.getTitle(14));
+		panelAccolades.add(lock15Accold);
+if(accolades.getCheck(14)==true){
+lock15Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge14.png"));
+	lock15Accold.setBounds(720, 240, 120, 110);
+	lock15Accold.setToolTipText(accolades.getDescription(14));
+
+			
+		}
+		
+		
+		
+		JLabel lock16Accold= new JLabel("");
+		lock16Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock16Accold.setBounds(830, 240, 382, 72);
+		lock16Accold.setToolTipText(	accolades.getTitle(15));
+		panelAccolades.add(lock16Accold);
+if(accolades.getCheck(15)==true){		
+lock16Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge15.png"));
+	lock16Accold.setBounds(830, 240, 120, 110);
+	lock16Accold.setToolTipText(accolades.getDescription(15));
+
+		}
+		
+		
+		
+		
+		
+		JLabel lock17Accold= new JLabel("");
+		lock17Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock17Accold.setBounds(30, 400, 382, 72);
+		lock17Accold.setToolTipText(	accolades.getTitle(16));
+		panelAccolades.add(lock17Accold);
+if(accolades.getCheck(16)==true){
+lock17Accold.setIcon(new ImageIcon("src/main/resources/Badges/rsz_badge16.png"));
+	lock17Accold.setBounds(30, 410, 120, 110);
+	lock17Accold.setToolTipText(accolades.getDescription(16));
+
+		}
+		
+		
+		
+		JLabel lock18Accold= new JLabel("");
+		lock18Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock18Accold.setBounds(150, 400, 382, 72);
+		lock18Accold.setToolTipText(	accolades.getTitle(17));
+		panelAccolades.add(lock18Accold);
+if(accolades.getCheck(17)==true){
+lock18Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge17.png"));
+	lock18Accold.setBounds(150, 410, 382, 110);
+	lock18Accold.setToolTipText(accolades.getDescription(17));
+
+		}
+		
+		
+		JLabel lock19Accold= new JLabel("");
+		lock19Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock19Accold.setBounds(270, 400, 382, 72);
+		lock19Accold.setToolTipText(	accolades.getTitle(18));
+		panelAccolades.add(lock19Accold);
+if(accolades.getCheck(18)==true){
+lock19Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge18.png"));
+	lock19Accold.setBounds(270, 410, 120, 110);
+
+	lock19Accold.setToolTipText(accolades.getDescription(18));
+
+		}
+		
+		
+		
+		JLabel lock20Accold= new JLabel("");
+		lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock20Accold.setBounds(390, 400, 382, 72);
+		lock20Accold.setToolTipText(accolades.getTitle(19));
+		panelAccolades.add(lock20Accold);
+if(accolades.getCheck(19)==true){
+lock20Accold.setIcon(new ImageIcon("src/main/resources/rsz_badge19.png"));
+	lock20Accold.setBounds(390, 410, 120, 110);
+	lock20Accold.setToolTipText(accolades.getDescription(19));
+
+			
+		}
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		//panel where the buttons are added 
 		final JPanel panel_1 = new JPanel();
@@ -597,9 +1017,10 @@ public class MainTabWindow extends JPanel {
 		buttonGroupobj.add(tglbtnAccolades);
 
 
-		//Add a vertical Glue so the Settings option is at the bottom of the tab bar on the left
-		//	Figure out how to do this
-		//
+
+
+
+
 
 		/**
 		 * settings
@@ -634,55 +1055,25 @@ public class MainTabWindow extends JPanel {
 		lblDateFormat.setBounds(101, 195, 118, 16);
 		panel4.add(lblDateFormat);
 
-		//create the Languages label
-		JLabel lblLanguages = new JLabel("Languages");
-		lblLanguages.setFont(new Font("Lucida Grande", Font.BOLD, 17));
-		lblLanguages.setForeground(SystemColor.inactiveCaption);
-		lblLanguages.setBounds(101, 232, 118, 33);
-		panel4.add(lblLanguages);
-		//create the Pages label
-		JLabel lblPages = new JLabel("Pages");
-		lblPages.setFont(new Font("Lucida Grande", Font.BOLD, 17));
-		lblPages.setForeground(SystemColor.inactiveCaption);
-		lblPages.setBounds(101, 274, 93, 35);
-		panel4.add(lblPages);
+	
+
 		//add a comboBox for the dateformat
 		String[] dateformat= {"dd/mm/yyyy","mm/dd/yyyy"};
 		JComboBox comboBox = new JComboBox(dateformat);
 		comboBox.setBounds(262, 195, 140, 27);
 		panel4.add(comboBox);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox)e.getSource();
+				String stringDateSetting = (String)cb.getSelectedItem();
+				setDateSetting(stringDateSetting);
 
-		//add a comboBox for the langauges
+			}
+		});
+		
+		
+		
 
-		String[] language= {"English","French"};
-		JComboBox comboBox_1 = new JComboBox(language);
-		comboBox_1.setBounds(262, 235, 140, 27);
-		panel4.add(comboBox_1);
-		//add a checkbox for pages
-		final JCheckBox chckbxTimeSeriesData = new JCheckBox("Time series data");
-		chckbxTimeSeriesData.setForeground(Color.WHITE);
-		chckbxTimeSeriesData.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		chckbxTimeSeriesData.setBounds(262, 274, 177, 23);
-		panel4.add(chckbxTimeSeriesData);
-
-		final JCheckBox chckbxHeartRateZones = new JCheckBox("Heart rate zones");
-		chckbxHeartRateZones.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		chckbxHeartRateZones.setForeground(Color.WHITE);
-		chckbxHeartRateZones.setBounds(262, 310, 177, 23);
-		panel4.add(chckbxHeartRateZones);
-
-		final JCheckBox chckbxMap = new JCheckBox("Map");
-		chckbxMap.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		chckbxMap.setForeground(Color.WHITE);
-		chckbxMap.setBounds(262, 346, 128, 23);
-		panel4.add(chckbxMap);
-
-		final JCheckBox chckbxDailyGoals = new JCheckBox("Daily Goals");
-		chckbxDailyGoals.setForeground(Color.WHITE);
-		chckbxDailyGoals.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		chckbxDailyGoals.setBounds(262,380, 155, 23);
-		panel4.add(chckbxDailyGoals);
-		//add a radiobutton for the units
 		JRadioButton rdbtnMetric = new JRadioButton("Metric");
 		ButtonGroup buttonGroup = new ButtonGroup();
 		ButtonGroup buttonGroup_1 = new ButtonGroup();
@@ -692,6 +1083,48 @@ public class MainTabWindow extends JPanel {
 		rdbtnMetric.setForeground(Color.WHITE);
 		rdbtnMetric.setBounds(262, 95, 141, 23);
 		panel4.add(rdbtnMetric);
+		//add a radiobutton for the units
+		JRadioButton rdbtnImperial = new JRadioButton("Imperial");
+		buttonGroup.add(rdbtnImperial);
+		rdbtnImperial.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		rdbtnImperial.setForeground(Color.WHITE);
+		rdbtnImperial.setBounds(460, 95, 141, 23);
+		panel4 .add(rdbtnImperial);
+
+		
+		
+		
+	/*	
+		rdbtnImperial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lifetimeDistanceImperial.setVisible(true);
+				lifetimeDistanceMetric.setVisible(false);
+				bestDistanceImperial.setVisible(true);			
+				bestDistanceMetric.setVisible(false);
+				mapFrameImperial.setVisible(true);
+
+			}
+		});
+	*/
+
+	/*	rdbtnMetric.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnMetric.isSelected()==true){
+					lifetimeDistanceImperial.setVisible(false);
+					lifetimeDistanceMetric.setVisible(true);
+					bestDistanceImperial.setVisible(false);			
+					bestDistanceMetric.setVisible(true);
+					mapFrameMetric.setVisible(true);
+					mapFrameImperial.setVisible(false);
+
+
+				}
+			}
+		});
+
+*/
+
+
 
 		//add a radiobutton for the time format
 		JRadioButton rdbtnhourClock = new JRadioButton("12-hour clock");
@@ -702,6 +1135,7 @@ public class MainTabWindow extends JPanel {
 		rdbtnhourClock.setBounds(262, 147, 155, 23);
 		panel4.add(rdbtnhourClock);
 
+
 		//add a radiobutton for the time format
 		JRadioButton rdbtnhourClock_1 = new JRadioButton("24-hour clock");
 		buttonGroup_1.add(rdbtnhourClock_1);
@@ -710,13 +1144,7 @@ public class MainTabWindow extends JPanel {
 		rdbtnhourClock_1.setBounds(460, 147, 177, 23);
 		panel4.add(rdbtnhourClock_1);
 
-		//add a radiobutton for the units
-		JRadioButton rdbtnImperial = new JRadioButton("Imperial");
-		buttonGroup.add(rdbtnImperial);
-		rdbtnImperial.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		rdbtnImperial.setForeground(Color.WHITE);
-		rdbtnImperial.setBounds(460, 95, 141, 23);
-		panel4 .add(rdbtnImperial);
+
 		final JPanel panelback = new JPanel();
 		panelback.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
 		panelback.setBackground(new Color(40, 40, 40));
@@ -746,7 +1174,70 @@ public class MainTabWindow extends JPanel {
 
 		//Add the tabbed pane to this panel.
 		this.add(tabbedPane);
+		
+		
+		tmp=true;
+		
+		refreshbutn.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				desktop.revalidate();
+				desktop.repaint();
+				
+			
+				Date date= new Date();
+				int day=date.getDay();
+			int hours=	date.getHours();
+			if(hours>12&&tmp==true){
+				date.setHours(hours-12);
+			}
+				time.setText(""+date);
+				
+			
+				rdbtnhourClock_1.addActionListener(new ActionListener() {
+					@SuppressWarnings("deprecation")
+					public void actionPerformed(ActionEvent e) {
+						Date date= new Date();
+
+							time.setText(""+date);
+						tmp=false;
+						
+					}
+				});
+
+				rdbtnhourClock.addActionListener(new ActionListener() {
+					@SuppressWarnings("deprecation")
+					public void actionPerformed(ActionEvent e) {
+						
+							time.setText(""+date);
+						tmp=true;
+					}
+				});
+
+
+				desktopMenuBar.add(time);
+				
+			
+			}
+		});
+
+		
+		
+		
+		
+		chckbxMap_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mapFrameMetric.setVisible(chckbxMap_1.isSelected()&& rdbtnMetric.isSelected());
+				//mapFrameImperial.setVisible(chckbxMap_1.isSelected()&& rdbtnImperial.isSelected());
+
+
+			}
+		});
 	}
+
+
+
+
 	/**
 	 * a method that will create  panel 
 	 * @param text String that contains panel content
@@ -759,6 +1250,35 @@ public class MainTabWindow extends JPanel {
 		return panel;
 	}
 
+
+	/**
+	 * A Mutator method for the DateSetting instance Variable. 
+	 * This will be used by the JComboBox under settings for the user to change their
+	 * preferred date format. Might add more date formats in the future
+	 *  
+	 * @param dateFormat
+	 */
+	private void setDateSetting(String dateFormat) {
+		
+		if (dateFormat.equals("dd/mm/yyyy")) {
+			this.dateSetting = 0;
+		}
+		else {
+			this.dateSetting = 1;
+		}
+	}
+
+	protected MaskFormatter createFormatter(String s) {
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter(s);
+		} catch (java.text.ParseException exc) {
+			System.err.println("formatter is bad: " + exc.getMessage());
+			System.exit(-1);
+		}
+		return formatter;
+	}
+	
 	/**
 	 * A Method that will make the JInternalFrames (ie- the elements in the Dashboard)
 	 * The parameters will dictate that frames initial values, who will change as the 
