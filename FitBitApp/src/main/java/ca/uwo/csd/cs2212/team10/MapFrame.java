@@ -21,16 +21,16 @@ public class MapFrame extends JPanel {
 	 * @param bestDistanceDate String that contains date best distance was achieved
 	 * @param lifeDistance integer that contains lifetime distance count
 	 */
-	public MapFrame(double bestDistance, String bestDistanceDate, double lifeDistance) {
+	public MapFrame(double bestDistance, String bestDistanceDate, double lifeDistance,String measurment) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));
 		
 		
 		// JLabels to print the text for the testFitBitAPI
 		String stringLabel = "<html>" + 
-				"<br>Best Distance: " + bestDistance + 
+				"<br>Best Distance: " + bestDistance + measurment+
 				"<br>	Date achieved: " + bestDistanceDate + 
-				"<br>Life Distance: (Goals): " + lifeDistance + 
+				"<br>Life Distance: (Goals): " + lifeDistance + measurment+
 				"</html>";
 		JLabel lblName = new JLabel(stringLabel, JLabel.CENTER);
 		

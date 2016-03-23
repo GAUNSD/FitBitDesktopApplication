@@ -3,6 +3,7 @@ package ca.uwo.csd.cs2212.team10;
 import javax.swing.SwingUtilities;
 
 import org.json.JSONException;
+import java.io.IOException;
 
 /**
  * This is the main class that is run by the jar. 
@@ -19,12 +20,12 @@ public class App {
         boolean isTest = false; 
         // Set up test case
         if (args.length > 0) {
-            if(args[0].equals("-test")) isTest = true;
+            if(args[0].equals("-test") || args[0].equals("test")) isTest = true;
         } 
         final boolean test = isTest; 
 
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
+            //@Override
 
             /**
              * Opens new main window
@@ -45,6 +46,11 @@ public class App {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+				catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 window.setVisible(true);
             }
         });

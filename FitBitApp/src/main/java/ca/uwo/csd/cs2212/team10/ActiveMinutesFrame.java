@@ -87,6 +87,8 @@ public class ActiveMinutesFrame extends JPanel {
 		//lblActive.setBounds(150, 115, 140, 70);                                          
 		activeMinGoalsPanel.add(lblActive, BorderLayout.EAST); // Add the label to the subPanel
 		
+		
+		
 
 		// Calculate the progress
 		double activeMin = (totalActiveMins)/(double)activeMinGoals;
@@ -162,14 +164,6 @@ public class ActiveMinutesFrame extends JPanel {
 		distanceGoalsPanel.setBounds(0, 370, 600, 120);
 		add(distanceGoalsPanel);
 
-		/*
-		JLabel btnNewButton_1 = new JLabel("");
-		btnNewButton_1.setIcon(new ImageIcon("ActiveMin.png"));
-		btnNewButton_1.setBounds(287, 85, 128, 108);
-		progBar3.setBounds(302, 89, 128, 122);
-		add(btnNewButton_1);
-		add(progBar3);
-		 */
 	}
 	
 	/**
@@ -293,10 +287,6 @@ public class ActiveMinutesFrame extends JPanel {
 
 		return progressLabel;
 	}
-
-
-
-
 
 
 }
