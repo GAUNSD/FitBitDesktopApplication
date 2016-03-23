@@ -51,10 +51,10 @@ import org.json.JSONException;
  * @author UI Team (Vincent, John, Lina, Gustavo)
  */
 public class MainTabWindow extends JPanel {
-	JLabel time;
-Boolean tmp;
+	final JLabel time;
+    Boolean tmp;
 
-//private FitB i
+private Fitbit fitbit;
 
 
 	/**
@@ -65,24 +65,34 @@ Boolean tmp;
 	 * 		Stats
 	 * 		Settings
 	 * Each of these sections make their respective content that is housed inside a JTabbedPane container.
-	 * 
-	 * @throws JSONException Method requests a JSON file that can throw this error
-	 * @throws TokensException Method uses tokens to interface with API which can throw this error
+	 * @throws Exception Method requests a JSON file that can throw this error
 	 *
 	 */
-	public MainTabWindow() throws JSONException, TokensException {
+	public MainTabWindow(Fitbit fitbit) throws Exception {
 
 		super(new GridLayout(1, 1));
-
+		this.fitbit = fitbit;
+		
+		////////////////TESTING OBJECT SERIALIZATION//////////////
+		UserSettings userSettings = new UserSettings();
+		
+		userSettings.setUnits("imperial");
+		RefreshTokens.setUnits(userSettings.getUnits());
+		
+		ObjectSerialization objSerial = new ObjectSerialization(userSettings);
+		objSerial.storeUserSettings();
+		userSettings = objSerial.loadUserSettings();
+		/////////t///////TESTING OBJECT SERIALIZATION//////////////
+		
 		// Create the API classes and the relevant variables associated with each
-		HeartStats heartrate = Fitbit.getHeartActivity("2016", "01", "29");
+		HeartStats heartrate = fitbit.getHeartActivity("2016", "01", "29");
 		int outOfRange = heartrate.getOutOfRange() ;
 		int fatBurn = heartrate.getFatBurn() ;
 		int cardio = heartrate.getCardio();
 		int peak = heartrate.getPeak() ;
 		int restHeartRate = heartrate.getRestHeartRate();
 
-		BestLifeStats bestlife=Fitbit.getBestLifeActivity();
+		BestLifeStats bestlife=fitbit.getBestLifeActivity();
 		double bestDistance= bestlife. getBestDistance() ;
 		String bestDistanceDate= bestlife.getBestDistanceDate();
 		double bestFloor = bestlife.getBestFloor();
@@ -93,7 +103,7 @@ Boolean tmp;
 		double lifeFloors= bestlife.getLifeFloors();
 		long lifeSteps= bestlife.getLifeSteps();
 
-		DailyStats daily = Fitbit.getDailyActivity("2016", "01", "29");
+		DailyStats daily = fitbit.getDailyActivity("2016", "01", "29");
 		int floors = daily. getFloors();
 		int steps = daily.getSteps();
 		double distance = daily.getDistance();
@@ -150,7 +160,7 @@ Boolean tmp;
 
 
 		// Adding the JDesktopPane into the "Dashboard" Panel
-		JDesktopPane desktop = new JDesktopPane();
+		final JDesktopPane desktop = new JDesktopPane();
 		desktop.setPreferredSize( new java.awt.Dimension(600,400) );
 		desktop.setBackground(new Color(40, 40, 40));
 
@@ -671,7 +681,7 @@ Boolean tmp;
 		comboBox.setBounds(262, 195, 140, 27);
 		panel4.add(comboBox);
 
-		JRadioButton rdbtnMetric = new JRadioButton("Metric");
+		final JRadioButton rdbtnMetric = new JRadioButton("Metric");
 		ButtonGroup buttonGroup = new ButtonGroup();
 		ButtonGroup buttonGroup_1 = new ButtonGroup();
 		buttonGroup.add(rdbtnMetric);
@@ -681,7 +691,7 @@ Boolean tmp;
 		rdbtnMetric.setBounds(262, 95, 141, 23);
 		panel4.add(rdbtnMetric);
 		//add a radiobutton for the units
-		JRadioButton rdbtnImperial = new JRadioButton("Imperial");
+		final JRadioButton rdbtnImperial = new JRadioButton("Imperial");
 		buttonGroup.add(rdbtnImperial);
 		rdbtnImperial.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		rdbtnImperial.setForeground(Color.WHITE);
@@ -724,7 +734,7 @@ Boolean tmp;
 
 
 		//add a radiobutton for the time format
-		JRadioButton rdbtnhourClock = new JRadioButton("12-hour clock");
+		final JRadioButton rdbtnhourClock = new JRadioButton("12-hour clock");
 		buttonGroup_1.add(rdbtnhourClock);
 		rdbtnhourClock.setSelected(true);
 		rdbtnhourClock.setForeground(Color.WHITE);
@@ -734,7 +744,7 @@ Boolean tmp;
 
 
 		//add a radiobutton for the time format
-		JRadioButton rdbtnhourClock_1 = new JRadioButton("24-hour clock");
+		final JRadioButton rdbtnhourClock_1 = new JRadioButton("24-hour clock");
 		buttonGroup_1.add(rdbtnhourClock_1);
 		rdbtnhourClock_1.setForeground(Color.WHITE);
 		rdbtnhourClock_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
@@ -782,7 +792,7 @@ Boolean tmp;
 				desktop.repaint();
 				
 			
-				Date date= new Date();
+				final Date date= new Date();
 				int day=date.getDay();
 			int hours=	date.getHours();
 			if(hours>12&&tmp==true){
