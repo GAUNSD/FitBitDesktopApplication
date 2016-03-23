@@ -11,6 +11,11 @@ import org.json.JSONException;
  */
 public interface Fitbit
 {
+	// Variable for error handling
+		boolean error = false;
+		boolean rateError = false;
+		boolean tokensError = false;
+
 	/**
 	 * Best Statistics Call
 	 * @return BestLifeStats object containing all best life statistics data
@@ -42,11 +47,6 @@ public interface Fitbit
 	 */
 	public DailyStats getDailyActivity(String year, String month, String day)
 			throws JSONException, TokensException, RateExceededException;
-
-	// Variable for error handling
-	boolean error = false;
-	boolean rateError = false;
-	boolean tokensError = false;
 
 	/**
 	 * Get Token Error method
