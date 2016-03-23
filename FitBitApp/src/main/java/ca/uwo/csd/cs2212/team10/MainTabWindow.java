@@ -644,12 +644,12 @@ private int dateSetting = 0; //The following will be the formats used and the co
 		//accolades.getCheck(index)
 		
 		JLabel lock1Accold= new JLabel("");
-		lock1Accold.setIcon(new ImageIcon("src/main/resources/rsz_lock.png"));
+		lock1Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_lock.png"));
 		lock1Accold.setBounds(30, 110, 106, 72);
 		lock1Accold.setToolTipText(	accolades.getTitle(0));
 		panelAccolades.add(lock1Accold);
 		if(accolades.getCheck(0)==true){
-			lock1Accold.setIcon(new ImageIcon("src/main/resources/rsz_1rsz_badge0.png"));
+			lock1Accold.setIcon(new ImageIcon("src/main/resources/Accolades/rsz_1rsz_badge0.png"));
 			lock1Accold.setBounds(30, 90, 106, 110);
 			lock1Accold.setToolTipText(accolades.getDescription(0));
 
