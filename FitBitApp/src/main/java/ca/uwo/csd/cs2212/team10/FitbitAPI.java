@@ -16,13 +16,18 @@ public class FitbitAPI implements Fitbit
 	 * getHeartActivity("2016", "01", "29"); getBestLifeActivity(); getDailyActivity("2016", "01", "08"); }
 	 */
 
+	// Variables for error handling
+	private boolean error;
+	private boolean tokensError;
+	private boolean rateError;
+
 	/**
 	 * Best Statistics Call
 	 * @return BestLifeStats object containing all best life statistics data
 	 * @throws JSONException method calls a JSON file which can throw this error
 	 * @throws TokensException method uses tokens which can throw this error
 	 */
-	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException
+	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException, RateExceededException
 	{
 		double valueDist;
 		String dateDist;
@@ -67,6 +72,38 @@ public class FitbitAPI implements Fitbit
 			lifeFloors = total.getInt("floors");
 			lifeSteps = total.getInt("steps");
 		}
+		catch (RateExceededException e)
+		{
+			valueDist = 0.00;
+			dateDist = "Date not found";
+			valueFloors = 0.00;
+			dateFloors = "Date not found";
+			valueSteps = 0;
+			dateSteps = "Date not found";
+			lifeDist = 0.00;
+			lifeFloors = 0.00;
+			lifeSteps = 0;
+
+			setRateError(true);
+			System.out.println("Rate Error: " + rateError);
+
+		}
+		catch (TokensException e)
+		{
+			valueDist = 0.00;
+			dateDist = "Date not found";
+			valueFloors = 0.00;
+			dateFloors = "Date not found";
+			valueSteps = 0;
+			dateSteps = "Date not found";
+			lifeDist = 0.00;
+			lifeFloors = 0.00;
+			lifeSteps = 0;
+
+			setTokensError(true);
+			System.out.println("Tokens Error: " + tokensError);
+
+		}
 		catch (Exception e)
 		{
 			valueDist = 0.00;
@@ -78,6 +115,9 @@ public class FitbitAPI implements Fitbit
 			lifeDist = 0.00;
 			lifeFloors = 0.00;
 			lifeSteps = 0;
+
+			setError(true);
+			System.out.println("General Error: " + error);
 		}
 
 		// Return a new BestLifeStats object
@@ -94,7 +134,7 @@ public class FitbitAPI implements Fitbit
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
+	public HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException, RateExceededException
 	{
 		int outOfRange;
 		int fatBurn;
@@ -125,6 +165,28 @@ public class FitbitAPI implements Fitbit
 			// Get the resting heart rate value
 			restHeartRate = value.getInt("restingHeartRate");
 		}
+		catch (RateExceededException e)
+		{
+			outOfRange = 0;
+			fatBurn = 0;
+			cardio = 0;
+			peak = 0;
+			restHeartRate = 0;
+
+			setRateError(true);
+			System.out.println("Rate Error: " + rateError);
+		}
+		catch (TokensException e)
+		{
+			outOfRange = 0;
+			fatBurn = 0;
+			cardio = 0;
+			peak = 0;
+			restHeartRate = 0;
+
+			setTokensError(true);
+			System.out.println("Tokens Error: " + tokensError);
+		}
 		catch (Exception e)
 		{
 			outOfRange = 0;
@@ -132,6 +194,9 @@ public class FitbitAPI implements Fitbit
 			cardio = 0;
 			peak = 0;
 			restHeartRate = 0;
+
+			setError(true);
+			System.out.println("General Error: " + error);
 		}
 
 		// Return new HeartStats object
@@ -147,7 +212,7 @@ public class FitbitAPI implements Fitbit
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
+	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException, RateExceededException
 	{
 		double distance;
 		int calories;
@@ -193,6 +258,44 @@ public class FitbitAPI implements Fitbit
 			floorGoals = goals.getInt("floors");
 			stepGoals = goals.getInt("steps");
 		}
+		catch (RateExceededException e)
+		{
+			distance = 0.00;
+			calories = 0;
+			floors = 0;
+			steps = 0;
+			lightActiveMins = 0;
+			fairlyActiveMins = 0;
+			sedentaryMins = 0;
+			veryActiveMins = 0;
+			activeMinGoals = 0;
+			caloriesOutGoals = 0;
+			distanceGoals = 0.00;
+			floorGoals = 0;
+			stepGoals = 0;
+
+			setRateError(true);
+			System.out.println("Rate Error: " + rateError);
+		}
+		catch (TokensException e)
+		{
+			distance = 0.00;
+			calories = 0;
+			floors = 0;
+			steps = 0;
+			lightActiveMins = 0;
+			fairlyActiveMins = 0;
+			sedentaryMins = 0;
+			veryActiveMins = 0;
+			activeMinGoals = 0;
+			caloriesOutGoals = 0;
+			distanceGoals = 0.00;
+			floorGoals = 0;
+			stepGoals = 0;
+
+			setTokensError(true);
+			System.out.println("Tokens Error: " + tokensError);
+		}
 		catch (Exception e)
 		{
 			distance = 0.00;
@@ -208,10 +311,71 @@ public class FitbitAPI implements Fitbit
 			distanceGoals = 0.00;
 			floorGoals = 0;
 			stepGoals = 0;
+
+			setError(true);
+			System.out.println("General Error: " + error);
 		}
 
 		// Return new DailyStats object
 		return new DailyStats(floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins,
 				veryActiveMins, activeMinGoals, caloriesOutGoals, distanceGoals, floorGoals, stepGoals);
+	}
+
+	// Getters and Setters for Error Variable
+	/**
+	 * Getter Method for general Error 
+	 */
+	public boolean getError()
+	{
+		// TODO Auto-generated method stub
+		return error;
+	}
+
+	/**
+	 * Setter Method for general Error 
+	 */
+	public boolean setError(boolean error)
+	{
+		// TODO Auto-generated method stub
+		this.error = error;
+		return error;
+	}
+
+	/**
+	 * Getter Method for Tokens Error 
+	 */
+	public boolean getTokensError()
+	{
+		// TODO Auto-generated method stub
+		return tokensError;
+	}
+
+	/**
+	 * Setter Method for Tokens Error 
+	 */
+	public boolean setTokensError(boolean tokensError)
+	{
+		// TODO Auto-generated method stub
+		this.tokensError = tokensError;
+		return tokensError;
+	}
+
+	/**
+	 * Getter Method for Rate Error 
+	 */
+	public boolean getRateError()
+	{
+		// TODO Auto-generated method stub
+		return rateError;
+	}
+
+	/**
+	 * Setter Methods for Rate Error 
+	 */
+	public boolean setRateError(boolean rateError)
+	{
+		// TODO Auto-generated method stub
+		this.rateError = rateError;
+		return rateError;
 	}
 }
