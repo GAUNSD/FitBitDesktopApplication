@@ -17,7 +17,7 @@ public interface Fitbit
 	 * @throws JSONException method calls a JSON file which can throw this error
 	 * @throws TokensException method uses tokens which can throw this error
 	 */
-	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException;
+	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException, RateExceededException;
 
 	/**
 	 * Heart Rate Statistics Call Gathers information for Heart Statistics from a specified date
@@ -28,7 +28,8 @@ public interface Fitbit
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException;
+	public HeartStats getHeartActivity(String year, String month, String day)
+			throws JSONException, TokensException, RateExceededException;
 
 	/**
 	 * Daily Statistics Call
@@ -39,5 +40,50 @@ public interface Fitbit
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException;
+	public DailyStats getDailyActivity(String year, String month, String day)
+			throws JSONException, TokensException, RateExceededException;
+
+	// Variable for error handling
+	boolean error = false;
+	boolean rateError = false;
+	boolean tokensError = false;
+
+	/**
+	 * Get Token Error method
+	 * @return
+	 */
+	public boolean getTokensError();
+
+	/**
+	 * Set Tokens Error Method
+	 * @param error
+	 * @return
+	 */
+	public boolean setTokensError(boolean tokensError);
+
+	/**
+	 * Get Rate Error Method
+	 * @return
+	 */
+	public boolean getRateError();
+
+	/**
+	 * Set Rate Error Method
+	 * @param error
+	 * @return
+	 */
+	public boolean setRateError(boolean rateError);
+
+	/**
+	 * Get Error method
+	 * @return
+	 */
+	public boolean getError();
+
+	/**
+	 * Set Error Method
+	 * @param error
+	 * @return
+	 */
+	public boolean setError(boolean error);
 }
