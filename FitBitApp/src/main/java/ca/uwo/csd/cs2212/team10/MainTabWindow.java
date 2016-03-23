@@ -78,10 +78,12 @@ public class MainTabWindow extends JPanel
 		// setPointArray(Point (1,1),2,3,4,5)
 		objSerial = new ObjectSerialization(userSettings);
 		// objSerial.storeUserSettings();
+
 		userSettings = objSerial.loadUserSettings();
 		Point[] savedPointArray = userSettings.getPointArray();
 		if (savedPointArray != null)
-			setPointArray(savedPointArray[0], savedPointArray[1], savedPointArray[2], savedPointArray[3], savedPointArray[4]);
+			setPointArray(savedPointArray[0], savedPointArray[1], savedPointArray[2], savedPointArray[3],
+					savedPointArray[4]);
 		RefreshTokens.setUnits(userSettings.getUnits());
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
 
@@ -220,7 +222,8 @@ public class MainTabWindow extends JPanel
 
 		// Add these points to the pointArray for the object serialization.
 		pointArray = new Point[5];
-		this.setPointArray(mapFramePoint, heartRateFramePoint, calBurnFramePoint, activeMinFramePoint, sedMinFramePoint);
+		this.setPointArray(mapFramePoint, heartRateFramePoint, calBurnFramePoint, activeMinFramePoint,
+				sedMinFramePoint);
 		/**
 		 * Dashboard Menu
 		 */
@@ -248,8 +251,8 @@ public class MainTabWindow extends JPanel
 
 		// Interactive Map description and button add
 		JLabel mapDescript = new JLabel("");
-		mapDescript
-				.setText("<html>An interactive map that displays the places that you have visited based on the total number of steps taken.</html>");
+		mapDescript.setText(
+				"<html>An interactive map that displays the places that you have visited based on the total number of steps taken.</html>");
 		mapDescript.setFont(new Font("Courier New", Font.BOLD, 16));
 		mapDescript.setForeground(Color.LIGHT_GRAY);
 		mapDescript.setBounds(30, 80, 328, 93);	// In the future, make this non-static positions
@@ -288,8 +291,8 @@ public class MainTabWindow extends JPanel
 
 		// Heart Rate Zone description and button add
 		JLabel hrDescript = new JLabel("");
-		hrDescript
-				.setText("<html>The Heart Rate displays <BR> your daily heart zone <BR>information and resting <BR>heart rate.</html>");
+		hrDescript.setText(
+				"<html>The Heart Rate displays <BR> your daily heart zone <BR>information and resting <BR>heart rate.</html>");
 		hrDescript.setFont(new Font("Courier New", Font.BOLD, 16));
 		hrDescript.setForeground(Color.LIGHT_GRAY);
 		hrDescript.setBounds(850, 80, 728, 93);
@@ -358,8 +361,8 @@ public class MainTabWindow extends JPanel
 
 		// Active Minutes description and button add
 		JLabel daDescript = new JLabel("");
-		daDescript
-				.setText("<html>The Daily Activity <BR>records your daily <BR> activity and progress<BR> you worked with FitBit.</html>");
+		daDescript.setText(
+				"<html>The Daily Activity <BR>records your daily <BR> activity and progress<BR> you worked with FitBit.</html>");
 		daDescript.setFont(new Font("Courier New", Font.BOLD, 16));
 		daDescript.setForeground(Color.LIGHT_GRAY);
 		daDescript.setBounds(860, 320, 728, 93);
