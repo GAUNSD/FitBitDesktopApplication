@@ -52,6 +52,8 @@ import org.json.JSONException;
 public class MainTabWindow extends JPanel {
 	
 	private Fitbit fitbit;
+	private ObjectSerialization objSerial;
+	private UserSettings userSettings;
 	
 	/**
 	 * The main constructor the holds the majority of the UI. 
@@ -70,12 +72,12 @@ public class MainTabWindow extends JPanel {
 		this.fitbit = fitbit;
 		
 		////////////////TESTING OBJECT SERIALIZATION//////////////
-		UserSettings userSettings = new UserSettings();
+		userSettings = new UserSettings();
 		
 		userSettings.setUnits("imperial");
 		RefreshTokens.setUnits(userSettings.getUnits());
 		
-		ObjectSerialization objSerial = new ObjectSerialization(userSettings);
+		objSerial = new ObjectSerialization(userSettings);
 		objSerial.storeUserSettings();
 		userSettings = objSerial.loadUserSettings();
 		////////////////TESTING OBJECT SERIALIZATION//////////////
