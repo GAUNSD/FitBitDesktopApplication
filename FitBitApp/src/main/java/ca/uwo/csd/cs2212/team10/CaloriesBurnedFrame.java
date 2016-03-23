@@ -23,19 +23,44 @@ public class CaloriesBurnedFrame extends JPanel {
 	public CaloriesBurnedFrame(int calories, int caloriesOutGoals) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));
-		
+		this.setLayout(null);
+		String stringLabel;
+int caloriesLeft= caloriesOutGoals-calories;
+if(caloriesLeft<0){
 		// JLabels to print the text for the testFitBitAPI
-		String stringLabel = "<html>" + 
-				"<br>Calories: " + calories + 
-				"<br>Calories (Goals): " + caloriesOutGoals + 
+		 stringLabel = "<html>" +  "<br> You are above your goal by "+ -caloriesLeft+
+				"<br>Calories: " + calories + " cal"+
+				"<br>Calories (Goals): " + caloriesOutGoals + " cal"+
 				"</html>";
-		
-		JLabel lblName = new JLabel(stringLabel, JLabel.CENTER);
+}
+else if(caloriesLeft>0){
+	 stringLabel = "<html>" +  "<br> You are below your goal by "+ caloriesLeft+
+			"<br> Calories: " + calories + 
+			"<br> Calories (Goals): " + caloriesOutGoals + 
+			"</html>";
+	
+}
+else{ 
+	stringLabel = "<html>" +  "<br> You have met your goal"+
+		"<br>Calories: " + calories+ "cal"+ 
+		"<br>Calories (Goals): " + caloriesOutGoals + "cal"+
+		"</html>";
+	
+}
+		JLabel lblName = new JLabel(stringLabel);
+		lblName.setBounds(4, 80, 198, 135);
+
 		
 		lblName.setOpaque(false);	
 		lblName.setToolTipText("tmp");
-		this.setBackground(new Color(150, 150, 150));
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("src/main/resources/caloriesBurned.png"));
+		lblNewLabel.setBounds(33,0, 198, 132);
+		
+		
+		this.setBackground(new Color(155, 155, 155));
+		this.add(lblNewLabel);
 		
 		//this.add(content);
 		this.add(lblName);

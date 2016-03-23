@@ -22,17 +22,26 @@ public class SedentaryMinutesFrame extends JPanel {
 	public SedentaryMinutesFrame(int sedentaryMins) {
 		// Change GridLayout to better organize the panel
 		super(new GridLayout(1, 1));
-		
+		this.setLayout(null);
+
 		// JLabels to print the text for the testFitBitAPI
 		String stringLabel = "<html>" +
-				"<br>Sedentary Minutes: " + sedentaryMins +  
+				"<br>Sedentary Minutes: " + sedentaryMins +  " min"+
 				"</html>";
-		JLabel lblName = new JLabel(stringLabel, JLabel.CENTER);
+		JLabel lblName = new JLabel(stringLabel);
+		lblName.setBounds(10, 70, 210, 160);
+
 		
 		lblName.setOpaque(false);	
 		lblName.setToolTipText("tmp");
-		this.setBackground(new Color(150, 150, 150));
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("src/main/resources/rsz_sedmin.png"));
+		lblNewLabel.setBounds(40,0, 198, 160);
+		
+		
+		this.setBackground(new Color(155, 155, 155));
+		this.add(lblNewLabel);
 		
 		//this.add(content);
 		this.add(lblName);
