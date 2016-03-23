@@ -17,9 +17,9 @@ public class FitbitTest implements Fitbit
 	 */
 
 	// Variables for error handling
-	boolean error = false;
-	private boolean tokensError;
-	private boolean rateError;
+	private boolean error = false;
+	private boolean tokensError = false;
+	private boolean rateError = false;
 
 	/**
 	 * Best Statistics Call
@@ -58,6 +58,10 @@ public class FitbitTest implements Fitbit
 		double lifeDist = total.getDouble("distance");
 		double lifeFloors = total.getInt("floors");
 		long lifeSteps = total.getInt("steps");
+		
+		setError(false);
+		setTokensError(false);
+		setRateError(false);
 
 		// Return a new BestLifeStats object
 		return new BestLifeStats(valueDist, dateDist, valueFloors, dateFloors, valueSteps, dateSteps, lifeDist,
@@ -93,6 +97,10 @@ public class FitbitTest implements Fitbit
 
 		// Get the resting heart rate value
 		int restHeartRate = value.getInt("restingHeartRate");
+		
+		setError(false);
+		setTokensError(false);
+		setRateError(false);
 
 		// Return a new HeartStats object
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
@@ -134,6 +142,10 @@ public class FitbitTest implements Fitbit
 		double distanceGoals = goals.getDouble("distance");
 		int floorGoals = goals.getInt("floors");
 		int stepGoals = goals.getInt("steps");
+		
+		setError(false);
+		setTokensError(false);
+		setRateError(false);
 
 		// Return new DailyStats object
 		return new DailyStats(floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins,

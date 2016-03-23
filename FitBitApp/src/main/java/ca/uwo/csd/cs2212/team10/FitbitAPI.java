@@ -17,9 +17,9 @@ public class FitbitAPI implements Fitbit
 	 */
 
 	// Variables for error handling
-	private boolean error;
-	private boolean tokensError;
-	private boolean rateError;
+	private boolean error = false;
+	private boolean tokensError = false;
+	private boolean rateError = false;
 
 	/**
 	 * Best Statistics Call
@@ -71,6 +71,10 @@ public class FitbitAPI implements Fitbit
 			lifeDist = total.getDouble("distance");
 			lifeFloors = total.getInt("floors");
 			lifeSteps = total.getInt("steps");
+			
+			setError(false);
+			setTokensError(false);
+			setRateError(false);
 		}
 		catch (RateExceededException e)
 		{
@@ -164,6 +168,10 @@ public class FitbitAPI implements Fitbit
 
 			// Get the resting heart rate value
 			restHeartRate = value.getInt("restingHeartRate");
+			
+			setError(false);
+			setTokensError(false);
+			setRateError(false);
 		}
 		catch (RateExceededException e)
 		{
@@ -257,6 +265,10 @@ public class FitbitAPI implements Fitbit
 			distanceGoals = goals.getDouble("distance");
 			floorGoals = goals.getInt("floors");
 			stepGoals = goals.getInt("steps");
+			
+			setError(false);
+			setTokensError(false);
+			setRateError(false);
 		}
 		catch (RateExceededException e)
 		{
