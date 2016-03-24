@@ -996,7 +996,7 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 
 					// try {
 						try {
-							daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
+							daily = fitbit.getDailyActivity(userDate[0], userDate[1], userDate[2]);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
