@@ -63,7 +63,7 @@ public class MainTabWindow extends JPanel
 	String[] userDate = {"yyyy","mm","dd"};
 	JLabel time;
 	Boolean tmp;
-	private Fitbit fitbit;
+	private static Fitbit fitbit;
 	private Point[] pointArray;
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
