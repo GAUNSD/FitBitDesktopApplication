@@ -55,7 +55,8 @@ public class MainTabWindow extends JPanel
 {
 
 	private Fitbit fitbit;
-	private Point[] pointArray;
+	// The Point Array holds point objects that refer to the position of the JDesktopPane elements
+	private Point[] pointArray = {new Point(0,0), new Point(200,0), new Point(400,0), new Point(600,0), new Point(800,0)};
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
 
@@ -79,9 +80,13 @@ public class MainTabWindow extends JPanel
 		objSerial = new ObjectSerialization(userSettings);
 		// objSerial.storeUserSettings();
 		userSettings = objSerial.loadUserSettings();
+		
+		System.out.println(userSettings + "\n TEST");
 		Point[] savedPointArray = userSettings.getPointArray();
-		if (savedPointArray != null)
+		if (savedPointArray != null) {
 			setPointArray(savedPointArray[0], savedPointArray[1], savedPointArray[2], savedPointArray[3], savedPointArray[4]);
+			System.out.println(savedPointArray[0] + " hello");
+		}
 		RefreshTokens.setUnits(userSettings.getUnits());
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
 
@@ -172,33 +177,48 @@ public class MainTabWindow extends JPanel
 		/*
 		 * Elements needed: Map HeartRate Zone Calories Burned Daily Activity Records // Sedentary Minutes //
 		 */
+		/*
+		 * Note: The point array is in this order
+		 * 		this.pointArray[0] = mapPoint;
+				this.pointArray[1] = heartPoint;
+				this.pointArray[2] = calPoint;
+				this.pointArray[3] = activePoint;
+				this.pointArray[4] = sedPoint;
+		 */
 		// The Total Distance element
-		final JInternalFrame mapFrame = makeInternalFrame("Interactive Map", 0, 0, 200, 200, false, true, true);
+		// When we make the internal frame, the point array must be referenced for the postition
+		final JInternalFrame mapFrame = makeInternalFrame("Interactive Map", getPointArray()[0].x, getPointArray()[0].y, 
+				200, 200, false, true, true);
 		MapFrame mapContent = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
 		mapFrame.add(mapContent);
 		desktop.add(mapFrame);
+		
 
 		// The Floors Climbed element
-		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", 200, 0, 200, 200, false, true, true);
+		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", getPointArray()[1].x, getPointArray()[1].y,
+				200, 200, false, true, true);
 		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(fatBurn, cardio, peak, restHeartRate);
 		heartRateFrame.add(heartRateContent);
 		desktop.add(heartRateFrame);
 
 		// The Steps Taken Element
-		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", 400, 0, 200, 200, false, true, true);
+		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", getPointArray()[2].x, getPointArray()[2].y,
+				200, 200, false, true, true);
 		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
 		calBurnFrame.add(calBurnContent);
 		desktop.add(calBurnFrame);
 
 		// The Active Minutes element
-		final JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", 600, 0, 200, 200, false, true, true);
+		final JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", getPointArray()[3].x, getPointArray()[3].y,
+				200, 200, false, true, true);
 		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins,
 				activeMinGoals);
 		activeMinFrame.add(activeMinContent);
 		desktop.add(activeMinFrame);
 
 		// The Sedentary Minutes element
-		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", 800, 0, 200, 200, false, true, true);
+		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", getPointArray()[4].x, getPointArray()[4].y,
+				200, 200, false, true, true);
 		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins);
 		sedMinFrame.add(sedMinContent);
 		desktop.add(sedMinFrame);
@@ -221,6 +241,15 @@ public class MainTabWindow extends JPanel
 		// Add these points to the pointArray for the object serialization.
 		pointArray = new Point[5];
 		this.setPointArray(mapFramePoint, heartRateFramePoint, calBurnFramePoint, activeMinFramePoint, sedMinFramePoint);
+		
+		//Now that the point Array has been updated, we set the values for the object seriealization
+		// //////////////TESTING OBJECT SERIALIZATION//////////////
+		userSettings.setPointArray(this.getPointArray());
+		objSerial.storeUserSettings();
+		RefreshTokens.setUnits(userSettings.getUnits());
+		
+		// //////////////TESTING OBJECT SERIALIZATION//////////////
+		
 		/**
 		 * Dashboard Menu
 		 */
@@ -754,6 +783,31 @@ public class MainTabWindow extends JPanel
 
 		// Add the tabbed pane to this panel.
 		this.add(tabbedPane);
+		
+		
+	}
+	
+	public void onCloseAction() throws Exception{
+		//When the parent frame (MainWindow) is closed, this method will be executed to save user setting
+		userSettings.setPointArray(this.getPointArray());
+		objSerial.storeUserSettings();
+		//hopefully this works
+	}
+
+	public UserSettings getUserSettings() {
+		return userSettings;
+	}
+
+	public void setUserSettings(UserSettings userSettings) {
+		this.userSettings = userSettings;
+	}
+
+	public ObjectSerialization getObjSerial() {
+		return objSerial;
+	}
+
+	public void setObjSerial(ObjectSerialization objSerial) {
+		this.objSerial = objSerial;
 	}
 
 	/**
