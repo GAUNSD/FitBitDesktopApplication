@@ -25,17 +25,59 @@ public class UIErrorHandle extends JPanel {
 	 * UIError constructor.
 	 * This is a JPanel that will display information when there is an error
 	 */
-	public UIErrorHandle() {
+	public UIErrorHandle(boolean error, boolean rateError, boolean tokenError) {
+		if (error || rateError || tokenError) {
+			this.setVisible(true);
+		}
+		else {
+			this.setVisible(false);
+		}
 		
 		// Create the label that shows the information
-		this.setLabel("tmp");
+		this.createLabel(error, rateError, tokenError);
 		JTextArea lblName = new JTextArea(this.getLabel());
 		lblName.setEditable(false);
-		lblName.setBackground(new Color(150, 150, 150));
-		lblName.setForeground(new Color(139,24,32));
+		lblName.setBackground(null);
+		lblName.setForeground(new Color(249,38,114));
+			
 		// Set the panels attributes
 		this.add(lblName);
-		this.setBackground(null);
+		this.setBackground(new Color(87, 87, 87));
+		
+		//TMP - this might or might not be added to the class for reprinting. not sure.
+		/* DAMMMMMNNNNNN THIS. IT DOESNT WORK 
+		JButton updateStuff = new JButton("Update");
+		updateStuff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+				System.out.println(UIErrorHandle.this.getLabel());
+				
+				/*SwingUtilities.invokeLater(new Runnable() {
+				    public void run() {
+				      
+				      lblName.update(lblName.getGraphics());	
+				      lblName.setCaretPosition(lblName.getDocument().getLength());
+				    }
+				  });
+				
+			}
+		});
+		*/
+		//this.add(updateStuff); //NOT WORKING
+	}
+	
+	public void createLabel(boolean error, boolean rateError, boolean tokenError) {
+		String tmpLabel = "";
+		String sError = "";
+		String sRateError = "";
+		String sTokenError = "";
+		
+		if (error) { sError = "| An error has occured |"; }
+		if (rateError) { sRateError = "| A rate error has occured |"; }
+		if (tokenError) { sTokenError = "| A token error has occured |"; }
+		
+		tmpLabel += sError + sRateError + sTokenError;
+		setLabel(tmpLabel);
 	}
 	
 	/**
@@ -56,6 +98,14 @@ public class UIErrorHandle extends JPanel {
 		this.revalidate();
 	}
 	
+
+	class ValidateThread implements Runnable {
+	    public void run() {
+	        validate();
+	    }
+	}
+
+	/* Test Harness
 	public static void main(String[] args) {
 		// Here - for test purposes - we will replicate the MainWindow class
 		JFrame mainWindow = new JFrame();
@@ -65,16 +115,21 @@ public class UIErrorHandle extends JPanel {
 		mainWindow.setBackground(new Color(55, 55, 55));
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		boolean error = true;
+		boolean rateerror = true;
+		boolean tokenerror = true;
+		// Create the UIErrror Handling Panel.
+		UIErrorHandle uiError = new UIErrorHandle(error, rateerror, tokenerror);
+		//Add it to the bottom to see how it works
+		mainWindow.add(uiError, BorderLayout.SOUTH);
+		
 		//Create the menu bar
 		/////////////////////////////////////////////////////////////////////
 		// Create the Top Menu Bar and set its attributes
 		MyMenuBar topMenubar = new MyMenuBar();
 		topMenubar.setBackground(new Color(87, 87, 87));
 		topMenubar.setPreferredSize(new Dimension(1200, 70)); // height
-		
-		// Create the UIErrror Handling Panel.
-		UIErrorHandle uiError = new UIErrorHandle();
-		
+			
 
 		// Create the 'User Name' menu item. Here the user will be able to exit or logout (expand options in the future)
 		JMenu mnuUserName = new JMenu("Window");
@@ -90,8 +145,13 @@ public class UIErrorHandle extends JPanel {
 		mniUserNameExit.addActionListener(new ActionListener() {
 			//@Override
 			public void actionPerformed(ActionEvent event) {
-				uiError.setLabel("Hello");
-				uiError.updateText(); }
+				System.exit(0);
+				System.out.println(uiError.getLabel());
+				uiError.setLabel("HELLLLLLLO");
+				System.out.println(uiError.getLabel());
+				
+				
+			}
 		});
 		
 		// Add the sub-menu items to the dropdown menu
@@ -102,10 +162,9 @@ public class UIErrorHandle extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("");
 		ImageIcon img0=new ImageIcon("src/main/resources/fitbitlogo.png");
-		topMenubar.add(uiError);
-		//topMenubar.add(Box.createHorizontalGlue()); // This spaces out the menu item so it's to the left
+		//topMenubar.add(uiError);
+		topMenubar.add(Box.createHorizontalGlue()); // This spaces out the menu item so it's to the left
 		topMenubar.add(Box.createRigidArea(new Dimension(20,0))); // This rigidly spaces out the eiError and the space
-		
 		lblNewLabel.setIcon(img0);
 		topMenubar.add(lblNewLabel);
 		topMenubar.add(Box.createHorizontalGlue()); // This spaces out the menu item so it's to the left
@@ -124,9 +183,9 @@ public class UIErrorHandle extends JPanel {
 		mainWindow.setVisible(true);
 		
 	}
-	
+	*/
 
 }
-/////////////////////////////////////////////////////////////////////////////////////////
+
 
 
