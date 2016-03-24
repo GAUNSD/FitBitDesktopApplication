@@ -927,11 +927,13 @@ public class MainTabWindow extends JPanel
         final JButton zoomOut = new JButton("Zoom  -");
         final JButton zoomIn = new JButton("Zoom +");
         final JButton setLocation = new JButton("Set Location"); 
+        final JButton refreshLocation = new JButton("Refresh"); 
 
         mapButtonPanel.setLayout(new BoxLayout(mapButtonPanel,BoxLayout.Y_AXIS));
         mapButtonPanel.add(zoomOut);
         mapButtonPanel.add(zoomIn); 
         mapButtonPanel.add(setLocation);
+        mapButtonPanel.add(refreshLocation); 
         mapButtonPanel.setPreferredSize(new Dimension(175,400));
         mapButtonPanel.setBackground(new Color(40, 40, 40));
 
@@ -1000,14 +1002,31 @@ public class MainTabWindow extends JPanel
                         newLocation.setVisible(true);
                     }
                 });
-                /*mapImage = displayMap(mapZoomLevel,map);
+                mapImage = displayMap(mapZoomLevel,map);
+                try {
+                    if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
+                    else worldMap.setText("Sorry, the map could not be displayed due to an error.");
+                    map.writeToJSONFile(); 
+                } catch (Exception ex) {
+                    worldMap.setText("Sorry, the map could not be displayed due to an error.");
+                }
+                mapPanel.add(worldMap, BorderLayout.NORTH);
+                panelMap.add(mapPanel, BorderLayout.CENTER);
+                locations.setText(map.getAchievedLocations());
+                mapListPanel.add(locationList);
+                panelMap.add(mapListPanel, BorderLayout.LINE_START);
+            }
+        });
+        refreshLocation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mapImage = displayMap(mapZoomLevel,map);
                 if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
                 else worldMap.setText("Sorry, the map could not be displayed due to an error."); 
                 mapPanel.add(worldMap, BorderLayout.NORTH);
                 panelMap.add(mapPanel, BorderLayout.CENTER);
                 locations.setText(map.getAchievedLocations());
                 mapListPanel.add(locationList);
-                panelMap.add(mapListPanel, BorderLayout.LINE_START);  */
+                panelMap.add(mapListPanel, BorderLayout.LINE_START);   
             }
         });
 
@@ -1378,7 +1397,6 @@ public class MainTabWindow extends JPanel
     private ImageIcon displayMap(int mapZoomLevel, Map map) {
         try {
             ImageIcon mapImage = new ImageIcon((new ImageIcon(map.getMap(mapZoomLevel))).getImage().getScaledInstance(600,400,java.awt.Image.SCALE_SMOOTH));
-            //map.writeToJSONFile();
             return mapImage; 
 
         } catch(Exception e) {
