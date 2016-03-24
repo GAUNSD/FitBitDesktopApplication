@@ -63,7 +63,7 @@ public class MainTabWindow extends JPanel
 	String[] userDate = {"yyyy","mm","dd"};
 	JLabel time;
 	Boolean tmp;
-	private static Fitbit fitbit;
+	//final private Fitbit fitbit;
 	private Point[] pointArray;
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
@@ -121,7 +121,7 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 
 		super(new GridLayout(1, 1));
 
-		this.fitbit = fitbit;
+		//this.fitbit = fitbit;
 
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
 		userSettings = new UserSettings();
