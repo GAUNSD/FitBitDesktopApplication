@@ -37,13 +37,26 @@ public class MainWindow extends JFrame{
 		this.setBackground(new Color(55, 55, 55));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// Create the Main Tab Window. This JPanel will be used to navigate through the window
-		final MainTabWindow mainTabWindow = new MainTabWindow(fitbit);
-
 		// Add/Create the Menu Bar using the createMenuBar Method
 		//this.setJMenuBar(this.createMenubar(mainTabWindow));
 
 		////////////////////////
+		// Create the Main Tab Window. This JPanel will be used to navigate through the window
+		final MainTabWindow mainTabWindow = new MainTabWindow(fitbit);
+		getContentPane().add(mainTabWindow, BorderLayout.CENTER);
+		
+		/*
+		System.out.println("TEST_TEST_TEST_TEST");
+		System.out.println(fitbit.getError()      );
+		System.out.println(fitbit.getRateError()  );
+		System.out.println(fitbit.getTokensError());
+		*/
+		//// Create the UIErrror Handling Panel.
+		UIErrorHandle uiError = new UIErrorHandle(fitbit.getError(), fitbit.getRateError(), fitbit.getTokensError());
+		//Add it to the bottom to see how it works
+		this.add(uiError, BorderLayout.SOUTH);
+    
+    	////////////////////////
 		// Create the Top Menu Bar and set its attributes
 		MyMenuBar topMenubar = new MyMenuBar();
 		topMenubar.setBackground(new Color(87, 87, 87));

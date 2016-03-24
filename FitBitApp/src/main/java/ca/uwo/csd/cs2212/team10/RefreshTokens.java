@@ -59,8 +59,9 @@ public class RefreshTokens
 	 * @param requestUrl String that contains a specified FitBit URL
 	 * @return String containing the data downloaded from the URL request from the API
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
+	 * @throws RateExceededException 
 	 */
-	public static String getTokens(String requestUrl) throws TokensException
+	public static String getTokens(String requestUrl) throws TokensException, RateExceededException
 	{
 		units = RefreshTokens.getUnits();
 
@@ -189,7 +190,7 @@ public class RefreshTokens
 			System.out.println("HTTP response body: " + response.getBody());
 			break;
 		case 429:
-			throw new TokensException("Rate Limit Exceeded\n HTTP response body\n" + response.getBody());
+			throw new RateExceededException("Rate Limit Exceeded\n HTTP response body\n" + response.getBody());
 		default:
 			System.out.println("HTTP response code: " + response.getCode());
 			System.out.println("HTTP response body: " + response.getBody());

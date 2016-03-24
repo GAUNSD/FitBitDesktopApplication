@@ -3,6 +3,7 @@ package ca.uwo.csd.cs2212.team10;
 import javax.swing.SwingUtilities;
 
 import org.json.JSONException;
+import java.io.IOException;
 
 /**
  * This is the main class that is run by the jar. 
@@ -34,7 +35,7 @@ public class App {
                 try {
                     Fitbit fitbit;
                     if (test)
-                        fitbit = new FitbitTest();
+                        fitbit = (Fitbit) new FitbitTest();
                     else
                         fitbit = new FitbitAPI();
                     window = new MainWindow(fitbit);

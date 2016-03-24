@@ -13,17 +13,16 @@ import java.io.ObjectInputStream;
 public class ObjectSerialization implements Serializable
 {
 	private UserSettings userSettings;
-	
+
 	/**
-	 * Constructor to save hold the user settings
-	 * Will later save these settings
+	 * Constructor to save hold the user settings Will later save these settings
 	 * @param newUserSettings
 	 */
 	public ObjectSerialization(UserSettings newUserSettings)
 	{
 		userSettings = newUserSettings;
 	}
-	
+
 	/**
 	 * This method will save the user settings
 	 * @throws Exception
@@ -50,7 +49,7 @@ public class ObjectSerialization implements Serializable
 		System.out.println(userSettings.toString());
 		System.out.println(in.toString() + " - testing"); //test
 		in.close();
-		
+
 		return userSettings;
 	}
 }
