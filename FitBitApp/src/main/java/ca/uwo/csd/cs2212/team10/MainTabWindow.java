@@ -984,7 +984,7 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 				HeartStats heartrate2 = null;
 					 try {
 						heartrate2 = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
-					} catch (JSONException | TokensException e2) {
+					} catch (Exception e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
@@ -998,7 +998,7 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 					// try {
 						try {
 							daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
-						} catch (JSONException | TokensException e1) {
+						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
