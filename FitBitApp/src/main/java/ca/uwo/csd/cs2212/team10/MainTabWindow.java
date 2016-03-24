@@ -67,9 +67,9 @@ public class MainTabWindow extends JPanel
 	private Point[] pointArray;
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
-	final private static BestLifeStats bestlife;
-	final private static HeartStats heartrate ;
-	final private static DailyStats daily;
+	private static BestLifeStats bestlife;
+	private static HeartStats heartrate ;
+	private static DailyStats daily;
 
 
 
