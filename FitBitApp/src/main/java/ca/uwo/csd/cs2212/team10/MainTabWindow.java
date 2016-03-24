@@ -245,7 +245,13 @@ public class MainTabWindow extends JPanel
 		//Now that the point Array has been updated, we set the values for the object seriealization
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
 		userSettings.setPointArray(this.getPointArray());
-		objSerial.storeUserSettings();
+		
+		userSettings.setUnits("imperial");
+		objSerial.storeUserSettings(userSettings);
+		
+		
+		
+		
 		RefreshTokens.setUnits(userSettings.getUnits());
 		
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
@@ -790,7 +796,7 @@ public class MainTabWindow extends JPanel
 	public void onCloseAction() throws Exception{
 		//When the parent frame (MainWindow) is closed, this method will be executed to save user setting
 		userSettings.setPointArray(this.getPointArray());
-		objSerial.storeUserSettings();
+		objSerial.storeUserSettings(userSettings);
 		//hopefully this works
 	}
 
