@@ -982,12 +982,12 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 			{
 				//SwingUtilities.updateComponentTreeUI(heartRateFrame);
 				HeartStats heartrate2 = null;
-					 try {
+					 //try {
 						heartrate2 = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
-					} catch (Exception e2) {
+					//} catch (Exception e2) {
 						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
+						//e2.printStackTrace();
+					//}
 			
 					 outOfRange = heartrate2.getOutOfRange();
 					 fatBurn = heartrate2.getFatBurn();
@@ -996,12 +996,12 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 					 restHeartRate = heartrate2.getRestHeartRate();
 
 					// try {
-						try {
+						//try {
 							daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
-						} catch (Exception e1) {
+						//} catch (Exception e1) {
 							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+							//e1.printStackTrace();
+						//}
 				
 					 
 					 floors = daily.getFloors();
