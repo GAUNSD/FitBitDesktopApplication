@@ -263,20 +263,42 @@ public class Map {
     }
     
     /**
-     * Method checkes array of location objects to see if the lifetime distance has been achieved and updates the location object. An array of achieved locations is returned.
-     * @return Array of achieved Location objects
+     * Method checks each location compared to the life distance and sets the location as achieved if the life distance
+     * is greater than the distance to the location.
      */
-    public Location[] refreshMap() {
+    public void refreshMap() {
         double lifeDistance = getLifeDistance();
-        List<Location> places = new ArrayList<Location>();
 
         for(int i = 0; i < this.locations.length; i++) {
             if(lifeDistance >= this.locations[i].getDistance() || this.locations[i].getAchieved()) {
                 this.locations[i].setAchieved(true); 
+            }
+        }
+    }
+
+    /**
+     * Method returns an array of locations that have been achieved
+     * @return Array of achieved Location object sorted by increasing distance
+     */
+    public Location[] getAchievedLocations() {
+        List<Location> places = new ArrayList<Location>();
+
+        for(int i = 0; i < this.locations.length; i++) {
+            if(this.locations[i].getAchieved()) {
                 places.add(this.locations[i]); 
             }
         }
-        return places.toArray(new Location[places.size()]);
+        Location[] result = places.toArray(new Location[places.size()]);
+        /*Location temp; 
+        for (int i = 0; i < result.length; i ++) {
+            if(result[i].getDistance() > result[i+1].getDistance()) {
+                temp = result[i];
+                result[i] = result[i+1];
+                result[i+1] = temp;
+                i = 0;
+            }
+        }*/
+        return result;
     }
 
     /**
