@@ -59,6 +59,12 @@ public class MainTabWindow extends JPanel
 	private Point[] pointArray = {new Point(0,0), new Point(200,0), new Point(400,0), new Point(600,0), new Point(800,0)};
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
+	
+	private final JInternalFrame mapFrame;
+	private final JInternalFrame heartRateFrame;
+	private final JInternalFrame calBurnFrame; 
+	private final JInternalFrame activeMinFrame;
+	private final JInternalFrame sedMinFrame;
 
 	/**
 	 * The main constructor the holds the majority of the UI. The constructor is separated into the following sections;
@@ -187,28 +193,29 @@ public class MainTabWindow extends JPanel
 		 */
 		// The Total Distance element
 		// When we make the internal frame, the point array must be referenced for the postition
-		final JInternalFrame mapFrame = makeInternalFrame("Interactive Map", getPointArray()[0].x, getPointArray()[0].y, 
+		this.mapFrame = makeInternalFrame("Interactive Map", getPointArray()[0].x, getPointArray()[0].y, 
 				200, 200, true, true, true);
 		MapFrame mapContent = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
 		mapFrame.add(mapContent);
 		desktop.add(mapFrame);
 
 		// The Floors Climbed element
-		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", getPointArray()[1].x, getPointArray()[1].y,
+		this.heartRateFrame = makeInternalFrame("Heart Rate Zone", getPointArray()[1].x, getPointArray()[1].y,
 				200, 200, true, true, true);
 		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(fatBurn, cardio, peak, restHeartRate);
 		heartRateFrame.add(heartRateContent);
 		desktop.add(heartRateFrame);
 
 		// The Steps Taken Element
-		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", getPointArray()[2].x, getPointArray()[2].y,
+		this.calBurnFrame = makeInternalFrame("Calories Burned", getPointArray()[2].x, getPointArray()[2].y,
 				200, 200, true, true, true);
 		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
 		calBurnFrame.add(calBurnContent);
 		desktop.add(calBurnFrame);
 
+		
 		// The Active Minutes element
-		final JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", getPointArray()[3].x, getPointArray()[3].y,
+		this.activeMinFrame = makeInternalFrame("Active Minutes", getPointArray()[3].x, getPointArray()[3].y,
 				200, 200, true, true, true);
 		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins,
 				activeMinGoals);
@@ -216,7 +223,7 @@ public class MainTabWindow extends JPanel
 		desktop.add(activeMinFrame);
 
 		// The Sedentary Minutes element
-		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", getPointArray()[4].x, getPointArray()[4].y,
+		this.sedMinFrame = makeInternalFrame("Sedentary Minutes", getPointArray()[4].x, getPointArray()[4].y,
 				200, 200, true, true, true);
 		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins);
 		sedMinFrame.add(sedMinContent);
@@ -224,6 +231,7 @@ public class MainTabWindow extends JPanel
 
 		panel1.add(desktop);
 
+		
 		// add the the panel to the tabbed pane
 		ImageIcon icon1 = new ImageIcon("home_icon.png");
 		tabbedPane.addTab("Dashboard", icon1, panel1, "tmp1"); // Add the desktop pane to the tabbedPane
@@ -794,7 +802,10 @@ public class MainTabWindow extends JPanel
 	
 	public void onCloseAction() throws Exception{
 		//When the parent frame (MainWindow) is closed, this method will be executed to save user setting
+		this.updatePointArray(this.mapFrame, this.heartRateFrame, this.calBurnFrame, this.activeMinFrame, this.sedMinFrame);
+		
 		userSettings.setPointArray(this.getPointArray());
+		System.out.println(this.getPointArray()[0] + " close point 0");
 		objSerial.storeUserSettings(userSettings);
 		//hopefully this works
 	}
@@ -835,13 +846,26 @@ public class MainTabWindow extends JPanel
 		this.pointArray[2] = calPoint;
 		this.pointArray[3] = activePoint;
 		this.pointArray[4] = sedPoint;
+		
 	}
 
 	private Point[] getPointArray()
 	{
 		return this.pointArray; // This should probably be a copy, to maintain security (?)
 	}
-
+	
+	private void updatePointArray(
+			JInternalFrame map,JInternalFrame heart, JInternalFrame cal, JInternalFrame min, JInternalFrame sed)
+	{
+		Point mapFramePoint = map.getLocation();
+		Point heartRateFramePoint = heart.getLocation();
+		Point calBurnFramePoint = cal.getLocation();
+		Point activeMinFramePoint = min.getLocation();
+		Point sedMinFramePoint = sed.getLocation();
+		
+		this.setPointArray(mapFramePoint, heartRateFramePoint, calBurnFramePoint, activeMinFramePoint, sedMinFramePoint);
+		
+	}
 	/**
 	 * A Method that will make the JInternalFrames (ie- the elements in the Dashboard) The parameters will dictate that
 	 * frames initial values, who will change as the navigates the app.
