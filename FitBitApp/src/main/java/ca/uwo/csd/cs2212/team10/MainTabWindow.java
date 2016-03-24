@@ -120,7 +120,7 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 	{
 
 		super(new GridLayout(1, 1));
-		Fitbit fitbit;
+		Fitbit fitbit=new Fitbit();
 		this.fitbit = fitbit1;
 
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
