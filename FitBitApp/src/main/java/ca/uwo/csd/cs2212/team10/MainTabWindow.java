@@ -63,7 +63,7 @@ public class MainTabWindow extends JPanel
 	String[] userDate = {"yyyy","mm","dd"};
 	JLabel time;
 	Boolean tmp;
-	final private Fitbit fitbit;
+	private Fitbit fitbit;
 	private Point[] pointArray;
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
@@ -981,24 +981,25 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 			public void actionPerformed(ActionEvent e)
 			{
 				//SwingUtilities.updateComponentTreeUI(heartRateFrame);
-					try {
-						heartrate = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
+				HeartStats heartrate2 = null;
+					 try {
+						heartrate2 = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
 					} catch (Exception e2) {
-						TODO Auto-generated catch block
+						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 			
-					 outOfRange = heartrate.getOutOfRange();
-					 fatBurn = heartrate.getFatBurn();
-					 cardio = heartrate.getCardio();
-					 peak = heartrate.getPeak();
-					 restHeartRate = heartrate.getRestHeartRate();
+					 outOfRange = heartrate2.getOutOfRange();
+					 fatBurn = heartrate2.getFatBurn();
+					 cardio = heartrate2.getCardio();
+					 peak = heartrate2.getPeak();
+					 restHeartRate = heartrate2.getRestHeartRate();
 
 					// try {
 						try {
 							daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
 						} catch (Exception e1) {
-							 TODO Auto-generated catch block
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 				
