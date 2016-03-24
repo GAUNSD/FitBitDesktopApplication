@@ -35,7 +35,7 @@ public class App {
                 try {
                     Fitbit fitbit;
                     if (test)
-                        fitbit = new FitbitTest();
+                        fitbit = (Fitbit) new FitbitTest();
                     else
                         fitbit = new FitbitAPI();
                     window = new MainWindow(fitbit);

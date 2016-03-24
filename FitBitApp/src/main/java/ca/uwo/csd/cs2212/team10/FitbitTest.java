@@ -16,13 +16,18 @@ public class FitbitTest implements Fitbit
 	 * getHeartActivity("2016", "01", "29"); getBestLifeActivity(); getDailyActivity("2016", "01", "08"); }
 	 */
 
+	// Variables for error handling
+	private boolean error = false;
+	private boolean tokensError = false;
+	private boolean rateError = false;
+
 	/**
 	 * Best Statistics Call
 	 * @return BestLifeStats object containing all best life statistics data
 	 * @throws JSONException method calls a JSON file which can throw this error
 	 * @throws TokensException method uses tokens which can throw this error
 	 */
-	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException
+	public BestLifeStats getBestLifeActivity() throws JSONException, TokensException, RateExceededException
 	{
 		// API fake requests
 		String jsonResult = "{'best':{'total':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}},'tracker':{'distance':{'date':'2016-02-10','value':10.35796},'floors':{'date':'2016-02-03','value':30.0000000456},'steps':{'date':'2016-01-14','value':13700}}},'lifetime':{'total':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769},'tracker':{'activeScore':-1,'caloriesOut':-1,'distance':202.93,'floors':559,'steps':272769}}}";
@@ -53,6 +58,10 @@ public class FitbitTest implements Fitbit
 		double lifeDist = total.getDouble("distance");
 		double lifeFloors = total.getInt("floors");
 		long lifeSteps = total.getInt("steps");
+		
+		setError(false);
+		setTokensError(false);
+		setRateError(false);
 
 		// Return a new BestLifeStats object
 		return new BestLifeStats(valueDist, dateDist, valueFloors, dateFloors, valueSteps, dateSteps, lifeDist,
@@ -68,7 +77,7 @@ public class FitbitTest implements Fitbit
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException
+	public HeartStats getHeartActivity(String year, String month, String day) throws JSONException, TokensException, RateExceededException
 	{
 		// API fake request
 		String jsonResult = "{'activities-heart':[{'dateTime':'2016-01-29','value':{'customHeartRateZones':[],'heartRateZones':[{'caloriesOut':511.55104,'max':94,'min':30,'minutes':319,'name':'Out of Range'},{'caloriesOut':449.3958,'max':131,'min':94,'minutes':138,'name':'Fat Burn'},{'caloriesOut':16.09776,'max':159,'min':131,'minutes':2,'name':'Cardio'},{'caloriesOut':0,'max':220,'min':159,'minutes':0,'name':'Peak'}],'restingHeartRate':70}}]}";
@@ -88,6 +97,10 @@ public class FitbitTest implements Fitbit
 
 		// Get the resting heart rate value
 		int restHeartRate = value.getInt("restingHeartRate");
+		
+		setError(false);
+		setTokensError(false);
+		setRateError(false);
 
 		// Return a new HeartStats object
 		return new HeartStats(outOfRange, fatBurn, cardio, peak, restHeartRate);
@@ -102,7 +115,7 @@ public class FitbitTest implements Fitbit
 	 * @throws JSONException Method requests a JSON file that can throw this error
 	 * @throws TokensException Method uses tokens to interface with API which can throw this error
 	 */
-	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException
+	public DailyStats getDailyActivity(String year, String month, String day) throws JSONException, TokensException, RateExceededException
 	{
 		// API fake request
 		String jsonResult = "{'activities':[],'goals':{'activeMinutes':30,'caloriesOut':2551,'distance':8.05,'floors':10,'steps':10000},'summary':{'activeScore':-1,'activityCalories':1183,'caloriesBMR':1609,'caloriesOut':2565,'distances':[{'activity':'total','distance':7.52},{'activity':'tracker','distance':7.52},{'activity':'loggedActivities','distance':0},{'activity':'veryActive','distance':3.38},{'activity':'moderatelyActive','distance':0.28},{'activity':'lightlyActive','distance':3.85},{'activity':'sedentaryActive','distance':0}],'elevation':82.3,'fairlyActiveMinutes':6,'floors':27,'lightlyActiveMinutes':218,'marginalCalories':669,'sedentaryMinutes':1175,'steps':10042,'veryActiveMinutes':41}}";
@@ -129,9 +142,71 @@ public class FitbitTest implements Fitbit
 		double distanceGoals = goals.getDouble("distance");
 		int floorGoals = goals.getInt("floors");
 		int stepGoals = goals.getInt("steps");
+		
+		setError(false);
+		setTokensError(false);
+		setRateError(false);
 
 		// Return new DailyStats object
 		return new DailyStats(floors, steps, distance, calories, sedentaryMins, lightActiveMins, fairlyActiveMins,
 				veryActiveMins, activeMinGoals, caloriesOutGoals, distanceGoals, floorGoals, stepGoals);
+	}
+
+	// Getters and Setters for Error Variable
+	/**
+	 * Getter Method for general Error
+	 */
+	public boolean getError()
+	{
+		// TODO Auto-generated method stub
+		return error;
+	}
+
+	/**
+	 * Setter Method for general Error
+	 */
+	public boolean setError(boolean error)
+	{
+		// TODO Auto-generated method stub
+		this.error = error;
+		return error;
+	}
+
+	/**
+	 * Getter Method for Tokens Error
+	 */
+	public boolean getTokensError()
+	{
+		// TODO Auto-generated method stub
+		return tokensError;
+	}
+
+	/**
+	 * Setter Method for Tokens Error
+	 */
+	public boolean setTokensError(boolean tokensError)
+	{
+		// TODO Auto-generated method stub
+		this.tokensError = tokensError;
+		return tokensError;
+	}
+
+	/**
+	 * Getter Method for Rate Error
+	 */
+	public boolean getRateError()
+	{
+		// TODO Auto-generated method stub
+		return rateError;
+	}
+
+	/**
+	 * Setter Methods for Rate Error
+	 */
+	public boolean setRateError(boolean rateError)
+	{
+		// TODO Auto-generated method stub
+		this.rateError = rateError;
+		return rateError;
 	}
 }
