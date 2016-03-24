@@ -82,88 +82,119 @@ public class ActiveMinutesFrame extends JPanel {
 		JPanel activeMinGoalsPanel = new JPanel();										//Create the subPanel
 		activeMinGoalsPanel.setBackground(this.getBackground());
 		//Calculate the progress label
-		String activelabel = this.setProgressLabel("Minutes:", "min's", totalActiveMins, stepGoals);	
-		JLabel lblActive = new JLabel(activelabel); //Make the label with the textual representation
+		String activelabel = this.setProgressLabel("Minutes", "min's", totalActiveMins, stepGoals);
+		activeMinGoalsPanel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("src/main/resources/Lightning.png"));
+		lblNewLabel.setBounds(11, 7, 85, 87);
+		activeMinGoalsPanel.add(lblNewLabel);
+		JLabel lblActive = new JLabel(activelabel);
+		lblActive.setBounds(144, 7, 286, 109);
 		//lblActive.setBounds(150, 115, 140, 70);                                          
-		activeMinGoalsPanel.add(lblActive, BorderLayout.EAST); // Add the label to the subPanel
-		
-		
+		activeMinGoalsPanel.add(lblActive); // Add the label to the subPanel
 		
 
 		// Calculate the progress
 		double activeMin = (totalActiveMins)/(double)activeMinGoals;
 
 		int angleProgressActiveMin = (int)((activeMin)*360);
-		// Create the progress bar 
-		ProgressBar progBar3 = new ProgressBar(0,0, Color.YELLOW);
-		progBar3.setArcAngle(angleProgressActiveMin);
-		progBar3.setBounds(0, 10, 120, 120);
-		this.add(progBar3);
 
-		activeMinGoalsPanel.setBounds(0, 10, 500, 120);
-		add(activeMinGoalsPanel);	//Add the subPanel to the parent
+		activeMinGoalsPanel.setBounds(0, 6, 500, 120);
+		add(activeMinGoalsPanel);
+		// Create the progress bar 
+		ProgressBar progBar3 = new ProgressBar(0,0, Color.BLUE);
+		progBar3.setBounds(0, 0, 120, 120);
+		activeMinGoalsPanel.add(progBar3);
+		progBar3.setArcAngle(angleProgressActiveMin);
 		
 		/////// Floor Goal
 		JPanel floorGoalsPanel = new JPanel();
 		floorGoalsPanel.setBackground(this.getBackground());
 		String floorslabel = this.setProgressLabel("Floors", "floors", floors, floorGoals);
-		JLabel lblFloors = new JLabel(floorslabel);
+		floorGoalsPanel.setLayout(null);
 		
-		floorGoalsPanel.add(lblFloors, BorderLayout.EAST);
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("src/main/resources/Stairs.png"));
+		lblNewLabel_1.setBounds(11, 9, 84, 83);
+		floorGoalsPanel.add(lblNewLabel_1);
+		JLabel lblFloors = new JLabel(floorslabel);
+		lblFloors.setBounds(143, 5, 304, 109);
+		
+		floorGoalsPanel.add(lblFloors);
 
 		// Calculate the progress
 		//int trial=7;
 		double floorsArc = (floors)/(double)floorGoals;
 		int angleProgressFloors = (int)((floorsArc)*360);
-		// Create the progress Bar
-		ProgressBar progBar2 = new ProgressBar(0,0, Color.BLUE);
-		progBar2.setArcAngle(angleProgressFloors);
-		progBar2.setBounds(0, 130, 120, 120);
-
-		this.add(progBar2);
 
 		floorGoalsPanel.setBounds(0, 130, 500, 120);
 		add(floorGoalsPanel);
+		// Create the progress Bar
+		ProgressBar progBar2 = new ProgressBar(0,0, Color.GREEN);
+		progBar2.setBounds(0, 0, 120, 120);
+		floorGoalsPanel.add(progBar2);
+		progBar2.setArcAngle(angleProgressFloors);
 		////// Steps Goal
 		JPanel stepsGoalsPanel = new JPanel();
 		stepsGoalsPanel.setBackground(this.getBackground());
 		String stepslabel = this.setProgressLabel("Steps", "steps", steps, stepGoals);
+		stepsGoalsPanel.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon("src/main/resources/Steps.png"));
+		lblNewLabel_2.setBounds(11, 10, 85, 90);
+		stepsGoalsPanel.add(lblNewLabel_2);
 		JLabel lblSteps = new JLabel(stepslabel);
-		stepsGoalsPanel.add(lblSteps, BorderLayout.EAST);
+		lblSteps.setBounds(141, 5, 306, 111);
+		stepsGoalsPanel.add(lblSteps);
 
 		// Calculate the progress
 		double stepsArc = (steps)/(double)stepGoals;
 		int angleProgressSteps = (int)((stepsArc)*360);
-		// Create the progress bar
-		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
-		progBar1.setArcAngle(angleProgressSteps);
-		progBar1.setBounds(0, 250, 120, 120);
-
-		this.add(progBar1);
 
 		stepsGoalsPanel.setBounds(0, 250, 500, 120);
 		add(stepsGoalsPanel);
+		// Create the progress bar
+		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.YELLOW);
+		progBar1.setBounds(0, 5, 120, 120);
+		stepsGoalsPanel.add(progBar1);
+		progBar1.setArcAngle(angleProgressSteps);
 		////// Distance Goal
 		String units = "km"; //tmp - here we put the unit change
 		JPanel distanceGoalsPanel = new JPanel();
 		distanceGoalsPanel.setBackground(this.getBackground());
 		String distanceLabel = this.setProgressLabel("Distance", units, distance, distanceGoals);
+		distanceGoalsPanel.setLayout(null);
 		JLabel lblDistance = new JLabel(distanceLabel);
-		distanceGoalsPanel.add(lblDistance,BorderLayout.EAST);
+		lblDistance.setBounds(136, 5, 311, 99);
+		distanceGoalsPanel.add(lblDistance);
 
 		// Calculate the progress
 		double distArc = (distance)/(double)distanceGoals;
 		int angleProgressDistance = (int)((distArc)*360);
-		// Create the progress bar
-		ProgressBar progBar4 = new ProgressBar(0, 0, Color.GREEN);
-		progBar4.setArcAngle(angleProgressDistance);
-		progBar4.setBounds(0, 370, 120, 120);
-
-		this.add(progBar4);
 
 		distanceGoalsPanel.setBounds(0, 370, 600, 120);
 		add(distanceGoalsPanel);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon("src/main/resources/MapIcon.png"));
+		lblNewLabel_3.setBounds(11, 9, 84, 83);
+		distanceGoalsPanel.add(lblNewLabel_3);
+		// Create the progress bar
+		ProgressBar progBar4 = new ProgressBar(0, 0, Color.ORANGE);
+		progBar4.setBounds(0, 0, 120, 120);
+		distanceGoalsPanel.add(progBar4);
+		progBar4.setArcAngle(angleProgressDistance);
 
+		/*
+		JLabel btnNewButton_1 = new JLabel("");
+		btnNewButton_1.setIcon(new ImageIcon("ActiveMin.png"));
+		btnNewButton_1.setBounds(287, 85, 128, 108);
+		progBar3.setBounds(302, 89, 128, 122);
+		add(btnNewButton_1);
+		add(progBar3);
+		 */
 	}
 	
 	/**
@@ -287,8 +318,6 @@ public class ActiveMinutesFrame extends JPanel {
 
 		return progressLabel;
 	}
-
-
 }
 
 

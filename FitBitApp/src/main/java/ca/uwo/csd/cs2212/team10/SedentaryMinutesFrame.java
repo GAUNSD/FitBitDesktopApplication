@@ -29,7 +29,7 @@ public class SedentaryMinutesFrame extends JPanel {
 				"<br>Sedentary Minutes: " + sedentaryMins +  " min"+
 				"</html>";
 		JLabel lblName = new JLabel(stringLabel);
-		lblName.setBounds(10, 70, 210, 160);
+		lblName.setBounds(135, 60, 210, 160);
 
 		
 		lblName.setOpaque(false);	
@@ -37,7 +37,7 @@ public class SedentaryMinutesFrame extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("src/main/resources/rsz_sedmin.png"));
-		lblNewLabel.setBounds(40,0, 198, 160);
+		lblNewLabel.setBounds(135,0, 198, 160);
 		
 		
 		this.setBackground(new Color(155, 155, 155));
