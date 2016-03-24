@@ -56,6 +56,15 @@ import org.json.JSONException;
  */
 public class MainTabWindow extends JPanel
 {
+	// The Point Array holds point objects that refer to the position of the JDesktopPane elements
+	private Point[] pointArray = {new Point(0,0), new Point(720,200), new Point(490,0), new Point(0,0), new Point(720,0)};
+	private UserSettings userSettings;
+	private ObjectSerialization objSerial;
+	
+	private final JInternalFrame heartRateFrame;
+	private final JInternalFrame calBurnFrame; 
+	private final JInternalFrame activeMinFrame;
+	private final JInternalFrame sedMinFrame;
 
 	private int dateSetting = 0; // The following will be the formats used and the corresponding numerical value
 	// 0 = dd/mm/yyyy
@@ -64,47 +73,40 @@ public class MainTabWindow extends JPanel
 	JLabel time;
 	Boolean tmp;
 	final private Fitbit fitbit;
-	private Point[] pointArray;
-	private UserSettings userSettings;
-	private ObjectSerialization objSerial;
 	private static BestLifeStats bestlife;
 	private static HeartStats heartrate ;
 	private static DailyStats daily;
 
+	int outOfRange;
+	int fatBurn ;
+	int cardio ;
+	int peak;
+	int restHeartRate;
 
+	int floors;
+	int steps ;
+	double distance ;
+	int calories;
+	int sedentaryMins;
+	int lightActiveMins;
+	int fairlyActiveMins ;
+	int veryActiveMins;
+	int activeMinGoals;
+	int caloriesOutGoals ;
+	double distanceGoals;
+	int floorGoals;
+	int stepGoals;
 
+	double bestDistance ;
+	String bestDistanceDate ;
+	double bestFloor;
+	String bestFloorDate ;
+	long bestStep ;
+	String bestStepDate;
+	double lifeDistance;
+	double lifeFloors ;
+	long lifeSteps;
 
-int outOfRange;
-int fatBurn ;
-int cardio ;
-int peak;
-int restHeartRate;
-
-
-
-int floors;
-int steps ;
-double distance ;
-int calories;
-int sedentaryMins;
-int lightActiveMins;
-int fairlyActiveMins ;
-int veryActiveMins;
-int activeMinGoals;
-int caloriesOutGoals ;
-double distanceGoals;
-int floorGoals;
-int stepGoals;
-
-double bestDistance ;
-String bestDistanceDate ;
-double bestFloor;
-String bestFloorDate ;
-long bestStep ;
-String bestStepDate;
-double lifeDistance;
-double lifeFloors ;
-long lifeSteps;
 
 	/**
 	 * The main constructor the holds the majority of the UI. The constructor is separated into the following sections;
@@ -129,12 +131,15 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		// setPointArray(Point (1,1),2,3,4,5)
 		objSerial = new ObjectSerialization(userSettings);
 		// objSerial.storeUserSettings();
-
 		userSettings = objSerial.loadUserSettings();
 
+		
+		System.out.println(userSettings + "\n TEST");
 		Point[] savedPointArray = userSettings.getPointArray();
-		if (savedPointArray != null)
-			setPointArray(savedPointArray[0], savedPointArray[1], savedPointArray[2], savedPointArray[3]);
+		if (savedPointArray != null) {
+			setPointArray(savedPointArray[1], savedPointArray[2], savedPointArray[3], savedPointArray[4]);
+			System.out.println(savedPointArray[0] + " hello");
+		}
 		RefreshTokens.setUnits(userSettings.getUnits());
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
 
@@ -206,7 +211,15 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 
 		/*
 		 * Elements needed: Map HeartRate Zone Calories Burned Daily Activity Records // Sedentary Minutes //
+		 *
+		 * Note: The point array is in this order
+		 * 		this.pointArray[0] = mapPoint;
+				this.pointArray[1] = heartPoint; 720, 200, 485, 355, true, true
+				this.pointArray[2] = calPoint;		490, 0, 235, 520, true, true, true
+				this.pointArray[3] = activePoint;  0, 0, 510, 520, true, true, true
+				this.pointArray[4] = sedPoint;	720, 0, 475, 210, true, true, true
 		 */
+	
 		// Add the mapFrame one with Metric distance and one with imperial distance and set the imperial one to false
 
 		/*
@@ -216,21 +229,21 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		 */
 
 		// The Heart Rate Zone element
-		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", 720, 200, 485, 355, true, true,
+		this.heartRateFrame = makeInternalFrame("Heart Rate Zone", getPointArray()[1].x, getPointArray()[1].y, 485, 355, true, true,
 				true);
 		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(outOfRange, fatBurn, cardio, peak, restHeartRate);
 		heartRateFrame.add(heartRateContent);
 		desktop.add(heartRateFrame);
 
 		// The Calories Burne Element
-		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", 490, 0, 235, 520, true, true, true);
+		this.calBurnFrame = makeInternalFrame("Calories Burned",  getPointArray()[2].x,  getPointArray()[2].y, 235, 520, true, true, true);
 		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
 		calBurnFrame.add(calBurnContent);
 		desktop.add(calBurnFrame);
 
+		
 		// The Active Minutes element
-		final JInternalFrame activeMinFrame = makeInternalFrame("Daily Goals", 0, 0, 510, 520, true, true, true);
-
+		this.activeMinFrame = makeInternalFrame("Daily Goals",  getPointArray()[3].x,  getPointArray()[3].y, 510, 520, true, true, true);
 		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins,
 				activeMinGoals, floors, steps, distance, floorGoals, stepGoals, distanceGoals);
 
@@ -292,13 +305,14 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		// Add the menu bar
 
 		// The Sedentary Minutes element
-		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", 720, 0, 475, 210, true, true, true);
+		this.sedMinFrame = makeInternalFrame("Sedentary Minutes", getPointArray()[4].x, getPointArray()[4].y, 475, 210, true, true, true);
 		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins);
 		sedMinFrame.add(sedMinContent);
 		desktop.add(sedMinFrame);
 
 		panel1.add(desktop);
 
+		
 		// add the the panel to the tabbed pane
 		tabbedPane.addTab("Dashboard", null, panel1, "tmp1"); // Add the desktop pane to the tabbedPane
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -314,6 +328,20 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		// Add these points to the pointArray for the object serialization.
 		pointArray = new Point[5];
 		this.setPointArray(heartRateFramePoint, calBurnFramePoint, activeMinFramePoint, sedMinFramePoint);
+		
+		//Now that the point Array has been updated, we set the values for the object seriealization
+		// //////////////TESTING OBJECT SERIALIZATION//////////////
+		userSettings.setPointArray(this.getPointArray());
+		
+		userSettings.setUnits("metric");
+		objSerial.storeUserSettings(userSettings);
+		System.out.println("//////////////////\n" + userSettings + "\n \\\\\\\\\\\\\\\\");
+		
+		
+		
+		RefreshTokens.setUnits(userSettings.getUnits());
+		
+		// //////////////TESTING OBJECT SERIALIZATION//////////////
 		/**
 		 * Dashboard Menu
 		 */
@@ -970,7 +998,7 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		tabbedPane.setBackground(new Color(70, 70, 70));
 
 		// Add the tabbed pane to this panel.
-		this.add(tabbedPane);
+		this.add(tabbedPane);	
 
 		tmp = true;
 
@@ -1113,9 +1141,32 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 
 			}
 		});
+	}
+	
+	public void onCloseAction() throws Exception{
+		//When the parent frame (MainWindow) is closed, this method will be executed to save user setting
+		this.updatePointArray(this.heartRateFrame, this.calBurnFrame, this.activeMinFrame, this.sedMinFrame);
+		
+		userSettings.setPointArray(this.getPointArray());
+		System.out.println(this.getPointArray()[0] + " close point 0");
+		objSerial.storeUserSettings(userSettings);
+		//hopefully this works
+	}
 
-		
-		
+	public UserSettings getUserSettings() {
+		return userSettings;
+	}
+
+	public void setUserSettings(UserSettings userSettings) {
+		this.userSettings = userSettings;
+	}
+
+	public ObjectSerialization getObjSerial() {
+		return objSerial;
+	}
+
+	public void setObjSerial(ObjectSerialization objSerial) {
+		this.objSerial = objSerial;
 	}
 
 	/**
@@ -1210,13 +1261,26 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		this.pointArray[2] = calPoint;
 		this.pointArray[3] = activePoint;
 		this.pointArray[4] = sedPoint;
+		
 	}
 
 	private Point[] getPointArray()
 	{
 		return this.pointArray; // This should probably be a copy, to maintain security (?)
 	}
-
+	
+	private void updatePointArray(
+			JInternalFrame heart, JInternalFrame cal, JInternalFrame min, JInternalFrame sed)
+	{
+		
+		Point heartRateFramePoint = heart.getLocation();
+		Point calBurnFramePoint = cal.getLocation();
+		Point activeMinFramePoint = min.getLocation();
+		Point sedMinFramePoint = sed.getLocation();
+		
+		this.setPointArray(heartRateFramePoint, calBurnFramePoint, activeMinFramePoint, sedMinFramePoint);
+		
+	}
 	/**
 	 * A Method that will make the JInternalFrames (ie- the elements in the Dashboard) The parameters will dictate that
 	 * frames initial values, who will change as the navigates the app.
