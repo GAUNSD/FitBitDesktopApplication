@@ -67,9 +67,9 @@ public class MainTabWindow extends JPanel
 	private Point[] pointArray;
 	private UserSettings userSettings;
 	private ObjectSerialization objSerial;
-private BestLifeStats bestlife;
-private HeartStats heartrate ;
-private DailyStats daily;
+	final private BestLifeStats bestlife;
+	final private HeartStats heartrate ;
+	final private DailyStats daily;
 
 
 
@@ -981,27 +981,26 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 			public void actionPerformed(ActionEvent e)
 			{
 				//SwingUtilities.updateComponentTreeUI(heartRateFrame);
-				HeartStats heartrate2 = null;
-					 //try {
-						heartrate2 = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
-					//} catch (Exception e2) {
-						// TODO Auto-generated catch block
-						//e2.printStackTrace();
-					//}
+					try {
+						heartrate = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
+					} catch (Exception e2) {
+						TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 			
-					 outOfRange = heartrate2.getOutOfRange();
-					 fatBurn = heartrate2.getFatBurn();
-					 cardio = heartrate2.getCardio();
-					 peak = heartrate2.getPeak();
-					 restHeartRate = heartrate2.getRestHeartRate();
+					 outOfRange = heartrate.getOutOfRange();
+					 fatBurn = heartrate.getFatBurn();
+					 cardio = heartrate.getCardio();
+					 peak = heartrate.getPeak();
+					 restHeartRate = heartrate.getRestHeartRate();
 
 					// try {
-						//try {
+						try {
 							daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
-						//} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							//e1.printStackTrace();
-						//}
+						} catch (Exception e1) {
+							 TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 				
 					 
 					 floors = daily.getFloors();
