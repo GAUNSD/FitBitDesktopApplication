@@ -31,6 +31,7 @@ public class ObjectSerialization implements Serializable
 	public void storeUserSettings(UserSettings newUserSettings) throws Exception
 	{
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/main/resources/fitbit.settings"));
+		userSettings = newUserSettings;
 		out.writeObject(userSettings);
 		System.out.println(out.toString() + " - testing");
 		out.close();

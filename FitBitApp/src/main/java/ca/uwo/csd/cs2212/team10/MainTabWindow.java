@@ -245,7 +245,7 @@ public class MainTabWindow extends JPanel
 		// //////////////TESTING OBJECT SERIALIZATION//////////////
 		userSettings.setPointArray(this.getPointArray());
 		
-		userSettings.setUnits("imperial");
+		userSettings.setUnits("metric");
 		objSerial.storeUserSettings(userSettings);
 		
 		
