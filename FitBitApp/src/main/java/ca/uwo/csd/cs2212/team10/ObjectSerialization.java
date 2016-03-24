@@ -32,6 +32,7 @@ public class ObjectSerialization implements Serializable
 	{
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/main/resources/fitbit.settings"));
 		out.writeObject(userSettings);
+		System.out.println(out.toString() + " - testing");
 		out.close();
 	}
 
@@ -45,6 +46,7 @@ public class ObjectSerialization implements Serializable
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/fitbit.settings"));
 		UserSettings userSettings = (UserSettings) in.readObject();
 		System.out.println(userSettings.toString());
+		System.out.println(in.toString() + " - testing"); //test
 		in.close();
 		
 		return userSettings;
