@@ -106,7 +106,6 @@ double lifeDistance;
 double lifeFloors ;
 long lifeSteps;
 
-MainNewWindow main;
 	/**
 	 * The main constructor the holds the majority of the UI. The constructor is separated into the following sections;
 	 * Dashboard Dashboard Menu Stats Settings Each of these sections make their respective content that is housed inside a
@@ -974,7 +973,6 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 		this.add(tabbedPane);
 
 		tmp = true;
-		main=new MainNewWindow();
 
 
 		refreshbutn.addActionListener(new ActionListener()
