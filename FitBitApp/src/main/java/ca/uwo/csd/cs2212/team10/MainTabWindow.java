@@ -238,7 +238,7 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 		desktop.add(activeMinFrame);
 
 		// Create the UserInput Text Box
-		JFormattedTextField userInput = new JFormattedTextField(createFormatter("####/##/##"));
+		final JFormattedTextField userInput = new JFormattedTextField(createFormatter("####/##/##"));
 		userInput.setBounds(0, 0, 150, 20);
 		
 
@@ -977,35 +977,32 @@ public MainTabWindow(Fitbit fitbit) throws Exception
 
 		refreshbutn.addActionListener(new ActionListener()
 		{
-			@SuppressWarnings("deprecation")
+			@SuppressWarnings({ "deprecation", "static-access" })
 			public void actionPerformed(ActionEvent e)
 			{
 				//SwingUtilities.updateComponentTreeUI(heartRateFrame);
 				HeartStats heartrate2 = null;
-				 try {
-					 heartrate2 = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (TokensException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					 try {
+						heartrate2 = fitbit.getHeartActivity(userDate[0], userDate[1], userDate[2]);
+					} catch (JSONException | TokensException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+			
 					 outOfRange = heartrate2.getOutOfRange();
 					 fatBurn = heartrate2.getFatBurn();
 					 cardio = heartrate2.getCardio();
 					 peak = heartrate2.getPeak();
 					 restHeartRate = heartrate2.getRestHeartRate();
 
-					 try {
-						daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
-					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (TokensException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					// try {
+						try {
+							daily = fitbit.getDailyActivity(userDate[0], userDate[0], userDate[0]);
+						} catch (JSONException | TokensException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				
 					 
 					 floors = daily.getFloors();
 					 steps = daily.getSteps();
