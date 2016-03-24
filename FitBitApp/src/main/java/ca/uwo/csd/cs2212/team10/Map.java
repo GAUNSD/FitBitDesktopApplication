@@ -249,7 +249,7 @@ public class Map {
             }
         }
 
-        String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.currentLocation.getName().replaceAll("\\s","%20")  + "&zoom=" + zoom + "&size=600x400&scale=2&markers=size:tiny%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
+        String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.currentLocation.getName().replaceAll("\\s","%20")  + "&zoom=" + zoom + "&size=600x400&scale=2&markers=size:mid%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
 
         //System.out.println(imageURL.length());
         //System.out.println(imageURL.substring(0,imageURL.length()-44));

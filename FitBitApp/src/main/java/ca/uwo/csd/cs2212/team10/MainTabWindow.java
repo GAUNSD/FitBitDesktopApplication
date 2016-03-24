@@ -901,7 +901,7 @@ public class MainTabWindow extends JPanel
         panelMap.setLayout(new BorderLayout());
 
 
-        JLabel lblMap= new JLabel("Map");
+        JLabel lblMap= new JLabel("Scale of Lifetime Distances");
         lblMap.setForeground(SystemColor.inactiveCaption);
         lblMap.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
         lblMap.setBounds(44, 6, 382, 72);
@@ -992,15 +992,22 @@ public class MainTabWindow extends JPanel
         });
         setLocation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // mapLocationSetWindow(map);
-                mapImage = displayMap(mapZoomLevel,map);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+
+                    public void run () {
+                        MapLocationSetWindow newLocation = new MapLocationSetWindow(map);
+                        newLocation.setVisible(true);
+                    }
+                });
+                /*mapImage = displayMap(mapZoomLevel,map);
                 if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
                 else worldMap.setText("Sorry, the map could not be displayed due to an error."); 
                 mapPanel.add(worldMap, BorderLayout.NORTH);
                 panelMap.add(mapPanel, BorderLayout.CENTER);
                 locations.setText(map.getAchievedLocations());
                 mapListPanel.add(locationList);
-                panelMap.add(mapListPanel, BorderLayout.LINE_START);  
+                panelMap.add(mapListPanel, BorderLayout.LINE_START);  */
             }
         });
 
