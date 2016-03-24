@@ -142,7 +142,7 @@ public class Map {
             c = Math.atan2(Math.sqrt(a),Math.sqrt(1.0-a));
             d = (R * c)*1.852;
 
-            //if(RefreshTokens.getUnits().equals("imperial")) d = d*0.621371;
+            if(RefreshTokens.getUnits().equals("imperial")) d = d*0.621371;
             locations[i].setDistance(d);
         }
     }
@@ -251,8 +251,8 @@ public class Map {
 
         String imageURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.currentLocation.getName().replaceAll("\\s","%20")  + "&zoom=" + zoom + "&size=600x400&scale=2&markers=size:tiny%7Ccolor:red%7C" + markers + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
 
-        System.out.println(imageURL.length());
-        System.out.println(imageURL.substring(0,imageURL.length()-44));
+        //System.out.println(imageURL.length());
+        //System.out.println(imageURL.substring(0,imageURL.length()-44));
 
         BufferedImage image = null;
         URL url = new URL(imageURL);
@@ -277,10 +277,10 @@ public class Map {
     }
 
     /**
-     * Method returns an array of locations that have been achieved
-     * @return Array of achieved Location object sorted by increasing distance
+     * Method returns an string of locations that have been achieved
+     * @return String of achieved Location object sorted by increasing distance
      */
-    public Location[] getAchievedLocations() {
+    public String getAchievedLocations() {
         List<Location> places = new ArrayList<Location>();
 
         for(int i = 0; i < this.locations.length; i++) {
@@ -289,16 +289,24 @@ public class Map {
             }
         }
         Location[] result = places.toArray(new Location[places.size()]);
-        /*Location temp; 
-        for (int i = 0; i < result.length; i ++) {
+        Location temp; 
+        for (int i = 0; i < result.length-1; i ++) {
             if(result[i].getDistance() > result[i+1].getDistance()) {
                 temp = result[i];
                 result[i] = result[i+1];
                 result[i+1] = temp;
-                i = 0;
+                i = -1;
             }
-        }*/
-        return result;
+        }
+        String list = "Current Location: \n " + this.currentLocation.getName() + "\n\nPlaces marked on the map:\n\n------------------------------------------------------------";
+        for (int i = 0; i < result.length; i++) {
+            if(result[i].getDistance() > 1) { 
+                list = list + "\n\n " + result[i].getName() + "\n  Distance: " + (int)result[i].getDistance();
+                if(RefreshTokens.getUnits().equals("imperial")) list = list + " mi";
+                else list = list + " km";
+            }
+        }
+        return list;
     }
 
     /**
