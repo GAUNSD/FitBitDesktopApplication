@@ -247,7 +247,7 @@ public class MainTabWindow extends JPanel
 		
 		userSettings.setUnits("imperial");
 		objSerial.storeUserSettings(userSettings);
-		
+		System.out.println("//////////////////\n" + userSettings + "\n \\\\\\\\\\\\\\\\");
 		
 		
 		
