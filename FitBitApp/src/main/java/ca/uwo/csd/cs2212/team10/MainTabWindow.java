@@ -188,29 +188,28 @@ public class MainTabWindow extends JPanel
 		// The Total Distance element
 		// When we make the internal frame, the point array must be referenced for the postition
 		final JInternalFrame mapFrame = makeInternalFrame("Interactive Map", getPointArray()[0].x, getPointArray()[0].y, 
-				200, 200, false, true, true);
+				200, 200, true, true, true);
 		MapFrame mapContent = new MapFrame(bestDistance, bestDistanceDate, lifeDistance);
 		mapFrame.add(mapContent);
 		desktop.add(mapFrame);
-		
 
 		// The Floors Climbed element
 		final JInternalFrame heartRateFrame = makeInternalFrame("Heart Rate Zone", getPointArray()[1].x, getPointArray()[1].y,
-				200, 200, false, true, true);
+				200, 200, true, true, true);
 		HeartRateZoneFrame heartRateContent = new HeartRateZoneFrame(fatBurn, cardio, peak, restHeartRate);
 		heartRateFrame.add(heartRateContent);
 		desktop.add(heartRateFrame);
 
 		// The Steps Taken Element
 		final JInternalFrame calBurnFrame = makeInternalFrame("Calories Burned", getPointArray()[2].x, getPointArray()[2].y,
-				200, 200, false, true, true);
+				200, 200, true, true, true);
 		CaloriesBurnedFrame calBurnContent = new CaloriesBurnedFrame(calories, caloriesOutGoals);
 		calBurnFrame.add(calBurnContent);
 		desktop.add(calBurnFrame);
 
 		// The Active Minutes element
 		final JInternalFrame activeMinFrame = makeInternalFrame("Active Minutes", getPointArray()[3].x, getPointArray()[3].y,
-				200, 200, false, true, true);
+				200, 200, true, true, true);
 		ActiveMinutesFrame activeMinContent = new ActiveMinutesFrame(lightActiveMins, fairlyActiveMins, veryActiveMins,
 				activeMinGoals);
 		activeMinFrame.add(activeMinContent);
@@ -218,7 +217,7 @@ public class MainTabWindow extends JPanel
 
 		// The Sedentary Minutes element
 		final JInternalFrame sedMinFrame = makeInternalFrame("Sedentary Minutes", getPointArray()[4].x, getPointArray()[4].y,
-				200, 200, false, true, true);
+				200, 200, true, true, true);
 		SedentaryMinutesFrame sedMinContent = new SedentaryMinutesFrame(sedentaryMins);
 		sedMinFrame.add(sedMinContent);
 		desktop.add(sedMinFrame);
