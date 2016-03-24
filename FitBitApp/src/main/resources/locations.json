@@ -97,10 +97,10 @@
 			"name" : "Ottawa, Canada","coordinates" : "45.416667,-75.683333","distance" : "480.4779126918497","achieved" : "false"
 		},
 		{
-			"name" : "Toronto, Canada","coordinates" : "43.7,-79.4","distance" : "156.3294660617715","achieved" : "false"
+			"name" : "Toronto, Canada","coordinates" : "43.7,-79.4","distance" : "156.3294660617715","achieved" : "true"
 		},
 		{
-			"name" : "London, Canada","coordinates" : "42.9837,-81.2497","distance" : "0.5944787589988996","achieved" : "false"
+			"name" : "London, Canada","coordinates" : "42.9837,-81.2497","distance" : "0.5944787589988996","achieved" : "true"
 		},
 		{
 			"name" : "Montreal, Canada","coordinates" : "45.5,-73.566667","distance" : "622.2205102813363","achieved" : "false"
@@ -154,7 +154,7 @@
 			"name" : "Resolute, Canada","coordinates" : "74.6975,-94.832222","distance" : "3325.2871706514406","achieved" : "false"
 		},
 		{
-			"name" : "Niagara Falls, Canada","coordinates" : "43.0799,-79.0747","distance" : "163.4839358415974","achieved" : "false"
+			"name" : "Niagara Falls, Canada","coordinates" : "43.0799,-79.0747","distance" : "163.4839358415974","achieved" : "true"
 		},
 		{
 			"name" : "Whistler, Canada","coordinates" : "50.120833,-122.954444","distance" : "3001.2611832032","achieved" : "false"
@@ -169,7 +169,7 @@
 			"name" : "Jasper, Canada","coordinates" : "52.873056,-118.082222","distance" : "2701.32873706766","achieved" : "false"
 		},
 		{
-			"name" : "Kitchener, Canada","coordinates" : "43.45,-80.483333","distance" : "74.32363076237647","achieved" : "false"
+			"name" : "Kitchener, Canada","coordinates" : "43.45,-80.483333","distance" : "74.32363076237647","achieved" : "true"
 		},
 		{
 			"name" : "Santiago, Chile","coordinates" : "-33.45,-70.666667","distance" : "7933.295407826256","achieved" : "false"
