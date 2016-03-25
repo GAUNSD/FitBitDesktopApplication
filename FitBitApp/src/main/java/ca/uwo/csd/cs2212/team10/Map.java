@@ -37,6 +37,7 @@ public class Map {
     private Location currentLocation;
     private boolean locationSet; 
     private Fitbit fitbit;
+    private double totalDistance;  
 
     /** 
      * Main constructor reads from locations.json into an array of location objects
@@ -96,10 +97,10 @@ public class Map {
         jsonString = jsonString + "{\n\t\"currentLocation\" : { \n\t\t\t\"name\" : \"" + this.currentLocation.getName() + "\",\"coordinates\" : \"" + this.currentLocation.getCoordinates() + "\" \n\t},\n\t\"locations\" : [";
         for(int i = 0; i < this.locations.length - 1; i++) {
             jsonString = jsonString + "\n\t\t{\n\t\t\t\"name\" : \"" + this.locations[i].getName() + "\",\"coordinates\" : \"" + this.locations[i].getCoordinates() +
-                "\",\"distance\" : \"" + this.locations[i].getDistance() + "\",\"achieved\" : \"" + this.locations[i].getAchieved() + "\"\n\t\t},";
+                "\",\"distance\" : \"" + this.locations[i].getDistance() + "\",\"achieved\" : \"false\"\n\t\t},";
         }
         jsonString = jsonString + "\n\t\t{\n\t\t\t\"name\" : \"" + this.locations[locations.length - 1].getName() + "\",\"coordinates\" : \"" + this.locations[locations.length - 1].getCoordinates() +
-            "\",\"distance\" : \"" + this.locations[locations.length - 1].getDistance() + "\",\"achieved\" : \"" + this.locations[locations.length - 1].getAchieved() + "\"\n\t\t}\n\t]\n}";
+            "\",\"distance\" : \"" + this.locations[locations.length - 1].getDistance() + "\",\"achieved\" : \"false\"\n\t\t}\n\t]\n}";
 
         BufferedWriter file = new BufferedWriter(new FileWriter("src/main/resources/locations.json"));
         file.write(jsonString);
@@ -141,8 +142,6 @@ public class Map {
             a = Math.sin(dLat/2.0) * Math.sin(dLat/2.0) +  Math.cos(degToRad(currentLat)) * Math.cos(degToRad(lat)) * Math.sin(dLng/2.0) * Math.sin(dLng/2.0);
             c = Math.atan2(Math.sqrt(a),Math.sqrt(1.0-a));
             d = (R * c)*1.852;
-
-            if(RefreshTokens.getUnits().equals("imperial")) d = d*0.621371;
             locations[i].setDistance(d);
         }
     }
@@ -153,7 +152,8 @@ public class Map {
      */
     private double getLifeDistance() {
         try {
-            return fitbit.getBestLifeActivity().getLifeDistance();
+            this.totalDistance = fitbit.getBestLifeActivity().getLifeDistance();
+            return totalDistance;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,6 +219,9 @@ public class Map {
         this.locationSet = true;
         this.currentLocation.getLocationImage(); 
         calculateDistances();
+        for(int i = 0; i < this.locations.length; i++) {
+            this.locations[i].setAchieved(false);
+        }
         writeToJSONFile(); 
     }
     
@@ -241,6 +244,7 @@ public class Map {
 
         for(int i =0; i < this.locations.length; i++) {
             if(this.locations[i].getAchieved()) {
+
 
                 /*lat = (int)Double.parseDouble(locations[i].getCoordinates().substring(0,locations[i].getCoordinates().indexOf(',')));
                 lng = (int)Double.parseDouble(locations[i].getCoordinates().substring(locations[i].getCoordinates().indexOf(',')+1,locations[i].getCoordinates().length()));
@@ -283,6 +287,7 @@ public class Map {
     public String getAchievedLocations() {
         List<Location> places = new ArrayList<Location>();
 
+
         for(int i = 0; i < this.locations.length; i++) {
             if(this.locations[i].getAchieved()) {
                 places.add(this.locations[i]); 
@@ -298,13 +303,9 @@ public class Map {
                 i = -1;
             }
         }
-        String list = "Current Location: \n " + this.currentLocation.getName() + "\n\nPlaces marked on the map:\n\n------------------------------------------------------------";
+        String list = "Current Location: \n " + this.currentLocation.getName() + "\n\nLifetime Distance: " + (int)this.totalDistance + " km\n\nPlaces marked on the map:\n\n--------------------------------";
         for (int i = 0; i < result.length; i++) {
-            if(result[i].getDistance() > 1) { 
-                list = list + "\n\n " + result[i].getName() + "\n  Distance: " + (int)result[i].getDistance();
-                if(RefreshTokens.getUnits().equals("imperial")) list = list + " mi";
-                else list = list + " km";
-            }
+                list = list + "\n\n " + result[i].getName() + "\n  Distance: " + (int)result[i].getDistance() + " km";
         }
         return list;
     }

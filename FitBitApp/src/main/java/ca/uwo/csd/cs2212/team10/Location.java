@@ -57,10 +57,10 @@ public class Location {
      */
     public String getLocationImage() throws IOException {
 
-        this.imageFile = "src/main/resources/locationImages/" + this.coordinates + ".png";
+        this.imageFile = "src/main/resources/locationImages/" + this.coordinates + "_mapSearch.png";
         if(!(new File(imageFile).exists())) {
             BufferedImage image = null;
-                String imageURL = "https://maps.googleapis.com/maps/api/staticmap?size=200x200&center=" + this.name.replaceAll("\\s","%20") + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
+                String imageURL = "https://maps.googleapis.com/maps/api/staticmap?size=300x300&center=" + this.name.replaceAll("\\s","%20") + "&key=AIzaSyA3qYxpHJKnTbHfW1oRcCSpycKqKUvwvV0";
                 URL url = new URL(imageURL);
                 image = ImageIO.read(url);
                 ImageIO.write(image,"png",new File(imageFile));

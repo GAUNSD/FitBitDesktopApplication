@@ -28,6 +28,8 @@ import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 import javax.swing.text.MaskFormatter;
 import javax.swing.UIManager;
+import javax.swing.BoxLayout;
+import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -107,6 +109,10 @@ public class MainTabWindow extends JPanel
 	double lifeFloors ;
 	long lifeSteps;
 
+    int mapZoomLevel = 1;
+    ImageIcon mapImage;
+    JScrollPane locationList;   
+    final Map map;
 
 	/**
 	 * The main constructor the holds the majority of the UI. The constructor is separated into the following sections;
@@ -922,10 +928,150 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		panel3.add(panel_1, BorderLayout.WEST);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		// add button lifetime toals
+        // Panel of the Map button
+        final JPanel panelMap = new JPanel();
+        panelMap.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(35, 35, 35)));
+        panelMap.setBackground(new Color(40, 40, 40));
+        panelMap.setForeground(new Color(40, 40, 40));
+        panelMap.setBounds(150, 6, 1000, 639);
+        panel3.add(panelMap, BorderLayout.CENTER);
+        panelMap.setLayout(new BorderLayout());
+
+
+        JLabel lblMap= new JLabel("Scale of Lifetime Distances");
+        lblMap.setForeground(SystemColor.inactiveCaption);
+        lblMap.setFont(new Font("Lucida Grande", Font.PLAIN, 49));
+        lblMap.setBounds(44, 6, 382, 72);
+        panelMap.add(lblMap, BorderLayout.PAGE_START);
+
+        // Create map object
+
+        this.map = new Map(fitbit);
+        this.map.calculateDistances();
+
+
+        final JPanel mapButtonPanel = new JPanel();
+        final JPanel mapPanel = new JPanel();
+        final JLabel worldMap = new JLabel();
+        final JTextArea locations = new JTextArea(40,20);
+        worldMap.setForeground(Color.WHITE);
+        locations.setForeground(Color.WHITE);
+        locations.setBackground(new Color(40,40,40));
+        worldMap.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
+        locations.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
+
+
+        final JButton zoomOut = new JButton("Zoom -");
+        final JButton zoomIn = new JButton("Zoom +");
+        final JButton setLocation = new JButton("Set Location"); 
+        final JButton refreshLocation = new JButton("Refresh"); 
+
+        mapButtonPanel.setLayout(new BoxLayout(mapButtonPanel,BoxLayout.Y_AXIS));
+        mapButtonPanel.add(zoomOut);
+        mapButtonPanel.add(zoomIn); 
+        mapButtonPanel.add(setLocation);
+        mapButtonPanel.add(refreshLocation); 
+        mapButtonPanel.setPreferredSize(new Dimension(115,400));
+        mapButtonPanel.setBackground(new Color(40, 40, 40));
+
+        mapPanel.setLayout(new BorderLayout());
+        mapPanel.setPreferredSize(new Dimension(600,400));
+        mapPanel.setMaximumSize(new Dimension(600,400));
+        mapPanel.setBackground(new Color(40, 40, 40));
+        mapImage = displayMap(mapZoomLevel,map);
+        if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
+        else worldMap.setText("Sorry, the map could not be displayed due to an error."); 
+        mapPanel.add(worldMap, BorderLayout.NORTH);
+
+
+
+
+        final JPanel mapListPanel = new JPanel();
+        mapListPanel.setBackground(new Color(40, 40, 40));
+        locations.setText(map.getAchievedLocations());
+        locationList = new JScrollPane(locations); 
+        locationList.setBackground(new Color(40,40,40));
+        mapListPanel.add(locationList);
+
+        panelMap.add(mapListPanel, BorderLayout.LINE_START);  
+        panelMap.add(mapPanel, BorderLayout.CENTER);
+        panelMap.add(mapButtonPanel, BorderLayout.LINE_END);
+
+
+        // Listen for map button events
+        zoomOut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(mapZoomLevel > 1) {
+                    mapZoomLevel--;
+                    mapImage = displayMap(mapZoomLevel,map);
+                    if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
+                    else worldMap.setText("Sorry, the map could not be displayed due to an error."); 
+                    mapPanel.add(worldMap, BorderLayout.NORTH);
+                    panelMap.add(mapPanel, BorderLayout.CENTER);
+                    locations.setText(map.getAchievedLocations());
+                    mapListPanel.add(locationList);
+                    panelMap.add(mapListPanel, BorderLayout.LINE_START);  
+                } 
+            }
+        });
+        zoomIn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(mapZoomLevel < 8) { 
+                    mapZoomLevel++;
+                    mapImage = displayMap(mapZoomLevel,map);
+                    if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
+                    else worldMap.setText("Sorry, the map could not be displayed due to an error."); 
+                    mapPanel.add(worldMap, BorderLayout.NORTH);
+                    panelMap.add(mapPanel, BorderLayout.CENTER);
+                    locations.setText(map.getAchievedLocations());
+                    mapListPanel.add(locationList);
+                    panelMap.add(mapListPanel, BorderLayout.LINE_START);  
+                } 
+            }
+        });
+        setLocation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+
+                    public void run () {
+                        MapLocationSetWindow newLocation = new MapLocationSetWindow(map);
+                        newLocation.setVisible(true);
+                    }
+                });
+                mapImage = displayMap(mapZoomLevel,map);
+                try {
+                    if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
+                    else worldMap.setText("Sorry, the map could not be displayed due to an error.");
+                    map.writeToJSONFile(); 
+                } catch (Exception ex) {
+                    worldMap.setText("Sorry, the map could not be displayed due to an error.");
+                }
+                mapPanel.add(worldMap, BorderLayout.NORTH);
+                panelMap.add(mapPanel, BorderLayout.CENTER);
+                locations.setText(map.getAchievedLocations());
+                mapListPanel.add(locationList);
+                panelMap.add(mapListPanel, BorderLayout.LINE_START);
+            }
+        });
+        refreshLocation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mapImage = displayMap(mapZoomLevel,map);
+                if(mapImage != null) worldMap.setIcon(displayMap(mapZoomLevel, map));
+                else worldMap.setText("Sorry, the map could not be displayed due to an error."); 
+                mapPanel.add(worldMap, BorderLayout.NORTH);
+                panelMap.add(mapPanel, BorderLayout.CENTER);
+                locations.setText(map.getAchievedLocations());
+                mapListPanel.add(locationList);
+                panelMap.add(mapListPanel, BorderLayout.LINE_START);   
+            }
+        });
+		
+        // add button lifetime toals
 		JToggleButton tglbtnNewToggleButton;
 		JToggleButton tglbtnNewToggleButton_1;
 		JToggleButton tglbtnAccolades;
+        JToggleButton tglbtnMap;
 		final ButtonGroup buttonGroupobj = new ButtonGroup();
 		tglbtnNewToggleButton = new JToggleButton("Lifetime Totals   ");
 		tglbtnNewToggleButton.setSelected(true);
@@ -938,6 +1084,7 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 				panelBestDays.setVisible(false);
 				panelAccolades.setVisible(false);
 				panelLifeTime.setVisible(true);
+                panelMap.setVisible(false);
 
 			}
 		});
@@ -957,6 +1104,7 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 				panelBestDays.setVisible(true);
 				panelAccolades.setVisible(true);
 				panelLifeTime.setVisible(false);
+                panelMap.setVisible(false);
 
 			}
 		});
@@ -978,11 +1126,32 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 				panelBestDays.setVisible(false);
 				panelAccolades.setVisible(true);
 				panelLifeTime.setVisible(false);
+                panelMap.setVisible(false);
 
 			}
 		});
 		tglbtnAccolades.setOpaque(true);
 		buttonGroupobj.add(tglbtnAccolades);
+
+        // add button Map
+        tglbtnMap = new JToggleButton("Map                     ");
+        panel_1.add(tglbtnMap);
+        tglbtnMap.setBackground(new Color(55, 55, 55));
+        // show the Accolades panel and hide the rest
+        tglbtnMap.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+
+                        panelBestDays.setVisible(false);
+                        panelAccolades.setVisible(false);
+                        panelLifeTime.setVisible(false);
+                        panelMap.setVisible(true);
+
+                    }
+                });
+        tglbtnMap.setOpaque(true);
+        buttonGroupobj.add(tglbtnMap);
 
 		
 		// PLace the tab to the left
@@ -1307,4 +1476,19 @@ public MainTabWindow(Fitbit fitbit1) throws Exception
 		return iFrame;
 	}
 
+    /**
+     * Method returns a map image with a given zoom level. 
+     * @param mapZoomLevel integer that ranges from 1-8, containing the zoom level
+     * @param map Map object that is passed into method
+     * @return ImageIcon containing the map image
+     */
+    private ImageIcon displayMap(int mapZoomLevel, Map map) {
+        try {
+            ImageIcon mapImage = new ImageIcon((new ImageIcon(map.getMap(mapZoomLevel))).getImage().getScaledInstance(700,450,java.awt.Image.SCALE_SMOOTH));
+            return mapImage; 
+
+        } catch(Exception e) {
+            return null; 
+        }
+    }
 }
