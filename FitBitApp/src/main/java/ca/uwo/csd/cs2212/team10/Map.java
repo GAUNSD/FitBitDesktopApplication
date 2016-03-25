@@ -37,6 +37,7 @@ public class Map {
     private Location currentLocation;
     private boolean locationSet; 
     private Fitbit fitbit;
+    private double totalDistance;  
 
     /** 
      * Main constructor reads from locations.json into an array of location objects
@@ -151,7 +152,8 @@ public class Map {
      */
     private double getLifeDistance() {
         try {
-            return fitbit.getBestLifeActivity().getLifeDistance();
+            this.totalDistance = fitbit.getBestLifeActivity().getLifeDistance();
+            return totalDistance;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -301,11 +303,9 @@ public class Map {
                 i = -1;
             }
         }
-        String list = "Current Location: \n " + this.currentLocation.getName() + "\n\nPlaces marked on the map:\n\n------------------------------------------------------------";
+        String list = "Current Location: \n " + this.currentLocation.getName() + "\n\nLifetime Distance: " + (int)this.totalDistance + " km\n\nPlaces marked on the map:\n\n--------------------------------";
         for (int i = 0; i < result.length; i++) {
-            if(result[i].getDistance() > 1) { 
                 list = list + "\n\n " + result[i].getName() + "\n  Distance: " + (int)result[i].getDistance() + " km";
-            }
         }
         return list;
     }

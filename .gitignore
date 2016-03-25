@@ -65,3 +65,6 @@ local.properties
  
 # PDT-specific
 .buildpath
+
+# Project specific
+*_mapSearch.png

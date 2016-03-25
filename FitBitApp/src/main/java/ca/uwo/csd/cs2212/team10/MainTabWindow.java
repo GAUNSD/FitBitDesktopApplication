@@ -924,7 +924,7 @@ public class MainTabWindow extends JPanel
         locations.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
 
 
-        final JButton zoomOut = new JButton("Zoom  -");
+        final JButton zoomOut = new JButton("Zoom -");
         final JButton zoomIn = new JButton("Zoom +");
         final JButton setLocation = new JButton("Set Location"); 
         final JButton refreshLocation = new JButton("Refresh"); 
@@ -934,7 +934,7 @@ public class MainTabWindow extends JPanel
         mapButtonPanel.add(zoomIn); 
         mapButtonPanel.add(setLocation);
         mapButtonPanel.add(refreshLocation); 
-        mapButtonPanel.setPreferredSize(new Dimension(175,400));
+        mapButtonPanel.setPreferredSize(new Dimension(115,400));
         mapButtonPanel.setBackground(new Color(40, 40, 40));
 
         mapPanel.setLayout(new BorderLayout());
@@ -952,7 +952,7 @@ public class MainTabWindow extends JPanel
         final JPanel mapListPanel = new JPanel();
         mapListPanel.setBackground(new Color(40, 40, 40));
         locations.setText(map.getAchievedLocations());
-        locationList = new JScrollPane(locations,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+        locationList = new JScrollPane(locations); 
         locationList.setBackground(new Color(40,40,40));
         mapListPanel.add(locationList);
 
@@ -1396,7 +1396,7 @@ public class MainTabWindow extends JPanel
      */
     private ImageIcon displayMap(int mapZoomLevel, Map map) {
         try {
-            ImageIcon mapImage = new ImageIcon((new ImageIcon(map.getMap(mapZoomLevel))).getImage().getScaledInstance(600,400,java.awt.Image.SCALE_SMOOTH));
+            ImageIcon mapImage = new ImageIcon((new ImageIcon(map.getMap(mapZoomLevel))).getImage().getScaledInstance(700,450,java.awt.Image.SCALE_SMOOTH));
             return mapImage; 
 
         } catch(Exception e) {

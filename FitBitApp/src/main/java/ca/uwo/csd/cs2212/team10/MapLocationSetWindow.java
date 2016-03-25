@@ -15,9 +15,14 @@ import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.GroupLayout;
 import java.awt.BorderLayout; 
 
+/**
+ * This class implements the location set window
+ * @author Conor
+ */
 public class MapLocationSetWindow extends JFrame {
 
     private JTextField locationName;
@@ -26,26 +31,42 @@ public class MapLocationSetWindow extends JFrame {
     private JButton btnSave;
     private Map map;
     private Location location;  
-
+    
+    /**
+     * Main constructor which passes in the current map object used by the main program
+     * @param map Map object
+     */
     public MapLocationSetWindow(Map map) {
         this.map = map;
         this.initUI();
     }
-
+    
+    /**
+     * This method initialises the UI and calls other methods to set up the frame.
+     */
     private void initUI () {
         this.setTitle("Set Current Location");
-        this.setSize(400, 350);
+        this.setSize(315, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        this.setBackground(new Color(40,40,40));
 
         this.setLayout(new BorderLayout());
         this.add(this.createForm(), BorderLayout.CENTER);
     }
-
+    
+    /**
+     * This method provides the main frame
+     * @return JPanel object
+     */
     private JPanel createForm() {
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(40,40,40));
         JLabel lblName = new JLabel("Location:");
+        lblName.setForeground(Color.WHITE);
+        lblName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 
         locationName = new JTextField();
         locationName.setPreferredSize(new Dimension(75,25));
@@ -104,12 +125,13 @@ public class MapLocationSetWindow extends JFrame {
                             .addComponent(locationName)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSearch)
+                                .addComponent(btnSave)
                                 )
                             )
                         )
                     .addComponent(info)
                     )
-                .addComponent(btnSave) );
+                );
         layout.setVerticalGroup( layout.createSequentialGroup()
                 .addGroup( layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
@@ -117,10 +139,11 @@ public class MapLocationSetWindow extends JFrame {
                     )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
+                    .addComponent(btnSave)
                     )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(info)
-                    .addComponent(btnSave)
+                    //.addComponent(btnSave)
                     )
                 );
 
