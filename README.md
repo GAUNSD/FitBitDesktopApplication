@@ -80,4 +80,6 @@ Test mode can be invoked with the same command, but with a `-test` argument:
 ```
 java -jar target/team10-FitBitApp-1.0-SNAPSHOT-jar-with-dependencies.jar -test
 ```
-The command will run and open a new window displaying the FitBit App. 
+The command will run and open a new window displaying the FitBit App.
+
+NOTE: The Fitbit App was designed and best displayed on Mac OS X. 
