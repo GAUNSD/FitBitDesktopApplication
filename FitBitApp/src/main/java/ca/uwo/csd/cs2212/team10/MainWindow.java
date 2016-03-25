@@ -17,18 +17,18 @@ import org.json.JSONException;
  */
 public class MainWindow extends JFrame{
 
-    /**
-     * MainWindow Constructor
-     * @throws Exception 
-     */
+	/**
+	 * MainWindow Constructor
+	 * @throws Exception 
+	 */
 	public MainWindow(Fitbit fitbit) throws Exception {
 		this.initUI(fitbit);
 	}
-    
-    /**
-     * Method initialises the UI
-     * @throws Exception 
-     */
+
+	/**
+	 * Method initialises the UI
+	 * @throws Exception 
+	 */
 	private void initUI(Fitbit fitbit ) throws Exception {
 		// Create and set up the window with its initial attributes.
 		this.setTitle("Fit Bit");
@@ -36,13 +36,13 @@ public class MainWindow extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setBackground(new Color(55, 55, 55));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		
-		// Add/Create the Menu Bar using the createMenuBar Method
-		this.setJMenuBar(this.createMenubar());
 
+		// Add/Create the Menu Bar using the createMenuBar Method
+		//this.setJMenuBar(this.createMenubar(mainTabWindow));
+
+		////////////////////////
 		// Create the Main Tab Window. This JPanel will be used to navigate through the window
-		MainTabWindow mainTabWindow = new MainTabWindow(fitbit);
+		final MainTabWindow mainTabWindow = new MainTabWindow(fitbit);
 		getContentPane().add(mainTabWindow, BorderLayout.CENTER);
 		
 		/*
@@ -55,13 +55,8 @@ public class MainWindow extends JFrame{
 		UIErrorHandle uiError = new UIErrorHandle(fitbit.getError(), fitbit.getRateError(), fitbit.getTokensError());
 		//Add it to the bottom to see how it works
 		this.add(uiError, BorderLayout.SOUTH);
-	}
     
-    /**
-     * Method creates menu bar displayed on top of the screen
-     * @return JMenuBar topMenuBar
-     */
-	private JMenuBar createMenubar() {
+    	////////////////////////
 		// Create the Top Menu Bar and set its attributes
 		MyMenuBar topMenubar = new MyMenuBar();
 		topMenubar.setBackground(new Color(87, 87, 87));
@@ -73,27 +68,35 @@ public class MainWindow extends JFrame{
 		mnuUserName.setBackground(Color.WHITE);
 		mnuUserName.setMnemonic(KeyEvent.VK_F);
 		/*
-		// Under 'User Name': Logout
-		//	this lets the user logout. Takes them to the Sign in page
-		JMenuItem mniUserNameLogout = new JMenuItem("Log Out");
-		mniUserNameLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Will be linked to the sign in page in the future
-			}
-		});
-		*/
+				// Under 'User Name': Logout
+				//	this lets the user logout. Takes them to the Sign in page
+				JMenuItem mniUserNameLogout = new JMenuItem("Log Out");
+				mniUserNameLogout.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//Will be linked to the sign in page in the future
+					}
+				});
+		 */
 		//..
 		// Also under 'User Name': Exit
 		//	This lets the user exit the program entirely. (implement the exiting also singing them out and saving settings)
 		JMenuItem mniUserNameExit = new JMenuItem("Exit");
 		mniUserNameExit.setMnemonic(KeyEvent.VK_E);
-		mniUserNameExit.setToolTipText("Exit application");
+		mniUserNameExit.setToolTipText("Exit & Save");
 		mniUserNameExit.addActionListener(new ActionListener() {
 			//@Override
 			public void actionPerformed(ActionEvent event) {
+				//When the user exits from the 'window' menu item, we will save the elements of MainTabWindow
+				try {
+					mainTabWindow.onCloseAction();
+				}
+				catch (Exception e) {
+					System.out.println("There was an error with onCloseAction()");
+				}
+
 				System.exit(0); }
 		});
-		
+
 		// Add the sub-menu items to the dropdown menu
 		//mnuUserName.add(mniUserNameLogout);	// implement in the future
 		mnuUserName.add(mniUserNameExit);
@@ -107,6 +110,17 @@ public class MainWindow extends JFrame{
 		topMenubar.add(Box.createHorizontalGlue()); // This spaces out the menu item so it's to the left
 		topMenubar.add(mnuUserName);
 
-		return topMenubar;	
+		this.setJMenuBar(topMenubar);
+		////////////////////////
+
+		//Add the Main Tab Window to the MainWindow
+		getContentPane().add(mainTabWindow, BorderLayout.CENTER);
 	}
+
+	/**
+	 * Method creates menu bar displayed on top of the screen
+	 * @return JMenuBar topMenuBar
+	 */
+	
+	////////////////////////////////////////////////////////////
 }

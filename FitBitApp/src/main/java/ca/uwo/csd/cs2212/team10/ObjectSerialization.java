@@ -27,10 +27,13 @@ public class ObjectSerialization implements Serializable
 	 * This method will save the user settings
 	 * @throws Exception
 	 */
-	public void storeUserSettings() throws Exception
+	public void storeUserSettings(UserSettings newUserSettings) throws Exception
 	{
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/main/resources/fitbit.settings"));
+		userSettings = newUserSettings;
 		out.writeObject(userSettings);
+		System.out.println(userSettings.toString());
+		System.out.println(out.toString() + " - testing");
 		out.close();
 	}
 
@@ -44,6 +47,7 @@ public class ObjectSerialization implements Serializable
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/fitbit.settings"));
 		UserSettings userSettings = (UserSettings) in.readObject();
 		System.out.println(userSettings.toString());
+		System.out.println(in.toString() + " - testing"); //test
 		in.close();
 
 		return userSettings;

@@ -21,17 +21,21 @@ public class CaloriesBurnedFrame extends JPanel {
 	 * @param caloriesOutGoals integer containing calorie usage goal
 	 */
 	public CaloriesBurnedFrame(int calories, int caloriesOutGoals) {
-		// Change GridLayout to better organize the panel
-		super(new GridLayout(1, 1));
 		this.setLayout(null);
 		String stringLabel;
 		
 		double colriesArc = (calories)/(double)caloriesOutGoals;
 		int angleProgressCalories = (int)((colriesArc)*360);
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("src/main/resources/Flame.png"));
+		lblNewLabel.setBounds(57, 36, 82, 85);
+		add(lblNewLabel);
 		// Create the progress bar
 		ProgressBar progBar1 = new ProgressBar(0, 0,  Color.RED);
 		progBar1.setArcAngle(angleProgressCalories);
-		progBar1.setBounds(33,0, 198, 132);
+		progBar1.setBounds(47,28, 130, 104);
 
 		this.add(progBar1);
 		
@@ -59,21 +63,15 @@ else{
 	
 }
 		JLabel lblName = new JLabel(stringLabel);
-		lblName.setBounds(4, 80, 198, 135);
+		lblName.setBounds(7, 96, 273, 114);
 
 		
 		lblName.setOpaque(false);	
 		lblName.setToolTipText("Calories Burned");
 		
-		/*JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("src/main/resources/caloriesBurned.png"));
-		lblNewLabel.setBounds(33,0, 198, 132);
-		*/
 		
 		this.setBackground(new Color(155, 155, 155));
-		//this.add(lblNewLabel);
-		
-		//this.add(content);
+	
 		this.add(lblName);
 	}
 }
